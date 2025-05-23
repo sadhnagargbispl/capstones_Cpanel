@@ -1,0 +1,92 @@
+.navbar-01 .navbar-items li a {
+    font-weight: 600;
+}
+
+.bg-white {
+    background: #fff !important;
+}
+
+.p-2 {
+    padding: 10px !important;
+}
+
+.fs-14 {
+    font-size: 14px !important;
+}
+
+.gutter-5 .col-lg-3 {
+    padding-right: 5px !important;
+    padding-left: 5px !important;
+}
+
+.section-block {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.mb-0 {
+    margin-bottom: 0 !important;
+}
+
+.navbar-brand {
+    height: auto !important;
+    position: relative !important;
+}
+
+.navbar-01 .navbar-brand img {
+    position: absolute !important;
+    z-index: 999;
+    top: -1em;
+}
+
+.mb-2 {
+    margin-bottom: 20px !important;
+}
+
+.site-footer .widget li {
+    padding: 5px 0 !important;
+}
+
+.site-footer .widget a {
+    color: #fff !important;
+    font-size: 14px !important;
+    padding: 5px 0 !important;
+}
+
+.text-white {
+    color: #fff !important;
+}
+
+.site-footer .footer-blocks {
+    padding-bottom: 30px !important;
+}
+
+.text-justify{
+    text-align: justify !important;
+}
+
+.about-section h2 span {
+    font-size: 15px;
+}
+
+.about-section h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+@media only screen and (max-width : 767px) {
+    .navbar-01 .navbar-brand img {
+        width: 70px !important;
+    }
+}
+
+@media only screen and (min-width : 767px) {
+    .mobile-block {
+        display: none !important;
+    }
+
+    .section-block {
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+}
