@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+body{
+    font-family: 'Poppins', sans-serif !important;
+}
+.card{
+    border: 1px solid rgb(221, 221, 221) !important;
+    border-radius: 5px !important;
+    margin-top: 10px !important;
+}
+.box-size::-webkit-scrollbar {
+    width: 5px !important;
+}
+.box-size::-webkit-scrollbar-thumb {
+    background-color: rgb(220, 220, 220) !important;
+}
+.mt-0{
+    margin-top: 0 !important;
+}
+.mb-0{
+    margin-bottom: 0 !important;
+}
+.box-size{
+    height: 285px !important;
+    overflow-y: scroll !important;
+}
+.btn{
+    outline: none !important;
+}
+.mt-1{
+    margin-top: 5px !important;
+}
+.p-2{
+    padding: 20px !important;
+}
+.p-1{
+    padding: 5px !important;
+}
+
+.voucher{
+    width: 100% !important;
+    height: 170px !important;
+    text-align: center !important;
+    padding: 30px !important;
+    line-height:normal !important;
+    /*background: linear-gradient(to top right, #ff3300 0%, #ff99cc 100%);*/
+    border: 2px solid !important;
+    border-style: dotted !important;
+    color: #ffffff !important;
+    font-family: 'oswald', Arial, sans-serif !important;
+}
+
+.vouchertext {
+    position: absolute !important;
+    width: 100% !important;
+    margin-top: -170px !important;    
+    font-size: 49px !important;
+    text-align: center !important;
+    font-family: oswald !important;
+    color: white !important;
+    text-shadow: 3px 2px 7px #000000 !important;
+}
+
+.imglight{
+    opacity:0.5;
+}
+
+.usedcolor{ background: linear-gradient(0deg, rgba(54,106,15,1) 0%, rgba(179,231,15,1) 100%) !important;}
+.expirecolor {background: linear-gradient(0deg, rgba(232,202,24,1) 0%, rgba(235,37,12,1) 100%) !important;}
+.cancelcolor{ background: linear-gradient(0deg, rgba(16,40,213,1) 0%, rgba(22,157,222,1) 100%) !important;}
+.normalcolor {background: linear-gradient(0deg, rgba(106,15,73,1) 0%, rgba(231,15,95,1) 100%) !important;}
+
+.img-thumbnail{
+    border: none !important;
+}
+.btn-warning{
+    background: #ff940f !important;
+    border-color: #ff940f !important;
+}
+.btn-primary{
+    background: #ff4fe4 !important;
+    border-color: #ff4fe4 !important;
+}
+.btn-primary:hover{
+    background: #ff4fe5d2 !important;
+    border-color: #ff4fe5d2 !important;
+}
+.card {
+    border: 1px solid rgb(247, 247, 247) !important;
+}
+.relative-box{
+    position: relative !important;
+    right:0  !important; 
+}
+.absolute-box{
+    position: absolute !important;
+    z-index: 9999 !important;
+    right: 1rem !important;
+    top: 5rem !important;
+}
+.relative-box-1{
+    position: relative !important;
+    right:0  !important; 
+}
+.absolute-box-1 {
+    position: absolute !important;
+    z-index: 9999 !important;
+    height: 40px !important;
+    right: 1.5rem !important;
+    color: #000 !important;
+    padding: 0px;
+    text-align: center !important;
+    font-size: 26px !important;
+    top: -5.5rem !important;
+    width: 40px !important;
+    background: #fff !important;
+}
+.logo{
+    text-align: start !important;
+}
+.header-section{
+    vertical-align: middle !important;
+}
+.welcome-text{
+    text-align: end !important;
+}
+a{
+    text-decoration: none !important;
+}
+.header-section .nav-link{
+    color: #000 !important;
+    font-size: 13px !important;
+}
+
+@media only screen and (max-width : 767px){
+    .navbar-brand{
+        margin-right: 0 !important;
+    }
+    .navbar-collapse{
+        padding: 1em;
+    }
+    .detail-section {
+        padding: 0.2rem !important;
+    }
+    .btn-group a {
+        font-size: 12px !important;
+    }
+}
+
+/* IPAD LANDSCAPE */
+@media only screen and (device-width : 1024px ) and (device-height : 768px ) and (orientation : landscape ){
+    .border-image img{
+        width: 500px !important;
+    }
+}
+
+/* IPAD PORTRAIT */
+@media only screen and (device-height : 1024px ) and (device-width : 768px ) and (orientation : portrait ){
+    .border-image img{
+        width: 375px !important;
+    }
+}
+
+
+/* IPAD PRO PORTRAIT */
+@media only screen and (device-width : 1024px ) and (device-height : 1366px ) and (orientation : portrait ){
+    .border-image img{
+        width: 500px !important;
+    }
+}

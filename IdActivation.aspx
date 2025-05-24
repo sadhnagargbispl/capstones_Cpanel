@@ -270,11 +270,13 @@
                                                     <asp:DropDownList ID="ddlcurrency" runat="server" CssClass="input-xxlarge">
                                                     </asp:DropDownList>
                                                 </div>
-                                                <div class="control-group " id="Div1" runat="server" style="display: none;">
+                                                <div class="control-group " id="Div1" runat="server" >
                                                     <label class="control-label">
                                                         Package</label>
+                                                    <div class="controls">
                                                     <asp:DropDownList ID="CmbKit" CssClass="input-xxlarge" runat="server" AutoPostBack="true">
                                                     </asp:DropDownList>
+                                                         </div>
                                                 </div>
 
                                             </ContentTemplate>
@@ -286,7 +288,7 @@
                                             <label class="control-label">
                                                 Request Amount <span class="red"><span style="color: red !important; font-weight: bolder; font-size: 0.9em;">*</span></span></label>
                                              <div class="controls">
-                                            <asp:TextBox ID="txtAmount" runat="server" class="input-xxlarge" AutoPostBack="true" OnTextChanged="txtAmount_TextChanged" Text="0" onkeypress="return isNumberKey(event);"></asp:TextBox>
+                                            <asp:TextBox ID="txtAmount" runat="server" class="input-xxlarge" AutoPostBack="true" OnTextChanged="txtAmount_TextChanged" Text="0" onkeypress="return isNumberKey(event);" ReadOnly="true" ></asp:TextBox>
                                             <asp:Label ID="LblAmount" runat="server" Visible="false"></asp:Label>
                                             <asp:Label ID="LblAmountUse" runat="server" Visible="false"></asp:Label>
                                                  </div> 

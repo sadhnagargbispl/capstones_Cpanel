@@ -27,6 +27,7 @@ public partial class Idactivation : System.Web.UI.Page
                 {
                     HdnCheckTrnns.Value = GenerateRandomStringActive(6);
                     FundWalletGetBalance();
+                    FillKit();
                     //AirDropWalletGetBalance();
 
                     //txtMemberId.Text = Session["IdNo"] != null ? Session["IdNo"].ToString() : string.Empty;
@@ -108,6 +109,17 @@ public partial class Idactivation : System.Web.UI.Page
                     hdnemail.Value = dt.Rows[0]["Email"].ToString();
                     LblMobile.Text = string.Empty;
                     return "OK";
+                }
+                else if (dt.Rows[0]["ActiveStatus"].ToString() == "Y")
+                {
+                    txtMemberId.Text = string.Empty;
+                    TxtMemberName.Text = string.Empty;
+                    HdnMemberMacAdrs.Value = string.Empty;
+                    HdnMemberTopupseq.Value = string.Empty;
+
+                    string scrName = "<SCRIPT language='javascript'>alert('This Id already activate.');</SCRIPT>";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrName, false);
+                    return string.Empty;
                 }
                 else
                 {
@@ -249,23 +261,23 @@ public partial class Idactivation : System.Web.UI.Page
                     if (Convert.ToDecimal(Session["ServiceWallet"]) >= Convert.ToDecimal(txtAmount.Text))
                     {
                             DataTable dt_ = new DataTable();
-                            string str = "select  * from " + objDal.dBName + "..m_kitmaster where joinamount <= '" + txtAmount.Text + "' AND kitamount >= '" + txtAmount.Text + "' order by kitid desc";
-                            dt_ = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
-                            if (dt_.Rows.Count > 0)
-                            {
-                                kitid = Convert.ToString(dt_.Rows[0]["kitid"]);
-                            }
+                            //string str = "select  * from " + objDal.dBName + "..m_kitmaster where joinamount <= '" + txtAmount.Text + "' AND kitamount >= '" + txtAmount.Text + "' order by kitid desc";
+                            //dt_ = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
+                            //if (dt_.Rows.Count > 0)
+                            //{
+                            //    kitid = Convert.ToString(dt_.Rows[0]["kitid"]);
+                            //}
                             string sql = "";
-                            string strSql1 = "EXEC Sp_trnAcivate '" + txtMemberId.Text.Trim() + "', '" + kitid + "'";
-                            DataTable dtCheck = SqlHelper.ExecuteDataset(constr, CommandType.Text, strSql1).Tables[0];
+                            //string strSql1 = "EXEC Sp_trnAcivate '" + txtMemberId.Text.Trim() + "', '" + kitid + "'";
+                            //DataTable dtCheck = SqlHelper.ExecuteDataset(constr, CommandType.Text, strSql1).Tables[0];
                             var billNo = GenerateRandomStringactive(6);
-                            if (Convert.ToInt32(dtCheck.Rows[0]["Result"]) == 0)
-                            {
-                                scrName = "<SCRIPT language='javascript'>alert('Your request in processing, Please try after 10 min.!!');</SCRIPT>";
-                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Upgraded", scrName, false);
-                                return;
-                            }
-                            sql = "EXEC Sp_PaymentActivateNew '" + txtMemberId.Text.Trim() + "','" + kitid + "', '','" + txtAmount.Text + "','USDT',";
+                            //if (Convert.ToInt32(dtCheck.Rows[0]["Result"]) == 0)
+                            //{
+                            //    scrName = "<SCRIPT language='javascript'>alert('Your request in processing, Please try after 10 min.!!');</SCRIPT>";
+                            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Upgraded", scrName, false);
+                            //    return;
+                            //}
+                            sql = "EXEC Sp_PaymentActivateNew '" + txtMemberId.Text.Trim() + "','" + CmbKit.SelectedValue + "', '','" + txtAmount.Text + "','USDT',";
                             sql += "'" + billNo + "','" + Session["Formno"] + "'";
                             DataTable dt = SqlHelper.ExecuteDataset(constr, CommandType.Text, sql).Tables[0];
 
@@ -353,17 +365,9 @@ public partial class Idactivation : System.Web.UI.Page
             DataTable dt;
             string condition = "";
 
-            if (DDLPaymode.SelectedValue == "1")
-            {
-                condition = " ";
-            }
-            else
-            {
-                condition = "";
-            }
-
             dt = new DataTable();
-            query = objDal.Isostart + " Exec Sp_GetKitForActivation '" + Session["Formno"] + "','S', '" + HdnMemberTopupseq.Value + "'" + objDal.IsoEnd;
+            //query = objDal.Isostart + " Exec Sp_GetKitForActivation '" + Session["Formno"] + "','S', '" + HdnMemberTopupseq.Value + "'" + objDal.IsoEnd;
+            query = objDal.Isostart + " Exec sp_GetKitDetails " + objDal.IsoEnd;
             dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, query).Tables[0];
 
             if (dt.Rows.Count > 0)
@@ -373,26 +377,11 @@ public partial class Idactivation : System.Web.UI.Page
                 CmbKit.DataTextField = "KitName";
                 CmbKit.DataValueField = "KitId";
                 CmbKit.DataBind();
-
-                // Optional: Set Amount if needed
-                // txtAmount.Text = dt.Rows[0]["KitAmount"].ToString();
-
-                hdnMacadrs.Value = dt.Rows[0]["MacAdrs"].ToString();
-                HdnTopupSeq.Value = dt.Rows[0]["TopupSeq"].ToString();
-                Session["HdnTopupSeq"] = HdnTopupSeq.Value;
+                txtAmount.Text = dt.Rows[0]["Kitamount"].ToString ();
             }
             else
             {
-                Session["KitTable"] = dt;
-                CmbKit.DataSource = dt;
-                CmbKit.DataTextField = "KitName";
-                CmbKit.DataValueField = "KitId";
-                CmbKit.DataBind();
-
-                txtAmount.Text = "0";
-                hdnMacadrs.Value = "";
-                HdnTopupSeq.Value = "";
-                Session["HdnTopupSeq"] = HdnTopupSeq.Value;
+                txtAmount.Text ="0";
             }
         }
         catch (Exception ex)
@@ -502,71 +491,71 @@ public partial class Idactivation : System.Web.UI.Page
     {
         try
         {
-            //if (Convert.ToDecimal(txtAmount.Text) <= 1 || Convert.ToDecimal(txtAmount.Text) % 10 != 0)
-            if (Convert.ToDecimal(txtAmount.Text) < 1)
-            {
-                scrName = "<script language='javascript'>alert('The Investment be more than 1 !!');</script>";
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Upgraded", scrName, false);
-                txtAmount.Text = "";
-                return; // Exit the method
-            }
-           // AirDropWalletGetBalance();
-            FundWalletGetBalance();
-            CheckAmountTop();
-            //Check_Amount_Condition();
+           // //if (Convert.ToDecimal(txtAmount.Text) <= 1 || Convert.ToDecimal(txtAmount.Text) % 10 != 0)
+           // if (Convert.ToDecimal(txtAmount.Text) < 1)
+           // {
+           //     scrName = "<script language='javascript'>alert('The Investment be more than 1 !!');</script>";
+           //     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Upgraded", scrName, false);
+           //     txtAmount.Text = "";
+           //     return; // Exit the method
+           // }
+           //// AirDropWalletGetBalance();
+           // FundWalletGetBalance();
+           // CheckAmountTop();
+           // //Check_Amount_Condition();
         }
         catch (Exception ex)
         {
         }
 
     }
-    protected bool CheckAmountTop()
-    {
-        try
-        {
-            DataTable dt = new DataTable();
-            // Change the SQL query to sum the Repurchincome for the given Formno
-            string str = " SELECT SUM(Repurchincome) AS TotalInvestment FROM " + objDal.dBName + "..repurchincome WHERE Formno = '" + hdnFormno.Value + "'";
-            dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
-            if (dt.Rows.Count > 0)
-            {
-                decimal totalInvestment = Convert.ToDecimal(dt.Rows[0]["TotalInvestment"]);
-                LblAmount.Text = totalInvestment.ToString();
-                // Check if the activation amount is greater than or equal to total investment and a multiple of 90
-                decimal activationAmount = Convert.ToDecimal(txtAmount.Text);
-                //if (activationAmount < totalInvestment || activationAmount % 10 != 0)
-                if (activationAmount < totalInvestment)
-                {
-                    string scrName = "<SCRIPT language='javascript'>alert('Your Activation Amount must be equal to or greater than the total investment !');</SCRIPT>";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Upgraded", scrName, false);
-                    cmdSave1.Enabled = false;
-                    cmdSave1.Attributes.Add("onclick", DisableTheButton(this.Page, cmdSave1));
-                    txtAmount.Text = "0";
-                    //TxtPointWallet.Text = "0";
-                    txtAmount.Text = "0";
-                    return false; // Return false if the condition is not met
-                }
-                else
-                {
-                    cmdSave1.Enabled = true;
-                    LblAmount.Visible = false;
-                    return true; // Return true if the condition is met
-                }
-            }
-            else
-            {
-                cmdSave1.Enabled = true;
-                LblAmount.Visible = false;
-                return true; // Return true if no records found
-            }
-        }
-        catch (Exception ex)
-        {
+    //protected bool CheckAmountTop()
+    //{
+    //    try
+    //    {
+    //        DataTable dt = new DataTable();
+    //        // Change the SQL query to sum the Repurchincome for the given Formno
+    //        string str = " SELECT SUM(Repurchincome) AS TotalInvestment FROM " + objDal.dBName + "..repurchincome WHERE Formno = '" + hdnFormno.Value + "'";
+    //        dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
+    //        if (dt.Rows.Count > 0)
+    //        {
+    //            decimal totalInvestment = Convert.ToDecimal(dt.Rows[0]["TotalInvestment"]);
+    //            LblAmount.Text = totalInvestment.ToString();
+    //            // Check if the activation amount is greater than or equal to total investment and a multiple of 90
+    //            decimal activationAmount = Convert.ToDecimal(txtAmount.Text);
+    //            //if (activationAmount < totalInvestment || activationAmount % 10 != 0)
+    //            if (activationAmount < totalInvestment)
+    //            {
+    //                string scrName = "<SCRIPT language='javascript'>alert('Your Activation Amount must be equal to or greater than the total investment !');</SCRIPT>";
+    //                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Upgraded", scrName, false);
+    //                cmdSave1.Enabled = false;
+    //                cmdSave1.Attributes.Add("onclick", DisableTheButton(this.Page, cmdSave1));
+    //                txtAmount.Text = "0";
+    //                //TxtPointWallet.Text = "0";
+    //                txtAmount.Text = "0";
+    //                return false; // Return false if the condition is not met
+    //            }
+    //            else
+    //            {
+    //                cmdSave1.Enabled = true;
+    //                LblAmount.Visible = false;
+    //                return true; // Return true if the condition is met
+    //            }
+    //        }
+    //        else
+    //        {
+    //            cmdSave1.Enabled = true;
+    //            LblAmount.Visible = false;
+    //            return true; // Return true if no records found
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
 
-        }
+    //    }
 
-        return false; // Default return false in case of exception
-    }
+    //    return false; // Default return false in case of exception
+    //}
     //private bool Check_Amount_Condition()
     //{
     //    bool result = false;

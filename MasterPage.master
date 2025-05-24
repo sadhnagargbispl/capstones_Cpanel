@@ -329,12 +329,12 @@
                                 <%--<li><a href="GroupbusinessDate.aspx">Date Wise Team Business</a></li>--%>
                             </ul>
                         </li>
-                        <%--<li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Investment <span class="arrow"></span></a>
+                        <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Id Activation <span class="arrow"></span></a>
                             <ul class="sub">
-                                <li><a href="#">New Investment </a></li>
-                                <li><a href="myinvestment.aspx">My Investment</a></li>
+                                <li><a href="#">Id Activation </a></li>
+                               <%-- <li><a href="myinvestment.aspx">My Investment</a></li>--%>
                             </ul>
-                        </li>--%>
+                        </li>
 
                         <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>My Incentive<span class="arrow"></span></a>
                             <ul class="sub">
