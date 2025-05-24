@@ -339,6 +339,7 @@
                         <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>My Incentive<span class="arrow"></span></a>
                             <ul class="sub">
                                 <li><a href="DailyBinaryIncome.aspx">Daily Incentive</a></li>
+                               <%-- <li><a href="Voucher.aspx">Redemption Voucher</a></li>--%>
                             </ul>
                         </li>
                         <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Wallet<span class="arrow"></span></a>

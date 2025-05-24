@@ -15,7 +15,6 @@
             </div>
         </div>
         <div>
-
             <div class="row-fluid panelpart">
 
                 <div class="row-fluid panelpart">
@@ -43,6 +42,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
