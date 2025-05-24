@@ -47,7 +47,7 @@ public partial class VoucherReport : System.Web.UI.Page
 
             if (dt.Rows.Count > 0)
             {
-                gv.DataSource = Dt;
+                gv.DataSource = dt;
                 gv.DataBind();
             }
             else

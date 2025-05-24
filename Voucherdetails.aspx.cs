@@ -49,7 +49,7 @@ public partial class Voucherdetails : System.Web.UI.Page
 
             if (dt.Rows.Count > 0)
             {
-                RepVouDetail.DataSource = Dt;
+                RepVouDetail.DataSource = dt;
                 RepVouDetail.DataBind();
             }
             else

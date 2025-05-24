@@ -1,6 +1,10 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Voucherdetails.aspx.cs" Inherits="Voucherdetails" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+   <%-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>--%>
+
+ <link href="css/admin.css" rel="stylesheet" type="text/css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
    <%-- <div class="detail-section p-3 mb-3">--%>
@@ -17,7 +21,7 @@
                                             Use Voucher
                                         </h3>
                                         <p align="justify">
-                                            Click on redeem now and get <%#Eval("Amount")%> points for utilization on shopping. You will get
+                                            Click on redeem now and get <%#Eval("Amount1")%> points for utilization on shopping. You will get
                                             coupons according to the package.
                                         </p>
                                         <p align="justify">
@@ -27,7 +31,7 @@
                                         <%--<button type="button" runat="server" id="btnUse" class="btn btn-primary" CommandName="USED" >
                                         Use Voucher</button>--%>
                                         <asp:Button ID="btnUse" runat="server" Text="Use Voucher" CssClass="btn btn-primary"
-                                            CommandName="USED" Visible='<%#Eval("IsVible")%>' OnClientClick="return confirm('Are you sure about this action ?')" />
+                                            CommandName="USED" Visible='<%# Convert.ToBoolean(Eval("IsVible")) %>' OnClientClick="return confirm('Are you sure about this action ?')" />
                                         <hr>
                                         <h3 class="text-left text-uppercase mt-0 text-success fw-bolder">
                                             Cancel Voucher
@@ -40,7 +44,7 @@
                                         <%-- <button type="button" class="btn btn-danger" onclick="CancelNow()">
                                         Cancel Voucher</button>--%>
                                         <asp:Button ID="btnCancel" runat="server" Text="Cancel Voucher" class="btn btn-danger"
-                                            CommandName="CANCEL" Visible='<%#Eval("IsVible")%>' OnClientClick="return confirm('Are you sure about this action ?')"/>
+                                            CommandName="CANCEL" Visible='<%# Convert.ToBoolean(Eval("IsVible")) %>' OnClientClick="return confirm('Are you sure about this action ?')"/>
                                             
                                     </div>
                                 </div>
