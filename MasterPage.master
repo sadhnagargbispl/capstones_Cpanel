@@ -331,7 +331,8 @@
                         </li>
                         <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Id Activation <span class="arrow"></span></a>
                             <ul class="sub">
-                                <li><a href="#">Id Activation </a></li>
+                                <li><a href="Idactivation.aspx">Id Activation </a></li>
+                                <li><a href="ProductRequestDetail.aspx">My Purchase detail</a></li>
                                <%-- <li><a href="myinvestment.aspx">My Investment</a></li>--%>
                             </ul>
                         </li>
@@ -339,7 +340,7 @@
                         <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>My Incentive<span class="arrow"></span></a>
                             <ul class="sub">
                                 <li><a href="DailyBinaryIncome.aspx">Daily Incentive</a></li>
-                               <%-- <li><a href="Voucher.aspx">Redemption Voucher</a></li>--%>
+                                <li><a href="Voucher.aspx">Redemption Voucher</a></li>
                             </ul>
                         </li>
                         <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Wallet<span class="arrow"></span></a>
