@@ -1,6 +1,14 @@
- 
 
- 
+/* body styles */
+body {
+    color: #000;
+
+    padding: 0px !important;
+    margin: 0px !important;
+    font-size:13px;
+        font-family: 'Hind', sans-serif!IMPORTANT;
+}  
+
 
 
 a, a:hover {
@@ -13,16 +21,101 @@ a:hover, a:focus {
     text-decoration: none !important;
 }
 
-  
-@media (max-width: 360px) {
-    .logores {
- margin-top: -6px !important;
-    padding:3px 7px !important;
-    width: 55% !important;
-    }
- 
+
+
+
+
+
+
+
+
+
+
+
+
+/* header styles */
+
+
+
+
+
+                .voucherbox{
+                    margin-bottom: 10px;
+                }
+
+
+
+                /* Display */
+.d-flex { display: flex; }
+.d-inline-flex { display: inline-flex; }
+
+/* Direction */
+.flex-row { flex-direction: row; }
+.flex-column { flex-direction: column; }
+
+/* Wrapping */
+.flex-wrap { flex-wrap: wrap; }
+.flex-nowrap { flex-wrap: nowrap; }
+
+/* Justify Content */
+.justify-start { justify-content: flex-start; }
+.justify-center { justify-content: center; }
+.justify-end { justify-content: flex-end; }
+.justify-between { justify-content: space-between; }
+.justify-around { justify-content: space-around; }
+.justify-evenly { justify-content: space-evenly; }
+
+/* Align Items */
+.align-start { align-items: flex-start; }
+.align-center { align-items: center; }
+.align-end { align-items: flex-end; }
+.align-stretch { align-items: stretch; }
+
+/* Align Content */
+.align-content-start { align-content: flex-start; }
+.align-content-center { align-content: center; }
+.align-content-end { align-content: flex-end; }
+.align-content-between { align-content: space-between; }
+
+/* Gap */
+.gap-1 { gap: 4px; }
+.gap-2 { gap: 8px; }
+.gap-3 { gap: 16px; }
+
+				
+
+ 	.voucher {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 15px;
+  justify-content: start;
 }
 
 
+.voucher {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: center;
+  gap: 10px;
+}
 
+.voucherbox {
+  flex: 0 0 calc((100% / 6) - 10px); 
+  box-sizing: border-box;
+}
+
+
+@media (max-width: 768px) {
+  .voucherbox {
+    flex: 0 0 calc((100% / 2) - 10px);
+  }
+}
+
+				
  
+
+
+
+
+
+
