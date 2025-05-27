@@ -80,11 +80,11 @@ public partial class Checklogin : System.Web.UI.Page
                                 string Pwd = Request["Password"].Trim().Replace("'", "").Replace("=", "").Replace(";", "");
                                 string WallettType = Request["Wallertype"].Trim().Replace("'", "").Replace("=", "").Replace(";", "");
 
-                                if (WallettType != "U")
-                                {
-                                    Response.Write("{\"response\":\"FAILED\",\"msg\":\"Invalid wallet type!\"}");
-                                    return;
-                                }
+                                //if (WallettType != "U")
+                                //{
+                                //    Response.Write("{\"response\":\"FAILED\",\"msg\":\"Invalid wallet type!\"}");
+                                //    return;
+                                //}
                                 int FormNo = GetFormNo(Uname, Pwd.Replace("%25", "%").Replace("%23", "#").Replace("%26", "&").Replace("%22", "'").Replace("%40", "@"));
                                 if (FormNo > 0)
                                 {
@@ -356,7 +356,7 @@ public partial class Checklogin : System.Web.UI.Page
             ds = SqlHelper.ExecuteDataset(constr, CommandType.Text, str);
             dt = ds.Tables[0];
             if ((dt.Rows.Count > 0))
-                RtrVal = Convert.ToDouble(dt.Rows[0]["Balance"]) * 85;
+                RtrVal = Convert.ToDouble(dt.Rows[0]["Balance"]);
 
 
         }
@@ -385,11 +385,11 @@ public partial class Checklogin : System.Web.UI.Page
 
                 FormNo = GetFormNo(Uname, Pwd);
 
-                if (WalletType != "U")
-                {
-                    Response.Write("{\"response\":\"FAILED\",\"msg\": \"Invalid wallet type!\"}");
-                    return;
-                }
+                //if (WalletType != "U")
+                //{
+                //    Response.Write("{\"response\":\"FAILED\",\"msg\": \"Invalid wallet type!\"}");
+                //    return;
+                //}
 
                 string WalletName = GetWalletName(WalletType);
 
@@ -410,7 +410,7 @@ public partial class Checklogin : System.Web.UI.Page
                 if (TData.Length == 3)
                 {
                     TxnID = TData[0].Trim();
-                    Bv = Convert.ToDouble(TData[1]) / 85;
+                    Bv = Convert.ToDouble(TData[1]);
                     finalBv = Convert.ToDouble(TData[1]);
                     Remarks = TData[2].Trim();
                 }
@@ -480,7 +480,7 @@ public partial class Checklogin : System.Web.UI.Page
                                     amount = Convert.ToDouble(dt_.Rows[0]["Amount"]);
                                 }
 
-                                string OutPut_ = "{\"loginid\": \"" + Uname + "\",\"response\":\"OK\",\"deductamount\":\"" + (Bv * 85) + "\",\"deductamountusdt\":\"" + amount + "\",\"voucherno\":\"" + VoucherNo + "\",\"msg\": \"success\",\"wallettype\": \"" + WalletType + "\"}";
+                                string OutPut_ = "{\"loginid\": \"" + Uname + "\",\"response\":\"OK\",\"deductamount\":\"" + (Bv) + "\",\"deductamountusdt\":\"" + amount + "\",\"voucherno\":\"" + VoucherNo + "\",\"msg\": \"success\",\"wallettype\": \"" + WalletType + "\"}";
                                 Response.Write(OutPut_);
                             }
                             else
@@ -521,11 +521,11 @@ public partial class Checklogin : System.Web.UI.Page
                     Conn.Open();
 
                 FormNo = GetFormNo_1(Uname);
-                if (WalletType != "U")
-                {
-                    Response.Write("{\"response\":\"FAILED\",\"msg\": \"Invalid wallet type!\"}");
-                    return;
-                }
+                //if (WalletType != "U")
+                //{
+                //    Response.Write("{\"response\":\"FAILED\",\"msg\": \"Invalid wallet type!\"}");
+                //    return;
+                //}
 
                 string WalletName = GetWalletName(WalletType);
 
@@ -547,8 +547,10 @@ public partial class Checklogin : System.Web.UI.Page
                 if (TData.Length == 3)
                 {
                     TxnID = TData[0].Trim();
-                    finalamount = Convert.ToDouble(TData[1]) / 85;
-                    Bv = Math.Round(Convert.ToDouble(TData[1]) / 85, 8);
+                    //finalamount = Convert.ToDouble(TData[1]) / 85;
+                    //Bv = Math.Round(Convert.ToDouble(TData[1]) / 85, 8);
+                    finalamount = Convert.ToDouble(TData[1]);
+                    Bv = Math.Round(Convert.ToDouble(TData[1]), 8);
                     Remarks = TData[2].Trim();
                 }
                 else
@@ -637,7 +639,7 @@ public partial class Checklogin : System.Web.UI.Page
                             }
                         }
 
-                        Response.Write("{\"loginid\": \"" + Uname + "\",\"response\":\"OK\",\"refundamount\":\"" + (finalamount * 85).ToString() + "\",\"refundamountusdt\":\"" + amount.ToString() + "\",\"voucherno\":\"" + voucherNo + "\",\"msg\": \"success\",\"wallettype\": \"" + WalletType + "\"}");
+                        Response.Write("{\"loginid\": \"" + Uname + "\",\"response\":\"OK\",\"refundamount\":\"" + (finalamount).ToString() + "\",\"refundamountusdt\":\"" + amount.ToString() + "\",\"voucherno\":\"" + voucherNo + "\",\"msg\": \"success\",\"wallettype\": \"" + WalletType + "\"}");
                     }
                     else
                     {

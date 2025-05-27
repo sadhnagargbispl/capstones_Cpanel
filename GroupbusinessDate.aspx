@@ -111,16 +111,16 @@
                                                                     </th>
                                                                     <th style="color: White;">Rank
                                                                     </th>
-                                                                    <th style="color: White;">Self New Investment<%--<img src="https://cryptologos.cc/logos/tron-trx-logo.png?v=032" width="20" height="20" />--%><%--(<i class="las la-dollar-sign"></i>)--%>
+                                                                    <th style="color: White;">Self New Business<%--<img src="https://cryptologos.cc/logos/tron-trx-logo.png?v=032" width="20" height="20" />--%><%--(<i class="las la-dollar-sign"></i>)--%>
                                                 
                                                                     </th>
-                                                                    <th style="color: White;">Self Re-Investment <%--(<i class="las la-dollar-sign"></i>)--%>
+                                                                    <th style="color: White;">Self Re-Business <%--(<i class="las la-dollar-sign"></i>)--%>
                                                                     </th>
-                                                                    <th style="color: White;">Team New Investment <%--(<i class="las la-dollar-sign"></i>)--%>
+                                                                    <th style="color: White;">Team New Business <%--(<i class="las la-dollar-sign"></i>)--%>
                                                                     </th>
-                                                                    <th style="color: White;">Team Re-Investment <%--(<i class="las la-dollar-sign"></i>)--%>
+                                                                    <th style="color: White;">Team Re-Business <%--(<i class="las la-dollar-sign"></i>)--%>
                                                                     </th>
-                                                                    <th style="color: White;">Total Investment <%--(<i class="las la-dollar-sign"></i>)--%>
+                                                                    <th style="color: White;">Total Business <%--(<i class="las la-dollar-sign"></i>)--%>
                                                                     </th>
                                                                 </tr>
                                                             </thead>
@@ -181,15 +181,15 @@
                                                                     </th>
                                                                     <th style="color: White;">Rank
                                                                     </th>
-                                                                    <th style="color: White;">S. New Investment<%--(<i class="las la-dollar-sign"></i>)--%>
+                                                                    <th style="color: White;">S. New Business<%--(<i class="las la-dollar-sign"></i>)--%>
                                                                     </th>
-                                                                    <th style="color: White;">S. Re-Investment<%--(<i class="las la-dollar-sign"></i>)--%>
+                                                                    <th style="color: White;">S. Re-Business<%--(<i class="las la-dollar-sign"></i>)--%>
                                                                     </th>
-                                                                    <th style="color: White;">T. New Investment<%--(<i class="las la-dollar-sign"></i>)--%>
+                                                                    <th style="color: White;">T. New Business<%--(<i class="las la-dollar-sign"></i>)--%>
                                                                     </th>
-                                                                    <th style="color: White;">T. Re-Investment<%--(<i class="las la-dollar-sign"></i>)--%>
+                                                                    <th style="color: White;">T. Re-Business<%--(<i class="las la-dollar-sign"></i>)--%>
                                                                     </th>
-                                                                    <th style="color: White;">Total Investment<%--(<i class="las la-dollar-sign"></i>)--%>
+                                                                    <th style="color: White;">Total Business<%--(<i class="las la-dollar-sign"></i>)--%>
                                                                     </th>
                                                                     <th style="color: White;">Downline
                                                                     </th>

@@ -42,7 +42,7 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="span3">
+                                            <div class="span4">
 
                                                 <div class="control-group">
                                                     <label class="control-label">
@@ -54,7 +54,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="span3">
+                                            <div class="span4">
 
                                                 <div class="control-group " id="lbllevel" runat="server">
                                                     <label class="control-label">
@@ -66,12 +66,12 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="span3">
+                                            <div class="span2">
                                                 <div class="control-group " id="divSearch" runat="server">
                                                     <label class="control-label">
                                                         Search</label>
                                                     <div class="controls">
-                                                        <asp:DropDownList ID="DDlSearchby" CssClass="input-xlarge" TabIndex="2" runat="server">
+                                                        <asp:DropDownList ID="DDlSearchby" CssClass="input-large" TabIndex="2" runat="server">
                                                             <asp:ListItem Text="All" Value="" Selected="True"></asp:ListItem>
                                                             <asp:ListItem Text="Active" Value="Y"></asp:ListItem>
                                                             <asp:ListItem Text="Inactive" Value="N"></asp:ListItem>
@@ -79,9 +79,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="span3">
+                                            <div class="span2">
                                                 <div class="control-group " style="margin-top: 25px;">
                                                     <div class="controls">
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                         <asp:Button ID="BtnSubmit" runat="server" Text="Search" TabIndex="3" class="btn btn-danger" OnClick="BtnSubmit_Click" />
                                                     </div>
                                                 </div>
