@@ -109,14 +109,19 @@
 
 
 
-                           <span class="badge rounded-pill bg-info" style="background-color: aquamarine; color: black;" align="left">
-                               <%--<h5>  Cancel Date : 18-Mar-2025  </h5>--%>
-
+                          <%-- <span class="badge rounded-pill bg-info" style="background-color: aquamarine; color: black;" align="left">
                                <%#Eval("VouCpDAte")%>
                                <strong>
                                    <%#Eval("UsedDate")%>
                                </strong>
-                           </span>
+                           </span>--%>
+                            <span class="badge rounded-pill" align="left"
+      style='<%# "background-color:" + (Eval("BackColor").ToString()) %>'>
+    <%# Eval("VouCpDAte") %>
+    <strong>
+        <%# Eval("UsedDate") %>
+    </strong>
+</span>
                             </div>
                             </div>
                 </ItemTemplate>
