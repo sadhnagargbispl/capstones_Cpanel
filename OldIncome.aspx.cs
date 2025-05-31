@@ -40,7 +40,6 @@ public partial class OldIncome : System.Web.UI.Page
         {
             DataTable Dt = new DataTable();
             string str = "";
-            //str = ObjDal.Isostart + " Exec sp_GetDailtIncentiveDetail '" + Session["Formno"] + "' " + ObjDal.IsoEnd;
             str = ObjDal.Isostart + "  Exec sp_GetOldIncome '" + Session["idno"] + "' " + ObjDal.IsoEnd;
             Dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
             if (Dt.Rows.Count > 0)
