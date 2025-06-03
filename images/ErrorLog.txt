@@ -160,3 +160,15 @@ Thread was being aborted.
 http://localhost:51212/index.aspx:  27-May-2025 06:47:37:291
 Thread was being aborted.
 --------------------------------------------------------
+http://localhost:65231/Idactivation.aspx:  02-Jun-2025 04:46:10:772 
+Thread was being aborted.
+--------------------------------------------------------
+http://localhost:65231/Enterpool.aspx:  03-Jun-2025 11:58:17:473 
+Thread was being aborted.
+--------------------------------------------------------
+http://localhost:65231/Enterpool.aspx: 03-Jun-2025 11:59:23:503
+Sp_AddPoolInsert: 8115: Arithmetic overflow error converting varchar to data type numeric.
+--------------------------------------------------------
+http://localhost:65231/EnterPool.aspx:  03-Jun-2025 01:29:35:401 
+Thread was being aborted.
+--------------------------------------------------------
