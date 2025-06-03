@@ -69,7 +69,7 @@ public partial class PoolReport : System.Web.UI.Page
         {
             DataTable dt = new DataTable();
             DataSet Ds = new DataSet();
-            string strSql = ObjDal.Isostart + "Exec Sp_GetSelectPoolTableDetail " + rbtnsearch.SelectedValue + " " + ObjDal.IsoEnd;
+            string strSql = ObjDal.Isostart + "Exec Sp_GetSelectPoolTableDetail " + rbtnsearch.SelectedValue + ",'" + Session["formno"] + "' " + ObjDal.IsoEnd;
             Ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql);
             dt = Ds.Tables[0];
             RptDirects.DataSource = dt;

@@ -339,6 +339,8 @@
                             <ul class="sub">
                                 <li><a href="Idactivation.aspx">Id Activation </a></li>
                                 <li><a href="myinvestment.aspx">My Purchase detail</a></li>
+                                 <li><a href="EnterPool.aspx">Pool</a></li>
+  <li><a href="PoolReport.aspx">Pool Report</a></li>
                                <%-- <li><a href="myinvestment.aspx">My Investment</a></li>--%>
                             </ul>
                         </li>
@@ -353,8 +355,7 @@
                         <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Wallet<span class="arrow"></span></a>
                             <ul class="sub">
                                 <li><a href="AllWalletReport.aspx">Wallet Report</a></li>
-                                <li><a href="EnterPool.aspx">Pool</a></li>
-                                 <li><a href="PoolReport.aspx">Pool Report</a></li>
+                               
                                 <li><a href="#">Withdrawal</a></li>
                                 <li><a href="Rptwithdrawls.aspx">Withdrawal Detail</a></li>
                                 <li><a href="WalletRequest.aspx">Add Fund</a></li>
