@@ -94,7 +94,7 @@
      market situation & Season & Conditions.
                             </p>
                             <asp:Button ID="btnCancel" runat="server" Text="Cancel Voucher" class="btn btn-danger"
-                                CommandName="CANCEL" Visible='<%# Convert.ToBoolean(Eval("IsVible")) %>' OnClientClick="return confirm('Are you sure about this action ?')" />
+                                CommandName="CANCEL" Visible='<%# Convert.ToBoolean(Eval("IsVisibleCancel")) %>' OnClientClick="return confirm('Are you sure about this action ?')" />
 
 
                             <hr>
