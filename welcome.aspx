@@ -6,19 +6,7 @@
     <div class="container-fluid">
         <!-- BEGIN PAGE HEADER-->
         <div class="row-fluid">
-            <div class="span12">
-                <!-- BEGIN THEME CUSTOMIZER-->
-                <!-- END THEME CUSTOMIZER-->
-                <!-- BEGIN PAGE TITLE & BREADCRUMB-->
-                <h3 class="page-title">Welcome Letter</h3>
-                <ul class="breadcrumb">
-                    <li><a href="#"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
-                    <li><a href="#">Welcome</a><span class="divider-last">&nbsp;</span></li>
-                </ul>
-
-                <!-- END PAGE TITLE & BREADCRUMB-->
-
-            </div>
+            
         </div>
 
         <!--<div id="ctl00_ContentPlaceHolder1_Div2" class="alert alert-info">        
@@ -35,9 +23,40 @@
 
 
                 <div class="row">
-                    <div class="span2"></div>
-                    <div class="span8">
+                    <div class="span12">
+    <!-- BEGIN THEME CUSTOMIZER-->
+    <!-- END THEME CUSTOMIZER-->
+    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+    <h3 class="page-title">Welcome Letter</h3>
+    <ul class="breadcrumb">
+        <li><a href="#"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
+        <li><a href="#">Welcome</a><span class="divider-last">&nbsp;</span></li>
+    </ul>
 
+    <!-- END PAGE TITLE & BREADCRUMB-->
+
+</div>
+                    <div class="span8">
+                        <h6 class="text-danger">
+                        <strong><em>Welcome to the team Capstones</strong>
+                    </h6>
+                    <div id="divWelcomeAll" runat="server" visible="true" class="p-3">
+                        <p class="wel_des">
+                           Dear (<%=Session["CompName"].ToString()%>)
+                        </p>
+                        <p style="text-align :justify ;">
+                           We are excited to have you onboard as a freelancer on our team and help the community to achieve their goals.
+                        </p>
+                        <p style="text-align :justify ;">
+                           We have prepared a contract outlining the terms and conditions of Our agreement, including payment and project timeline. 
+                        </p>
+                        <p style="text-align :justify ;">
+                            Please take some time to review it, and if you have any questions and suggestions, please do not hesitate to reach out.
+As per company policy you got all benefits as discussed by management.
+                        </p>
+                        <p class="wel_des">
+                           Thanks</p>
+                    </div>
                         <div class="table-responsive">
                             <table class="table table-hover table-bordered">
 
