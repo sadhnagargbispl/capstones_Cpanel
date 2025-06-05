@@ -364,7 +364,8 @@
                         </li>
                          <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Our Portal<span class="arrow"></span></a>
                              <ul class="sub">
-                             <li><a href="ShoppingRedirect.aspx" target="_blank" >Shopping Redirect</a></li>
+                             <li><a href="ShoppingRedirect.aspx" target="_blank" >Shopping Portal</a></li>
+                                 <li><a href="GiftVoucherRedirect.aspx" target="_blank" >GV Portal</a></li>
                                  </ul> 
                          </li>
                         <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Support<span class="arrow"></span></a>
