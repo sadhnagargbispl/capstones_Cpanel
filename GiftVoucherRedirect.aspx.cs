@@ -17,7 +17,7 @@ public partial class GiftVoucherRedirect : System.Web.UI.Page
         {
             if (Session["IDNO"] == null)
             {
-                Response.Redirect("https://gv.capstones.in/");
+                Response.Redirect("https://discount.swastikemall.com/index.php");
             }
             else
             {
@@ -28,8 +28,8 @@ public partial class GiftVoucherRedirect : System.Web.UI.Page
                 //Response.Redirect("http://gv.megamart.ai/Login/DirectLogin?URL=" + refes);
 
                 string formPostText = "";
-                formPostText = "<form method=\"POST\" action=\"https://gv.capstones.in/members/index.php\" name=\"frm2Post\">";
-                formPostText += "<input type=\"hidden\" name=\"token\" value=\"a50a9b21519a609e43df238db88ee36a\" />";
+                formPostText = "<form method=\"POST\" action=\"https://discount.swastikemall.com/members/index.php\" name=\"frm2Post\">";
+                formPostText += "<input type=\"hidden\" name=\"token\" value=\"bce077f7ce2069e73a6d1c99a4e9f4ff\" />";
                 formPostText += "<input type=\"hidden\" name=\"mod\" value=\"interLogin\" />";
                 formPostText += "<input type=\"hidden\" name=\"userid\" value=\"" + Session["IDNO"].ToString() + "\" />";
                 formPostText += "<input type=\"hidden\" name=\"password\" value=\"" + Session["MemPassw"].ToString() + "\" /> ";

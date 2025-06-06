@@ -244,7 +244,7 @@ public partial class EnterPool : System.Web.UI.Page
                         {
                             Clear();
                             FundWalletGetBalance();
-                            ScriptManager.RegisterStartupScript(this, this.GetType(), "Key", "alert('Pool Add Successfully!!');location.replace('EnterPool.aspx');", true);
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "Key", "alert('Pool Add Successfully!!');location.replace('Index.aspx');", true);
                         }
                         else
                         {
