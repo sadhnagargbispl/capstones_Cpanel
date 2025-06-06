@@ -149,20 +149,20 @@
                                                                     <%# Eval("PayoutDate") %>
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
-                                                            <asp:TemplateField HeaderText="Self Bonus">
+                                                            <asp:TemplateField HeaderText="Direct  Referral Bonus">
                                                                 <ItemTemplate>
                                                                     <a href='<%# "ViewRefAirdrop.aspx?SessId=" + Eval("SessId") %>' onclick="return hs.htmlExpand(this, { objectType: 'iframe', width: 620, height: 450, marginTop: 0 });"
                                                                         style="text-decoration: underline; color: Blue;">
-                                                                        <asp:Label ID="Label1" runat="server" ForeColor="Blue" Text='<%# Eval("SelfIncome") %>'></asp:Label>
+                                                                        <asp:Label ID="Label1" runat="server" ForeColor="Blue" Text='<%# Eval("PairIncentive") %>'></asp:Label>
                                                                     </a>
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
-                                                            <asp:TemplateField HeaderText="MFA">
+                                                            <%--<asp:TemplateField HeaderText="MFA">
                                                                 <ItemTemplate>
                                                                     <%# Eval("PairIncome") %>
                                                                 </ItemTemplate>
-                                                            </asp:TemplateField>
-                                                            <asp:TemplateField HeaderText="Bonus">
+                                                            </asp:TemplateField>--%>
+                                                            <asp:TemplateField HeaderText="Level Bonus">
                                                                 <ItemTemplate>
                                                                     <a href='<%# "ViewTeamInfinity.aspx?SessId=" + Eval("SessId") %>' onclick="return hs.htmlExpand(this, { objectType: 'iframe', width: 620, height: 450, marginTop: 0 });"
                                                                         style="text-decoration: underline; color: Blue;">
@@ -170,7 +170,7 @@
                                                                     </a>
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
-                                                           <%-- <asp:TemplateField HeaderText="Gift Reward">
+                                                           <asp:TemplateField HeaderText="Rank Achievement Bonus">
                                                                 <ItemTemplate>
                                                                     <a href='<%# "ViewRankBonus.aspx?SessId=" + Eval("SessId") %>' onclick="return hs.htmlExpand(this, { objectType: 'iframe', width: 620, height: 450, marginTop: 0 });"
                                                                         style="text-decoration: underline; color: Blue;">
@@ -178,7 +178,7 @@
                                                                     </a>
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
-                                                            <asp:TemplateField HeaderText="Royalty Team Rewards">
+                                                           <%--  <asp:TemplateField HeaderText="Royalty Team Rewards">
                                                                 <ItemTemplate>
                                                                     <%#Eval("RoyaltyIncome")%>
                                                                 </ItemTemplate>
