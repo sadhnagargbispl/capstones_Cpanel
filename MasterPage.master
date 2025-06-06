@@ -331,7 +331,7 @@
                             <ul class="sub">
                                 <li><a href="Mydirects.aspx">Level Wise Report</a></li>
                                 <li><a href="Referaltree.aspx">My Direct Tree </a></li>
-                               <%-- <li><a href="GroupbusinessM.aspx">Date Wise Team Business</a></li>--%>
+                                <li><a href="UniversalTree.aspx">Pool Tree</a></li>
                                 <li><a href="GroupbusinessDate.aspx">Date Wise Team Business</a></li>
                             </ul>
                         </li>
@@ -339,7 +339,7 @@
                             <ul class="sub">
                                 <li><a href="Idactivation.aspx">Id Activation </a></li>
                                 <li><a href="myinvestment.aspx">My Purchase detail</a></li>
-                                 <li><a href="EnterPool.aspx">Pool</a></li>
+                                 <li><a href="EnterPool.aspx">Pool Enter</a></li>
   <li><a href="PoolReport.aspx">Pool Report</a></li>
                                <%-- <li><a href="myinvestment.aspx">My Investment</a></li>--%>
                             </ul>
@@ -364,8 +364,7 @@
                         </li>
                          <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Our Portal<span class="arrow"></span></a>
                              <ul class="sub">
-                             <li><a href="ShoppingRedirect.aspx" target="_blank" >Shopping Portal</a></li>
-                                 <li><a href="GiftVoucherRedirect.aspx" target="_blank" >GV Portal</a></li>
+                             <li><a href="ShoppingRedirect.aspx" target="_blank" >Shopping Redirect</a></li>
                                  </ul> 
                          </li>
                         <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Support<span class="arrow"></span></a>
