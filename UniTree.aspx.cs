@@ -69,7 +69,7 @@ public partial class UniTree : System.Web.UI.Page
                     dt = Ds.Tables[0];
                     if (dt.Rows.Count > 0)
                     {
-                        sql = IsoStart + " Select Top 1 FormNo From " + ObjDal.dBName + ".." + dt.Rows[0]["TableName"] + " Where MFormno='" + Session["FormNo"] + "' " + IsoEnd;
+                        sql = IsoStart + " Select Top 1 FormNo From " + ObjDal.dBName + ".." + dt.Rows[0]["TableName"] + " Where Formno = '" + Session["FormNo"] + "' " + IsoEnd;
                         Dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, sql).Tables[0];
                         if (Dt.Rows.Count > 0)
                         {
@@ -106,40 +106,46 @@ public partial class UniTree : System.Web.UI.Page
         {
             string Tblname2 = "";
             string TblName = "";
-
-            if (Session["Ttype"] != null && Session["Ttype"].ToString() == "A")
+            if (Session["Ttype"] != null)
             {
-                TblName = "M_PoolTreeRelation";
-                Tblname2 = "MstPool";
+                DataTable dt = new DataTable();
+                DataSet Ds = new DataSet();
+                string strSql = ObjDal.Isostart + "Exec Sp_GetSelectPoolTableDetailPol " + Session["Ttype"] + " " + ObjDal.IsoEnd;
+                Ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql);
+                dt = Ds.Tables[0];
+                if (dt.Rows.Count > 0)
+                {
+                    TblName = dt.Rows[0]["PoolTableName"].ToString();
+                    Tblname2 = dt.Rows[0]["TableName"].ToString();
+                }
             }
-            else if (Session["Ttype"] != null && Session["Ttype"].ToString() == "B")
-            {
-                TblName = "M_Pool1TreeRelation";
-                Tblname2 = "MstPool1";
-            }
-            else if (Session["Ttype"] != null && Session["Ttype"].ToString() == "C")
-            {
-                TblName = "M_Pool2TreeRelation";
-                Tblname2 = "MstPool2";
-            }
-            else if (Session["Ttype"] != null && Session["Ttype"].ToString() == "D")
-            {
-                TblName = "M_Pool3TreeRelation";
-                Tblname2 = "MstPool3";
-            }
-
+            //if (Session["Ttype"] != null && Session["Ttype"].ToString() == "A")
+            //{
+            //    TblName = "M_PoolTreeRelation";
+            //    Tblname2 = "MstPool";
+            //}
+            //else if (Session["Ttype"] != null && Session["Ttype"].ToString() == "B")
+            //{
+            //    TblName = "M_Pool1TreeRelation";
+            //    Tblname2 = "MstPool1";
+            //}
+            //else if (Session["Ttype"] != null && Session["Ttype"].ToString() == "C")
+            //{
+            //    TblName = "M_Pool2TreeRelation";
+            //    Tblname2 = "MstPool2";
+            //}
+            //else if (Session["Ttype"] != null && Session["Ttype"].ToString() == "D")
+            //{
+            //    TblName = "M_Pool3TreeRelation";
+            //    Tblname2 = "MstPool3";
+            //}
             string formNo = Convert.ToString(Session["FORMNO"]);
             string downLineFormNo = Request["DownLineFormNo"];
 
-            string strQuery = IsoStart +
-                " Select FormnoDwn FROM " + ObjDal.dBName + ".." + TblName +
-                " WHERE FormNoDwn = " + downLineFormNo +
-                " AND FormNo = (Select Top 1 FormNo From " + ObjDal.dBName + ".." + Tblname2 +
-                " Where MFormNo = '" + formNo + "')" + IsoEnd;
-
+            string strQuery = IsoStart + " Select FormnoDwn FROM " + ObjDal.dBName + ".." + TblName + " WHERE FormNoDwn = " + downLineFormNo +
+                " AND FormNo = (Select Top 1 FormNo From " + ObjDal.dBName + ".." + Tblname2 + " Where MFormNo = '" + formNo + "')" + IsoEnd;
             DataSet ds1 = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strQuery);
-            bool result = ds1.Tables[0].Rows.Count > 0;
-
+           bool result = ds1.Tables[0].Rows.Count > 0;
             ds1.Dispose();
             return result;
         }
@@ -155,23 +161,10 @@ public partial class UniTree : System.Web.UI.Page
         {
             string query = "";
 
-            if (Session["Ttype"] != null && Session["Ttype"].ToString() == "A")
+            if (Session["Ttype"] != null)
             {
-                query = "exec sp_Pool_Tree " + strSelectedFormNo + "," + minDeptLevel;
+                query = "exec sp_Pool_Tree " + Session["Ttype"] + "," + strSelectedFormNo + "," + minDeptLevel;
             }
-            else if (Session["Ttype"] != null && Session["Ttype"].ToString() == "B")
-            {
-                query = "exec sp_Pool_1_Tree " + strSelectedFormNo + "," + minDeptLevel;
-            }
-            else if (Session["Ttype"] != null && Session["Ttype"].ToString() == "C")
-            {
-                query = "exec sp_Pool_2_Tree " + strSelectedFormNo + "," + minDeptLevel;
-            }
-            else if (Session["Ttype"] != null && Session["Ttype"].ToString() == "D")
-            {
-                query = "exec sp_Pool_3_Tree " + strSelectedFormNo + "," + minDeptLevel;
-            }
-
             return query;
         }
         catch (Exception ex)
@@ -191,7 +184,6 @@ public partial class UniTree : System.Web.UI.Page
         try
         {
             DataSet ds1 = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strQuery);
-
             double ParentId;
             double FormNo;
             string MemberName;
@@ -209,18 +201,13 @@ public partial class UniTree : System.Web.UI.Page
             string strUrlPath = "";
             string upgradeDt, IMECode, LevelDate;
             string tooltipstrig;
-
             myRunTimeString += "<Script Language=Javascript>\n";
             tooltipstrig = ToolTipTable(); // You must implement this
-
-            // Set default Parent
             ParentId = -1;
-
             if (!string.IsNullOrEmpty(Request["DownLineFormNo"]))
                 FormNo = Convert.ToDouble(Request["DownLineFormNo"]);
             else
                 FormNo = Convert.ToDouble(Session["FormNo"].ToString());
-
             strImageFile = "img/base.jpg";
             int i = 0;
             int LoopValue;
@@ -244,9 +231,9 @@ public partial class UniTree : System.Web.UI.Page
                 Doj = dr["doj"].ToString();
                 Category = dr["Category"].ToString();
                 LeftBV = Convert.ToDouble(dr["LeftBV"]);
-                RightBV = Convert.ToDouble(dr["rightBV"]);
-                LeftJoining = Convert.ToDouble(dr["Leftjoining"]);
-                RightJoining = Convert.ToDouble(dr["rightjoining"]);
+                RightBV = Convert.ToDouble(dr["bv"]);
+                LeftJoining = Convert.ToDouble(dr["leftbusiness"]);
+                RightJoining = Convert.ToDouble(dr["rightbusiness"]);
                 level = Convert.ToInt32(dr["level"]);
                 IMECode = dr["IMECode"].ToString();
                 strUrlPath = "UniTree.aspx?DownLineFormNo=" + FormNo;
@@ -254,23 +241,17 @@ public partial class UniTree : System.Web.UI.Page
                 LevelDate = dr["LevelDate"].ToString();
                 CurrentLevel = Convert.ToInt32(dr["CurrentLevel"]);
                 MemId = dr["FormNo"].ToString();
-
-                string sql = "Exec Sp_GetAchieveDetail '" + Session["formno"] + "','" + Session["Ttype"] + "'";
-                DataTable Dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, sql).Tables[0];
-
-                if (Dt.Rows.Count > 0 && Session["idno"].ToString() == dr["Formno"].ToString())
-                    MemberName = dr["Formno"] + " <b> - Achieved</b><br />(" + dr["memName"] + ")";
-                else
+                //string sql = "Exec Sp_GetAchieveDetail '" + Session["formno"] + "','" + Session["Ttype"] + "'";
+                //DataTable Dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, sql).Tables[0];
+                //if (Dt.Rows.Count > 0 && Session["idno"].ToString() == dr["Formno"].ToString())
+                //    MemberName = dr["Formno"] + " <b> - Achieved</b><br />(" + dr["memName"] + ")";
+                //else
                     MemberName = dr["Formno"] + "<br />(" + dr["memName"] + ")";
-
                 NodeName = dr["memName"].ToString();
                 LoopValue = Convert.ToInt32(dr["mlevel"]);
-
                 ExpandYesNo = (LoopValue < 4 && LoopValue > 0) || ParentId == -1 ? "true" : "false";
-
                 if (upgradeDt == "01 Jan 00")
                     upgradeDt = "";
-
                 if (FormNo <= 0)
                 {
                     strUrlPath = "";
