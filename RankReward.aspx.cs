@@ -23,10 +23,7 @@ public partial class RankReward : System.Web.UI.Page
         {
             if (Session["Status"] != null && (string)Session["Status"] == "OK")
             {
-                //AchievePair();
                 AchieveReward();
-                //NextReward();
-                //PendingReward();
             }
             else {
                 Response.Redirect("logout.aspx");

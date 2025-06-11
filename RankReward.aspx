@@ -3,82 +3,76 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <div class="col-md-12">
-        <div id="ctl00_ContentPlaceHolder1_divgenexbusiness" class="clearfix gen-profile-box">
-            <div class="profile-bar-simple red-border clearfix">
-                <h6>Reward
-                </h6>
+    <div class="container-fluid">
+        <!-- BEGIN PAGE HEADER-->
+        <div class="row-fluid">
+            <div class="span12">
+                <%--  <h3 class="page-title">Change Withdrawal Password   </h3>--%>
+                <ul class="breadcrumb">
+                    <li><a href="#"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
+                    <li><a href="#">Reward</a><span class="divider-last">&nbsp;</span></li>
+                </ul>
             </div>
-            <div class="clearfix gen-profile-box" style="min-height: auto;">
-                <div class="profile-bar clearfix" style="background: #fff;">
-                    <div class="clearfix">
-                        <br>
-                        <div class="centered">
-                            <div class="clr">
-                                <asp:Label ID="Label2" runat="server" CssClass="error"></asp:Label>
-                            </div>
-                            <div class="clr">
-                            </div>
-                            <div class="form-horizontal">
-                                <div class="col-md-12">
-                                    <div class="table-responsive">
-                                        <div class="col-md-12">
-                                          <%--  <h4>Achieved Reward Status</h4>
-                                            <br />--%>
-                                            <div id="DivSideB" class="table-responsive" runat="server">
-                                                <asp:GridView ID="GrdRewards" runat="server" PageSize="50" CssClass="table table-striped table-bordered"
-                                                    CellPadding="3" HorizontalAlign="Center" AutoGenerateColumns="true" AllowPaging="True"
-                                                    Width="100%">
-                                                    <Columns>
-                                                        <asp:TemplateField HeaderText="S.No." HeaderStyle-Width="40px">
-                                                            <ItemTemplate>
-                                                                <%#Container.DataItemIndex + 1%>
-                                                            </ItemTemplate>
-                                                        </asp:TemplateField>
-                                                    </Columns>
-                                                </asp:GridView>
+        </div>
+        <div>
+
+            <div class="row-fluid panelpart">
+
+                <div class="row-fluid panelpart">
+
+
+
+                    <div class="span12">
+
+                        <div class="row">
+                            <div class="widget">
+                                <div class="widget-title">
+                                    <h4><i class="icon-credit-card"></i>Reward</h4>
+                                    <span class="tools">
+                                        <a href="javascript:;" class="icon-chevron-down"></a>
+                                    </span>
+                                </div>
+                                <div class="clr">
+                                    <asp:Label ID="errMsg" runat="server" CssClass="error"></asp:Label>
+                                </div>
+                                <div class="widget-body">
+                                    <div class="form-vertical">
+                                        <div style="margin-bottom: 30px;">
+                                            <span id="ctl00_ContentPlaceHolder1_lblMsg" style="color: #C00000;"></span>
+                                            <asp:Label ID="Label1" runat="server" CssClass="error"></asp:Label>
+                                        </div>
+                                        <div id="DivSideA" runat="server">
+                                            <div class="table-responsive">
+                                                <div class="table mb-0" cellspacing="0" cellpadding="4" rules="all" border="1" id="DibDateCondition"
+                                                    style="width: 100%; border-collapse: collapse;" runat="server" visible="true">
+                                                    <asp:GridView ID="GrdRewards" runat="server" PageSize="50" CssClass="table table-striped table-bordered"
+                                                        CellPadding="3" HorizontalAlign="Center" AutoGenerateColumns="true" AllowPaging="True"
+                                                        Width="100%">
+                                                        <Columns>
+                                                            <asp:TemplateField HeaderText="S.No." HeaderStyle-Width="40px">
+                                                                <ItemTemplate>
+                                                                    <%#Container.DataItemIndex + 1%>
+                                                                </ItemTemplate>
+                                                            </asp:TemplateField>
+                                                        </Columns>
+                                                    </asp:GridView>
+                                                </div>
+
                                             </div>
                                         </div>
-                                       <%-- <div class="col-md-12">
-                                            <h4>Next Reward Status</h4>
-                                            <div id="Div3" class="table-responsive" runat="server">
-                                                <asp:GridView ID="GrdNext" runat="server" CssClass="table table-striped table-bordered"
-                                                    CellPadding="2" HorizontalAlign="Center" AutoGenerateColumns="true" Width="100%"
-                                                    EmptyDataText="No Data Display">
-                                                    <Columns>
-                                                        <asp:TemplateField HeaderText="S.No." HeaderStyle-Width="40px">
-                                                            <ItemTemplate>
-                                                                <%#Container.DataItemIndex + 1%>
-                                                            </ItemTemplate>
-                                                        </asp:TemplateField>
-                                                    </Columns>
-                                                </asp:GridView>
-                                            </div>
-                                        </div>--%>
-                                       <%-- <div class="col-md-12">
-                                            <h4>Pending Reward Status</h4>
-                                            <div id="Div2" class="table-responsive" runat="server">
-                                                <asp:GridView ID="GrdPending" runat="server" CssClass="table table-striped table-bordered"
-                                                    CellPadding="2" HorizontalAlign="Center" AutoGenerateColumns="true" Width="100%"
-                                                    EmptyDataText="No Data Display">
-                                                    <Columns>
-                                                        <asp:TemplateField HeaderText="S.No." HeaderStyle-Width="40px">
-                                                            <ItemTemplate>
-                                                                <%#Container.DataItemIndex + 1%>
-                                                            </ItemTemplate>
-                                                        </asp:TemplateField>
-                                                    </Columns>
-                                                </asp:GridView>
-                                            </div>
-                                        </div>--%>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="clearfix"></div>
+                    <p>&nbsp;</p>
+                    <hr>
+                    <div class="clearfix"></div>
                 </div>
             </div>
         </div>
     </div>
+
 </asp:Content>
 

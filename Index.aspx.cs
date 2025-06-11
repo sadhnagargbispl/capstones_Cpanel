@@ -31,7 +31,7 @@ public partial class Index : System.Web.UI.Page
             {
                 if (!Page.IsPostBack)
                 {
-                    LoadTeam();  
+                    LoadTeam();
                 }
             }
             else
@@ -80,11 +80,6 @@ public partial class Index : System.Web.UI.Page
             strquery += IsoEnd;
             Ds = SqlHelper.ExecuteDataset(ConfigurationManager.ConnectionStrings["constr1"].ConnectionString, CommandType.Text, strquery);
             Session["LoadTeam"] = Ds;
-            //if (Ds.Tables[0].Rows.Count > 0)
-            //{
-            //    RptIncome.DataSource = Ds.Tables[0];
-            //    RptIncome.DataBind();
-            //}
             if (Ds.Tables[1].Rows.Count > 0)
             {
                 RptDirects.DataSource = Ds.Tables[1];
@@ -106,45 +101,6 @@ public partial class Index : System.Web.UI.Page
                 lblLinkClient.Text = "http://" + HttpContext.Current.Request.Url.Host + "/Newjoining1.aspx?ref=" + Crypto.Encrypt(Ds.Tables[2].Rows[0]["mid"].ToString() + "/0/A");
                 aRfLinkClient.HRef = lblLinkClient.Text;
             }
-            //if (Ds.Tables[4].Rows.Count > 0)
-            //{
-            //    TotalInv.Text = Ds.Tables[4].Rows[0]["totalinv"].ToString();
-            //    lblinvest.Text = Ds.Tables[4].Rows[0]["percentage"].ToString();
-            //    lblinv.Text = Ds.Tables[4].Rows[0]["Inv"].ToString();
-            //    lblbalance.Text = Ds.Tables[4].Rows[0]["Inv"].ToString();
-            //    double progress = 0.00;
-            //    if (lblinv.Text == "0.000")
-            //    {
-            //        divprogress.InnerText = "";
-            //    }
-            //    else
-            //    {
-            //        progress = Math.Round((Convert.ToDouble(lblinv.Text) / Convert.ToDouble(lblinvest.Text)) * 100, 2);
-            //        divprogress.InnerText = progress + "%";
-            //    }
-            //    divprogress.Style.Add("color", "white");
-            //    divprogress.Style.Add("width", ((Convert.ToDouble(lblinv.Text) / Convert.ToDouble(lblinvest.Text)) * 100).ToString() + "%");
-            //    divprogress.Attributes.Add("aria-valuenow", ((Convert.ToDouble(lblinv.Text) / Convert.ToDouble(lblinvest.Text)) * 100).ToString());
-
-            //    TotalInvestment.Text = Ds.Tables[4].Rows[0]["totalinv"].ToString();
-            //    lblinvests.Text = Ds.Tables[4].Rows[0]["pers"].ToString();
-            //    lblinvs.Text = Ds.Tables[4].Rows[0]["InvROIKE"].ToString();
-            //    lblbalances.Text = Ds.Tables[4].Rows[0]["InvROIKE"].ToString();
-            //    double progresss = 0.00;
-            //    if (lblinvs.Text == "0.000")
-            //    {
-            //        divprogressbar.InnerText = "";
-            //    }
-            //    else
-            //    {
-            //        progresss = Math.Round((Convert.ToDouble(lblinvs.Text) / Convert.ToDouble(lblinvests.Text)) * 100, 2);
-            //        divprogressbar.InnerText = progresss + "%";
-            //    }
-            //    divprogressbar.Style.Add("color", "white");
-
-            //    divprogressbar.Style.Add("width", ((Convert.ToDouble(lblinvs.Text) / Convert.ToDouble(lblinvests.Text)) * 100).ToString() + "%");
-            //    divprogressbar.Attributes.Add("aria-valuenow", ((Convert.ToDouble(lblinvs.Text) / Convert.ToDouble(lblinvests.Text)) * 100).ToString());
-            //}
             if (Ds.Tables[5].Rows.Count > 0)
             {
                 gvBalance.DataSource = Ds.Tables[5];
@@ -160,42 +116,16 @@ public partial class Index : System.Web.UI.Page
                 RptTotalWithdrawallist.DataSource = Ds.Tables[12];
                 RptTotalWithdrawallist.DataBind();
             }
-            //if (Ds.Tables[6].Rows.Count > 0)
-            //{
-            //    gv.DataSource = Ds.Tables[6];
-            //    gv.DataBind();
-            //}
             if (Ds.Tables[7].Rows.Count > 0)
             {
                 RptNews.DataSource = Ds.Tables[7];
                 RptNews.DataBind();
             }
-
-            //if (Ds.Tables[13].Rows.Count > 0)
-            //{
-            //    RptDirects1.DataSource = Ds.Tables[13];
-            //    RptDirects1.DataBind();
-            //}            //if (Ds.Tables[13].Rows.Count > 0)
-            //{
-            //    RptDirects1.DataSource = Ds.Tables[13];
-            //    RptDirects1.DataBind();
-            //}
-            //if (Ds.Tables[8].Rows.Count > 0)
-            //{
-            //    SpanRank.InnerHtml = Ds.Tables[8].Rows[0]["Rank"].ToString();
-            //}
-            //else
-            //{
-            //    SpanRank.InnerText = "Not Achieved";
-            //}
-            //if (Ds.Tables[10].Rows.Count > 0)
-            //{
-            //    LblOpenLevel.InnerText = Ds.Tables[10].Rows[0]["OpenLevel"].ToString();
-            //}
-            //else
-            //{
-            //    LblOpenLevel.InnerText = "0";
-            //}
+            if (Ds.Tables[14].Rows.Count > 0)
+            {
+                LblMainLeg.Text = Ds.Tables[14].Rows[0]["MainLeg"].ToString();
+                LblOtherLeg.Text = Ds.Tables[14].Rows[0]["OtherLeg"].ToString();
+            }
         }
         catch (Exception ex)
         {

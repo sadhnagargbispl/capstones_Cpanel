@@ -332,6 +332,7 @@
                                 <li><a href="Mydirects.aspx">Level Wise Report</a></li>
                                 <li><a href="Referaltree.aspx">My Direct Tree </a></li>
                                 <li><a href="UniversalTree.aspx">Pool Tree</a></li>
+                                <li><a href="GlobalTree.aspx">Global Pool Tree</a></li>
                                 <li><a href="GroupbusinessDate.aspx">Date Wise Team Business</a></li>
                             </ul>
                         </li>
@@ -350,6 +351,7 @@
                                 <li><a href="DailyBinaryIncome.aspx">Daily Incentive</a></li>
                                 <li><a href="Voucher.aspx">Redemption Voucher</a></li>
                                  <li><a href="oldIncome.aspx">Old Payout</a></li>
+                                 <li><a href="RankReward.aspx">Salary Bonus</a></li>
                             </ul>
                         </li>
                         <li class="has-sub"><a href="javascript:;" class=""><span class="icon-box"><i class="icon-arrow-right"></i></span>Wallet<span class="arrow"></span></a>

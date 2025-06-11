@@ -78,109 +78,84 @@
             margin-right: 0.25rem;
             margin-left: 0.25rem;
         }
+
+        td.w-6.h-6.border.border-black.bg-yellow-700.text-center.font-normal {
+            padding: 12px;
+            font-size: 10px !important;
+            height: 20px !important;
+        }
+
+
+        .bg-yellow-700 {
+            opacity: 1;
+            background-color: #482289 !important;
+            color: white;
+        }
+
+
+        .bg-yellow-300 {
+            bg-opacity: 1;
+            background-color: rgb(99 60 167 / 52%);
+            color: white;
+        }
+
+        .border-black {
+            --bs-border-opacity: 1;
+            border-color: rgb(133 125 151) !important;
+        }
+
+
+        .text-\[11px\] {
+            font-size: 25px !important;
+            color: #482289 !important;
+        }
+
+        .btn-danger {
+            --bs-btn-color: #fff;
+            --bs-btn-bg: #482289;
+            border: 1px solid #482289;
+            --bs-btn-border-color: #482289;
+            --bs-btn-hover-color: #fff;
+            --bs-btn-hover-bg: #482289;
+            --bs-btn-hover-border-color: #482289;
+            --bs-btn-focus-shadow-rgb: 225, 83, 97;
+            --bs-btn-active-color: #fff;
+            --bs-btn-active-bg: #482289;
+            --bs-btn-active-border-color: #a52834;
+            --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+            --bs-btn-disabled-color: #fff;
+            --bs-btn-disabled-bg: #482289;
+            --bs-btn-disabled-border-color: #482289;
+        }
     </style>
 </head>
 <body class="bg-white">
     <form id="form1" runat="server">
         <div>
+            <br />
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            <button type="submit" class="btn btn-danger w-10 p-15" id="BtnSubmit" runat="server" onserverclick="BtnSubmit_ServerClick">
+                BACK TO HOME
+            </button>
             <div class="flex justify-center items-center p-4">
                 <div class="flex flex-col md:flex-row items-center gap-20">
+
                     <!-- MEMBER SELF TREE block -->
                     <div class="flex flex-col items-center">
                         <div class="text-[11px] mb-1 select-none">MEMBER SELF TREE (block)</div>
                         <table class="border-collapse border border-black" style="font-size: 11px; line-height: 1;">
-                            <thead>
-                                <tr>
-                                    <th colspan="10" class="bg-yellow-300 border border-black py-0.5">
-                                        <div class="text-center font-normal">Self ID</div>
-                                    </th>
-                                </tr>
-                            </thead>
                             <tbody>
-                                <tr>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                </tr>
-                                <tr>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                </tr>
-                                <tr>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                </tr>
-                                <tr>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                </tr>
-                                <tr>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                </tr>
-                                <tr>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                </tr>
-                                <tr>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-700"></td>
-                                    <td class="w-6 h-6 border border-black bg-yellow-300 text-center font-normal">1</td>
-                                </tr>
+                                <asp:Repeater ID="RptSelf" runat="server" OnItemDataBound="RptSelf_ItemDataBound">
+                                    <ItemTemplate>
+                                        <tr>
+                                            <asp:Repeater ID="InnerRepeaterSelf" runat="server">
+                                                <ItemTemplate>
+                                                    <%# Eval("FormNoDwn") %>
+                                                </ItemTemplate>
+                                            </asp:Repeater>
+                                        </tr>
+                                    </ItemTemplate>
+                                </asp:Repeater>
                             </tbody>
                         </table>
                     </div>
@@ -192,45 +167,20 @@
                     <!-- GLOBLE POOL TREE block -->
                     <div class="flex flex-col items-center relative">
                         <div class="text-[11px] mb-1 select-none">GLOBLE POOL TREE (block)</div>
-                        <asp:Repeater ID="Grdtotal" runat="server" OnItemDataBound="Grdtotal_ItemDataBound">
-                            <HeaderTemplate>
-                                <table class="border-collapse border border-black" style="font-size: 11px; line-height: 1;">
-                            </HeaderTemplate>
-                            <ItemTemplate>
-                                <tr>
-                                    <asp:Repeater ID="InnerRepeater" runat="server">
-                                        <ItemTemplate>
-                                            <td class="w-6 h-6 border border-black bg-yellow-700">
-                                                <%# Eval("FormNoDwn") %>
-                                            </td>
-                                        </ItemTemplate>
-                                    </asp:Repeater>
-                                </tr>
-                            </ItemTemplate>
-                            <FooterTemplate>
-                                </table>
-                            </FooterTemplate>
-                        </asp:Repeater>
-                        <%--<table class="border-collapse border border-black" style="font-size: 11px; line-height: 1;">
-                            <thead>
-                                <tr>
-                                    <th colspan="10" class="bg-yellow-300 border border-black py-0.5">
-                                        <div class="text-center font-normal">1</div>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <asp:Repeater ID="Grdtotal" runat="server" OnItemDataBound="Grdtotal_ItemDataBound">
-                                    <ItemTemplate>
+                        <table class="border-collapse border border-black" style="font-size: 11px; line-height: 1;">
+
+                            <asp:Repeater ID="Grdtotal" runat="server" OnItemDataBound="Grdtotal_ItemDataBound">
+                                <ItemTemplate>
+                                    <tr>
                                         <asp:Repeater ID="InnerRepeater" runat="server">
                                             <ItemTemplate>
-                                                <div><%# Eval("FormNoDwn") %></div>
+                                                <%# Eval("FormNoDwn") %>
                                             </ItemTemplate>
                                         </asp:Repeater>
-                                    </ItemTemplate>
-                                </asp:Repeater>
-                            </tbody>
-                        </table>--%>
+                                    </tr>
+                                </ItemTemplate>
+                            </asp:Repeater>
+                        </table>
                         <div class="flex items-center mt-1 space-x-1 select-none" style="font-size: 11px;">
                             <i class="fa fa-long-arrow-left font-normal"></i>
                             <span class="font-normal">ENTRY</span>

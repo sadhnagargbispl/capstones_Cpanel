@@ -2,40 +2,23 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
+using System.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Configuration;
+using System.Linq;
 
 public partial class GlobalTree : System.Web.UI.Page
 {
-    SqlConnection Conn;
-    SqlCommand Comm;
-    DataSet Ds = new DataSet();
-    SqlDataAdapter Ad;
-    DAL ObjDal = new DAL();
     string constr = ConfigurationManager.ConnectionStrings["constr"].ConnectionString;
-    string IsoStart;
-    string IsoEnd;
 
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Session["Status"] != null && Session["Status"].ToString() == "OK")
         {
-            try
+            if (!IsPostBack)
             {
-                if (!Page.IsPostBack)
-                {
-                    LoadDownline(Session["FormNo"].ToString());
-                }
-            }
-            catch (Exception ex)
-            {
-                string path = HttpContext.Current.Request.Url.AbsoluteUri;
-                string text = path + " (Page_Load):   " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss:fff") + Environment.NewLine;
-                ObjDal.WriteToFile(text + ex.Message);
-                Response.Write("Try later.");
+                LoadTree(Session["FormNo"].ToString());
+                LoadSelf(Session["FormNo"].ToString());
             }
         }
         else
@@ -44,72 +27,144 @@ public partial class GlobalTree : System.Web.UI.Page
         }
     }
 
-    private void LoadDownline(string FormNo)
+    private void LoadTree(string FormNo)
     {
         try
         {
-            // Fetch data from stored procedure
             string strSql = "Exec Sp_GetTree @FormNo";
             DataTable dt = SqlHelper.ExecuteDataset(constr, CommandType.Text, strSql, new SqlParameter("@FormNo", FormNo)).Tables[0];
 
-            // Group data into rows of 10
+            // Convert to list
+            List<DownlineItem> allData = dt.AsEnumerable()
+                .Select(r => new DownlineItem { FormNoDwn = r["FormNoDwn"].ToString() })
+                .ToList();
+
+            // First item as root
+            DownlineItem root = null;
+            if (allData.Count > 0)
+            {
+                root = allData[0];
+                allData.RemoveAt(0); // Remove root from list
+            }
+
             List<List<DownlineItem>> rows = new List<List<DownlineItem>>();
-            for (int i = 0; i < dt.Rows.Count; i += 10)
+
+            // Root row with center placement
+            List<DownlineItem> rootRow = new List<DownlineItem>();
+            for (int i = 0; i < 10; i++)
             {
-                var row = dt.AsEnumerable()
-                            .Skip(i)
-                            .Take(10)
-                            .Select(r => new DownlineItem { FormNoDwn = r["FormNoDwn"].ToString() })
-                            .ToList();
-                if (row.Count > 0)
-                {
-                    // Pad the row with empty cells if fewer than 10
-                    while (row.Count < 10)
-                    {
-                        row.Add(new DownlineItem { FormNoDwn = "" });
-                    }
-                    rows.Add(row);
-                }
+                if (i == 4)
+                    rootRow.Add(root ?? new DownlineItem { FormNoDwn = "" });
+                else
+                    rootRow.Add(new DownlineItem { FormNoDwn = "" });
+            }
+            rows.Add(rootRow);
+
+            // Fill the rest in 10s
+            for (int i = 0; i < 110; i += 10)
+            {
+                var row = allData.Skip(i).Take(10).ToList();
+                while (row.Count < 10)
+                    row.Add(new DownlineItem { FormNoDwn = "" });
+
+                rows.Add(row);
             }
 
-            // Pad with empty rows if fewer than 10 rows
-            while (rows.Count < 10)
-            {
-                var emptyRow = new List<DownlineItem>();
-                for (int i = 0; i < 10; i++)
-                {
-                    emptyRow.Add(new DownlineItem { FormNoDwn = "" });
-                }
-                rows.Add(emptyRow);
-            }
-
-            // Store original DataTable in Session (if needed)
             Session["DirectDownline"] = dt;
 
-            // Bind grouped data to the outer Repeater
             Grdtotal.DataSource = rows;
             Grdtotal.DataBind();
         }
         catch (Exception ex)
         {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "alertMessage", $"alert('Error: {ex.Message}');", true);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Error: " + ex.Message + "');", true);
         }
     }
     protected void Grdtotal_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
         if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
         {
-            // Find the inner Repeater
             Repeater innerRepeater = (Repeater)e.Item.FindControl("InnerRepeater");
-
-            // Bind the inner Repeater to the row's data (10 columns)
             var rowData = (List<DownlineItem>)e.Item.DataItem;
             innerRepeater.DataSource = rowData;
             innerRepeater.DataBind();
         }
     }
+    private void LoadSelf(string FormNo)
+    {
+        try
+        {
+            string strSql = "Exec Sp_GetTreeSelf @FormNo";
+            DataTable dt = SqlHelper.ExecuteDataset(constr, CommandType.Text, strSql, new SqlParameter("@FormNo", FormNo)).Tables[0];
+
+            // Convert to list
+            List<SelfDownlineItem> allData = dt.AsEnumerable()
+                .Select(r => new SelfDownlineItem { FormNoDwn = r["FormNoDwn"].ToString() })
+                .ToList();
+
+            // First item as root
+            SelfDownlineItem root = null;
+            if (allData.Count > 0)
+            {
+                root = allData[0];
+                allData.RemoveAt(0); // Remove root from list
+            }
+
+            List<List<SelfDownlineItem>> rows = new List<List<SelfDownlineItem>>();
+
+            // Root row with center placement
+            List<SelfDownlineItem> rootRow = new List<SelfDownlineItem>();
+            for (int i = 0; i < 10; i++)
+            {
+                if (i == 4)
+                    rootRow.Add(root ?? new SelfDownlineItem { FormNoDwn = "" });
+                else
+                    rootRow.Add(new SelfDownlineItem { FormNoDwn = "" });
+            }
+            rows.Add(rootRow);
+
+            // Fill the rest in 10s
+            for (int i = 0; i < 110; i += 10)
+            {
+                var row = allData.Skip(i).Take(10).ToList();
+                while (row.Count < 10)
+                    row.Add(new SelfDownlineItem { FormNoDwn = "" });
+
+                rows.Add(row);
+            }
+
+            Session["DirectDownline"] = dt;
+
+            RptSelf.DataSource = rows;
+            RptSelf.DataBind();
+        }
+        catch (Exception ex)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Error: " + ex.Message + "');", true);
+        }
+    }
+    protected void RptSelf_ItemDataBound(object sender, RepeaterItemEventArgs e)
+    {
+        if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+        {
+            Repeater InnerRepeaterSelf = (Repeater)e.Item.FindControl("InnerRepeaterSelf");
+            var rowData = (List<SelfDownlineItem>)e.Item.DataItem;
+            InnerRepeaterSelf.DataSource = rowData;
+            InnerRepeaterSelf.DataBind();
+        }
+    }
+
+    protected void BtnSubmit_ServerClick(object sender, EventArgs e)
+    {
+        Response.Redirect("index.aspx");
+    }
 }
+
 public class DownlineItem
+{
+    public string FormNoDwn { get; set; }
+}
+public class SelfDownlineItem
 {
     public string FormNoDwn { get; set; }
 }

@@ -166,155 +166,182 @@
                         </ItemTemplate>
                     </asp:Repeater>
                 </div>
+
             </div>
-            <div class="row" style="margin-bottom: 0em;">
-                <div class="span12">
-                    <asp:Repeater ID="gvBalance" runat="server">
-                        <ItemTemplate>
-                            <div class="span6 packeviti">
-                                <div class="box box-widget widget-user-2">
-                                    <a href="#">
-                                        <div class="widget-user-header bg-green gradientclr">
-                                            <div class="widget-user-image"><i class="fa fa-gift" aria-hidden="true"></i></div>
-                                            <h3 class="widget-user-username"><%#Eval("WalletName")%></h3>
+            <div class="row-fluid panelpart" style="margin-bottom: 0em;">
+                <asp:Repeater ID="gvBalance" runat="server">
+                    <ItemTemplate>
+                        <div class="span3">
+                            <div class="box box-widget widget-user-2">
+                                <a href="#">
+                                    <div class="widget-user-header bg-green gradientclr">
+                                        <div class="widget-user-image"><i class="fa fa-gift" aria-hidden="true"></i></div>
+                                        <h3 class="widget-user-username"><%#Eval("WalletName")%></h3>
+                                    </div>
+                                </a>
+                                <div class="widgetleftright barset">
+                                    <div class="span4 border-right">
+                                        <div class="description-block">
+                                            <h5 class="description-header"><span><span><%#Eval("Credit")%></span> </span></h5>
+                                            <span class="description-text">Credit</span>
                                         </div>
-                                    </a>
-                                    <div class="widgetleftright barset">
-                                        <div class="span4 border-right">
-                                            <div class="description-block">
-                                                <h5 class="description-header"><span id="ctl00_ContentPlaceHolder1_lblleftgroup"><span id="ctl00_ContentPlaceHolder1_lblleftgroup"><%#Eval("Credit")%></span> </span></h5>
-                                                <span class="description-text">Credit</span>
-                                            </div>
+                                    </div>
+                                    <div class="span4 border-right">
+                                        <div class="description-block">
+                                            <h5 class="description-header"><span><span><%#Eval("Debit")%></span></span></h5>
+                                            <span class="description-text">Debit </span>
                                         </div>
-                                        <div class="span4 border-right">
-                                            <div class="description-block">
-                                                <h5 class="description-header"><span id="ctl00_ContentPlaceHolder1_lblrightgroup"><span id="ctl00_ContentPlaceHolder1_lblrightgroup"><%#Eval("Debit")%></span></span></h5>
-                                                <span class="description-text">Debit </span>
-                                            </div>
-                                        </div>
-                                        <div class="span4">
-                                            <div class="description-block">
-                                                <h5 class="description-header"><span id="ctl00_ContentPlaceHolder1_lbltotalgroup"><span id="ctl00_ContentPlaceHolder1_lbltotalgroup"><%#Eval("Balance")%></span></span></h5>
-                                                <span class="description-text">Balance</span>
-                                            </div>
+                                    </div>
+                                    <div class="span4">
+                                        <div class="description-block">
+                                            <h5 class="description-header"><span><span><%#Eval("Balance")%></span></span></h5>
+                                            <span class="description-text">Balance</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </ItemTemplate>
-                    </asp:Repeater>
+                        </div>
+                    </ItemTemplate>
+                </asp:Repeater>
+            </div>
+        </div>
+        <div class="row-fluid panelpart">
+            <div class="span4 packeviti">
+                <div class="box box-widget widget-user-2">
+                    <div class="widget-user-header bg-aqua gradientclr">
+                        <div class="widget-user-image">
+                            <i class="fa fa-user" aria-hidden="true"
+                                style="font-size: 60px; color: rgb(247, 247, 248); background: #2f90d9; padding: 10px 20px; position: absolute; top: -41px; left: 38%; border-radius: 50%; border: 2px solid rgba(48, 95, 182, 0.14); opacity: .8;"></i>
+                        </div>
+                        <h3 class="widget-user-username">Team Business</h3>
+                    </div>
 
+                    <div class="widgetleftright barset">
+                        <div class="span6 border-right">
+                            <div class="description-block">
+                                <h5 class="description-header"><span><span>
+                                    <asp:Label ID="LblMainLeg" runat="server" Text="" CssClass="error-message"></asp:Label></span> </span></h5>
+                                <span class="description-text">Main Leg</span>
+                            </div>
+                        </div>
+                        <div class="span6 border-right">
+                            <div class="description-block">
+                                <h5 class="description-header"><span><span>
+                                    <asp:Label ID="LblOtherLeg" runat="server" Text="" CssClass="error-message"></asp:Label></span></span></h5>
+                                <span class="description-text">Other Leg</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <%-- -----For Sadhana--%>
                 </div>
             </div>
-            <div class="row-fluid panelpart">
-              
-                <div class="span12 packeviti">
-                    <div class="box box-widget widget-user-2">
-                        <div class="widget-user-header bg-aqua gradientclr">
-                            <div class="widget-user-image"><i class="fa fa-user" aria-hidden="true" style="font-size: 60px; color: rgb(247, 247, 248); background: #2f90d9; padding: 10px 20px; position: absolute; top: -41px; left: 38%; border-radius: 50%; border: 2px solid rgba(48, 95, 182, 0.14); opacity: .8;"></i></div>
-                            <h3 class="widget-user-username"><%=Session["Title"].ToString ()%> : Referral Link </h3>
-                        </div>
+            <div class="span8 packeviti">
+                <div class="box box-widget widget-user-2">
+                    <div class="widget-user-header bg-aqua gradientclr">
+                        <div class="widget-user-image"><i class="fa fa-user" aria-hidden="true" style="font-size: 60px; color: rgb(247, 247, 248); background: #2f90d9; padding: 10px 20px; position: absolute; top: -41px; left: 38%; border-radius: 50%; border: 2px solid rgba(48, 95, 182, 0.14); opacity: .8;"></i></div>
+                        <h3 class="widget-user-username"><%=Session["Title"].ToString ()%> : Referral Link </h3>
+                    </div>
 
-                        <div class="widgetleftright barset">
-                            <div class="span8 border-right">
-                                <div class="description-block">
-                                    <h5 class="description-header"><span id="ctl00_ContentPlaceHolder1_lblleftgroup">Referral Link : <a runat="server" target="_blank" id="aRfLink">
-                                        <asp:Label ID="lblLink" Style="color: blue;" runat="server"></asp:Label></a></span></h5>
+                    <div class="widgetleftright barset">
+                        <div class="span8 border-right">
+                            <div class="description-block">
+                                <h5 class="description-header"><span id="ctl00_ContentPlaceHolder1_lblleftgroup">Referral Link : <a runat="server" target="_blank" id="aRfLink">
+                                    <asp:Label ID="lblLink" Style="color: blue;" runat="server"></asp:Label></a></span></h5>
 
-                                </div>
-                            </div>
-                            <div class="span4 border-right">
-                                <div class="description-block">
-                                    <h5 class="description-header">
-                                        <span id="ctl00_ContentPlaceHolder1_lblrightgroup">
-                                            <span id="ctl00_ContentPlaceHolder1_lblrightgroup">
-                                                <asp:Button ID="btncopy" class="btn btn-danger" OnClientClick="return copyText();"
-                                                    runat="server" Text="Copy URL" />
-                                                <%-- <button type="button" class="btn btn-danger">Copy URL</button>--%>
-                                            </span>
-                                        </span>
-                                    </h5>
-                                </div>
                             </div>
                         </div>
-                        <%-- -----For Sadhana--%>
-                        <div class="widgetleftright barset" style ="display:none;">
-                            <div class="span8 border-right">
-                                <div class="description-block">
-                                    <h5 class="description-header"><span id="ctl00_ContentPlaceHolder1_lblleftgroup">For Client : <a runat="server" target="_blank" id="aRfLinkClient">
-                                        <asp:Label ID="lblLinkClient" Style="color: blue;" runat="server"></asp:Label></a></span></h5>
-
-                                </div>
-                            </div>
-                            <div class="span4 border-right">
-                                <div class="description-block">
-                                    <h5 class="description-header">
+                        <div class="span4 border-right">
+                            <div class="description-block">
+                                <h5 class="description-header">
+                                    <span id="ctl00_ContentPlaceHolder1_lblrightgroup">
                                         <span id="ctl00_ContentPlaceHolder1_lblrightgroup">
-                                            <span id="ctl00_ContentPlaceHolder1_lblrightgroup">
-                                                <asp:Button ID="Button1" class="btn btn-danger" OnClientClick="return copyText1();"
-                                                    runat="server" Text="Copy URL" />
-                                                <%-- <button type="button" class="btn btn-danger">Copy URL</button>--%>
-                                            </span>
+                                            <asp:Button ID="btncopy" class="btn btn-danger" OnClientClick="return copyText();"
+                                                runat="server" Text="Copy URL" />
+                                            <%-- <button type="button" class="btn btn-danger">Copy URL</button>--%>
                                         </span>
-                                    </h5>
-                                </div>
+                                    </span>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                    <%-- -----For Sadhana--%>
+                    <div class="widgetleftright barset" style="display: none;">
+                        <div class="span8 border-right">
+                            <div class="description-block">
+                                <h5 class="description-header"><span id="ctl00_ContentPlaceHolder1_lblleftgroup">For Client : <a runat="server" target="_blank" id="aRfLinkClient">
+                                    <asp:Label ID="lblLinkClient" Style="color: blue;" runat="server"></asp:Label></a></span></h5>
+
+                            </div>
+                        </div>
+                        <div class="span4 border-right">
+                            <div class="description-block">
+                                <h5 class="description-header">
+                                    <span id="ctl00_ContentPlaceHolder1_lblrightgroup">
+                                        <span id="ctl00_ContentPlaceHolder1_lblrightgroup">
+                                            <asp:Button ID="Button1" class="btn btn-danger" OnClientClick="return copyText1();"
+                                                runat="server" Text="Copy URL" />
+                                            <%-- <button type="button" class="btn btn-danger">Copy URL</button>--%>
+                                        </span>
+                                    </span>
+                                </h5>
                             </div>
                         </div>
                     </div>
                 </div>
-              
-                <div class="clearfix"></div>
+            </div>
 
-                <div class="row-fluid panelpart">
-                   
-                    <div class="span12">
-                        <div id="ctl00_ContentPlaceHolder1_Distributor1_TbBoard">
-                            <div class="row-fluid">
-                                <div class="span12">
-                                    <div class="widget">
-                                        <div class="widget-title">
-                                            <h4><i class="icon-user"></i>Distributor Details</h4>
-                                            <span class="tools"><a href="javascript:;" class="icon-chevron-down"></a></span>
-                                        </div>
-                                        <div class="widget-body">
-                                            <div class="row-fluid">
-                                                <span class="span12">
-                                                    <table class="table table-striped table-bordered table-advance table-hover">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td width="15%"><strong>CIN No.</strong> </td>
-                                                                <td width="35%"><span id="ctl00_ContentPlaceHolder1_Distributor1_lbl_userid">
-                                                                    <asp:Label ID="LblUserID" runat="server" Text=""></asp:Label></span></td>
-                                                                <td width="15%"><strong>Name</strong> </td>
-                                                                <td width="35%"><span id="ctl00_ContentPlaceHolder1_Distributor1_lbl_usrename">
-                                                                    <asp:Label ID="LblUserName" runat="server" Text=""></asp:Label></span> </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><strong>Starting Date </strong></td>
-                                                                <td><span id="ctl00_ContentPlaceHolder1_Distributor1_lbl_doj">
-                                                                    <asp:Label ID="LbldateOfJoining" runat="server" Text=""></asp:Label></span> </td>
-                                                               <td><%--<strong>Designation </strong>--%></td>
-                                                                <td><%--<span id="ctl00_ContentPlaceHolder1_Distributor1_lbl_designation">
+            <div class="clearfix"></div>
+
+            <div class="row-fluid panelpart">
+
+                <div class="span12">
+                    <div id="ctl00_ContentPlaceHolder1_Distributor1_TbBoard">
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <div class="widget">
+                                    <div class="widget-title">
+                                        <h4><i class="icon-user"></i>Distributor Details</h4>
+                                        <span class="tools"><a href="javascript:;" class="icon-chevron-down"></a></span>
+                                    </div>
+                                    <div class="widget-body">
+                                        <div class="row-fluid">
+                                            <span class="span12">
+                                                <table class="table table-striped table-bordered table-advance table-hover">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td width="15%"><strong>CIN No.</strong> </td>
+                                                            <td width="35%"><span id="ctl00_ContentPlaceHolder1_Distributor1_lbl_userid">
+                                                                <asp:Label ID="LblUserID" runat="server" Text=""></asp:Label></span></td>
+                                                            <td width="15%"><strong>Name</strong> </td>
+                                                            <td width="35%"><span id="ctl00_ContentPlaceHolder1_Distributor1_lbl_usrename">
+                                                                <asp:Label ID="LblUserName" runat="server" Text=""></asp:Label></span> </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><strong>Starting Date </strong></td>
+                                                            <td><span id="ctl00_ContentPlaceHolder1_Distributor1_lbl_doj">
+                                                                <asp:Label ID="LbldateOfJoining" runat="server" Text=""></asp:Label></span> </td>
+                                                            <td><%--<strong>Designation </strong>--%></td>
+                                                            <td><%--<span id="ctl00_ContentPlaceHolder1_Distributor1_lbl_designation">
                                                                     <asp:Label ID="LblRank" runat="server" Text=""></asp:Label></span> --%></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><strong>Distributor Code</strong> </td>
-                                                                <td><span id="ctl00_ContentPlaceHolder1_Distributor1_lbl_suserid">
-                                                                    <asp:Label ID="LblSponsorID" runat="server" Text=""></asp:Label></span> </td>
-                                                                <td><strong>Distributor Name</strong> </td>
-                                                                <td><span id="ctl00_ContentPlaceHolder1_Distributor1_lbl_susername">
-                                                                    <asp:Label ID="LblSponsorName" runat="server" Text=""></asp:Label></span> </td>
-                                                            </tr>
-                                                            <%--   <tr>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><strong>Distributor Code</strong> </td>
+                                                            <td><span id="ctl00_ContentPlaceHolder1_Distributor1_lbl_suserid">
+                                                                <asp:Label ID="LblSponsorID" runat="server" Text=""></asp:Label></span> </td>
+                                                            <td><strong>Distributor Name</strong> </td>
+                                                            <td><span id="ctl00_ContentPlaceHolder1_Distributor1_lbl_susername">
+                                                                <asp:Label ID="LblSponsorName" runat="server" Text=""></asp:Label></span> </td>
+                                                        </tr>
+                                                        <%--   <tr>
                                                                 <td><strong>Direct Member</strong> </td>
                                                                 <td><span id="ctl00_ContentPlaceHolder1_Distributor1_lbldirectred">3</span>/<span id="ctl00_ContentPlaceHolder1_Distributor1_lblgreen">3</span> </td>
                                                                 <td></td>
                                                                 <td></td>
                                                             </tr>--%>
-                                                        </tbody>
-                                                    </table>
-                                                </span>
-                                            </div>
+                                                    </tbody>
+                                                </table>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -322,98 +349,97 @@
                         </div>
                     </div>
                 </div>
-                <div class="row-fluid">
-                   
-                    <div class="span6">
-                        <div class="widget">
-                            <div class="widget-title">
-                                <h4><i class="icon-list-ol"></i>
-                                    Sponsor Members
-                                </h4>
-                                <span class="tools"><a href="javascript:;" class="icon-chevron-down"></a></span>
-                            </div>
-                            <div class="widget-body">
-                                <table class="table table-striped table-bordered table-advance table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th><i class="icon-list"></i></th>
-                                            <th><i class="icon-user"></i>User Name </th>
-                                            <th><i class="icon-user-md"></i>Name </th>
-                                            <th><i class="icon-tags"></i>Date </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <asp:Repeater ID="RptDirects" runat="server">
-                                            <ItemTemplate>
-                                                <tr>
-                                                    <td><%#Eval("SNo")%></td>
-                                                    <td><%#Eval("Member ID")%></td>
-                                                    <td><%#Eval("Member Name")%></td>
-                                                    <td><%#Eval("Activation Date")%></td>
-                                                </tr>
-                                            </ItemTemplate>
-                                        </asp:Repeater>
+            </div>
+            <div class="row-fluid">
 
-                                    </tbody>
-                                </table>
-                                <div class="space7"></div>
-                                <div class="clearfix"><a href="#" class="btn btn-mini pull-right btn-danger">More</a> </div>
-                            </div>
+                <div class="span6">
+                    <div class="widget">
+                        <div class="widget-title">
+                            <h4><i class="icon-list-ol"></i>
+                                Sponsor Members
+                            </h4>
+                            <span class="tools"><a href="javascript:;" class="icon-chevron-down"></a></span>
                         </div>
-                    </div>
-                    <div class="span6 column sortable">
-                        <div class="widget">
-                            <div class="widget-title">
-                                <h4><i class="fa fa-envelope"></i>Latest News</h4>
-                                <span class="tools"><a href="javascript:;" class="icon-chevron-down"></a></span>
-                            </div>
-                            <div class="widget-body">
-
-                                <marquee direction="up" scrollamount="3" style="height: 165px;">
-                                    <asp:Repeater runat="server" ID="RptNews">
+                        <div class="widget-body">
+                            <table class="table table-striped table-bordered table-advance table-hover">
+                                <thead>
+                                    <tr>
+                                        <th><i class="icon-list"></i></th>
+                                        <th><i class="icon-user"></i>User Name </th>
+                                        <th><i class="icon-user-md"></i>Name </th>
+                                        <th><i class="icon-tags"></i>Date </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <asp:Repeater ID="RptDirects" runat="server">
                                         <ItemTemplate>
-                                            <h4><%#Eval("NewHeding")%></h4>
-                                            <p><%#Eval("NewsDetail")%></p>
-                                            <p><%#Eval("NewsDate")%></p>
-                                            <hr>
+                                            <tr>
+                                                <td><%#Eval("SNo")%></td>
+                                                <td><%#Eval("Member ID")%></td>
+                                                <td><%#Eval("Member Name")%></td>
+                                                <td><%#Eval("Activation Date")%></td>
+                                            </tr>
                                         </ItemTemplate>
                                     </asp:Repeater>
-                                </marquee>
 
-                                <div class="space7"></div>
-                                <div class="clearfix"></div>
-                            </div>
+                                </tbody>
+                            </table>
+                            <div class="space7"></div>
+                            <div class="clearfix"><a href="#" class="btn btn-mini pull-right btn-danger">More</a> </div>
                         </div>
                     </div>
                 </div>
+                <div class="span6 column sortable">
+                    <div class="widget">
+                        <div class="widget-title">
+                            <h4><i class="fa fa-envelope"></i>Latest News</h4>
+                            <span class="tools"><a href="javascript:;" class="icon-chevron-down"></a></span>
+                        </div>
+                        <div class="widget-body">
 
-                <div class="row-fluid" style="display: none;">
-                    <div class="span12">
-                        <div class="widget">
-                            <div class="widget-title">
-                                <h4><i class="icon-external-link"></i>Top Achievers</h4>
-                                <span class="tools"><a href="javascript:;" class="icon-chevron-down"></a></span>
-                            </div>
-                            <div class="widget-body">
-                                <div class="space7"></div>
-                                <div class="clearfix"><a href="#" class="btn btn-mini pull-right">More</a> </div>
-                            </div>
+                            <marquee direction="up" scrollamount="3" style="height: 165px;">
+                                <asp:Repeater runat="server" ID="RptNews">
+                                    <ItemTemplate>
+                                        <h4><%#Eval("NewHeding")%></h4>
+                                        <p><%#Eval("NewsDetail")%></p>
+                                        <p><%#Eval("NewsDate")%></p>
+                                        <hr>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </marquee>
+
+                            <div class="space7"></div>
+                            <div class="clearfix"></div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="row-fluid" style="display: none;">
-                    <div class="span12">
-                        <div class="widget ">
-                            <div class="widget-title">
-                                <h4><i class="icon-globe"></i>Announcement</h4>
-                                <span class="tools"><a href="javascript:;" class="icon-chevron-down"></a></span>
-                            </div>
+            <div class="row-fluid" style="display: none;">
+                <div class="span12">
+                    <div class="widget">
+                        <div class="widget-title">
+                            <h4><i class="icon-external-link"></i>Top Achievers</h4>
+                            <span class="tools"><a href="javascript:;" class="icon-chevron-down"></a></span>
+                        </div>
+                        <div class="widget-body">
+                            <div class="space7"></div>
+                            <div class="clearfix"><a href="#" class="btn btn-mini pull-right">More</a> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-fluid" style="display: none;">
+                <div class="span12">
+                    <div class="widget ">
+                        <div class="widget-title">
+                            <h4><i class="icon-globe"></i>Announcement</h4>
+                            <span class="tools"><a href="javascript:;" class="icon-chevron-down"></a></span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </asp:Content>
