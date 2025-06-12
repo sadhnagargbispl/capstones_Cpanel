@@ -637,6 +637,23 @@ partial class WalletRequest : System.Web.UI.Page
             {
                 divImage.Visible = true;
             }
+            if (DdlPaymode.SelectedValue == "7")
+            {
+                div2.Visible = true;
+            }
+            else
+            {
+                div2.Visible = false;
+            }
+            if (DdlPaymode.SelectedValue == "8")
+            {
+                div3.Visible = true;
+            }
+            else
+            {
+                div3.Visible = false;
+            }
+            
             // If Dr(0)("Istransdate") = "N" Then
             // divDDDate.Visible = False
             // Else

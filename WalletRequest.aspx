@@ -254,13 +254,13 @@
                                             <div id="div2" runat="server" visible="false">
                                                 <center>
                                                     <div class="form-group">
-                                                        <img src="images/qrcode1.jpg" alt="" style="height: 160px" />
+                                                        <img src="images/9999-Activation-QRCode.jpg" alt="" style="height: 360px" />
                                                     </div>
-
-                                                    <span style="font-weight: 700">Wallet Address: </span>&nbsp;&nbsp;&nbsp;
+                                                   
+                                                   <%-- <span style="font-weight: 700">Wallet Address: </span>&nbsp;&nbsp;&nbsp;
             <asp:Label ID="lblLink" runat="server" Style="font-weight: 500" CssClass="Link">TLznxdPoQQNT9KqXnyZ4ufyTgJ4GxwLTTu </asp:Label>&nbsp;&nbsp;
             <asp:ImageButton ID="btncopy" runat="Server" OnClientClick="return copyText();" ImageUrl="images/copy.png"
-                Width="20px" />
+                Width="20px" />--%>
                                                 </center>
                                                 <style>
                                                     @media only screen and (max-width:768) {
@@ -271,6 +271,18 @@
                                                 </style>
                                             </div>
                                         </div>
+
+                                        <div class="control-group ">
+    <div id="div3" runat="server" visible="false">
+        <center>
+             <span style="font-weight: 700">A/c Holder Name - Copstons Industrial Services </span><br />
+                                         <span style="font-weight: 700">Bank Name - Bank Of India </span><br />
+ <span style="font-weight: 700">A/c No. - 082920110000038 </span><br />
+ <span style="font-weight: 700">IFSC Code - BKID0000829 </span><br />
+ <span style="font-weight: 700">Branch - MIDC Waluj Branch </span>
+                    </center>
+    </div>
+</div>
                                     </div>
                                 </div>
                             </div>

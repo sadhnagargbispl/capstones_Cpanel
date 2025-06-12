@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -636,6 +636,13 @@ partial class PoolWalletRequest : System.Web.UI.Page
             else
             {
                 divImage.Visible = true;
+            }
+            if (DdlPaymode.SelectedValue == "7")
+            {
+                div2.Visible = true;
+            }
+            else {
+                div2.Visible = false;
             }
             // If Dr(0)("Istransdate") = "N" Then
             // divDDDate.Visible = False
