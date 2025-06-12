@@ -213,7 +213,7 @@
                                 <div class="widget-body">
                                     <div class="form-horizontal">
                                         <div class="control-group">
-                                            <h4>Available Fund Wallet Balance:<span class="red" id="AvailableBal" style="color: Red" runat="server"></span>
+                                            <h4>Available Pool Wallet Balance:<span class="red" id="AvailableBal" style="color: Red" runat="server"></span>
                                             </h4>
                                         </div>
                                         <div class="control-group">

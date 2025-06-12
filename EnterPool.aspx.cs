@@ -328,7 +328,7 @@ public partial class EnterPool : System.Web.UI.Page
         try
         {
             DataTable dt;
-            string str = objDal.Isostart + " Select * From dbo.ufnGetBalance('" + Convert.ToInt32(Session["Formno"]) + "','S')" + objDal.IsoEnd;
+            string str = objDal.Isostart + " Select * From dbo.ufnGetBalance('" + Convert.ToInt32(Session["Formno"]) + "','P')" + objDal.IsoEnd;
 
             dt = new DataTable();
             dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
@@ -370,7 +370,7 @@ public partial class EnterPool : System.Web.UI.Page
         try
         {
             DataTable dt = new DataTable();
-            string str = " Select * From dbo.ufnGetBalance('" + Convert.ToInt32(Session["Formno"]) + "','S')";
+            string str = " Select * From dbo.ufnGetBalance('" + Convert.ToInt32(Session["Formno"]) + "','P')";
             dt = SqlHelper.ExecuteDataset(constr, CommandType.Text, str).Tables[0];
             if (dt.Rows.Count > 0)
             {
