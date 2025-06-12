@@ -89,7 +89,7 @@
         Coupons</strong></p>
 <br />
 <div class="btn-group" role="group" aria-label="Basic example">
-    <a href="#" type="button" class="btn btn-danger" target="_blank">View Shopping Portal</a>
+    <a href="ShoppingRedirect.aspx" type="button" class="btn btn-danger" target="_blank">View Shopping Portal</a>
     &nbsp; &nbsp; <a href="VoucherReport.aspx" type="button" class="btn btn-warning">
         View Coupons Detail</a>
 </div>
