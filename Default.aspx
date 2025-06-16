@@ -13,11 +13,8 @@
             window.history.forward();
         }
     </script>
-
     <script type="text/javascript" src="highslide/highslide-full.js"></script>
-
     <link rel="stylesheet" type="text/css" href="highslide/highslide.css" />
-
     <script type="text/javascript">
         hs.graphicsDir = 'highslide/graphics/';
         hs.align = 'center';
@@ -37,10 +34,8 @@
         // Add the slideshow providing the controlbar and the thumbstrip
 
     </script>
-
-    <!--Slider-in icons-->
-    <!--[if lt IE 9]>
-<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js" >
+    </script>
 <![endif]-->
 
     <script language="javascript" type="text/javascript">
@@ -48,14 +43,12 @@
             document.loginform.Txtuid.focus();
         }
     </script>
-
     <script type="text/javascript">
         function disableBackButton() {
             window.history.forward();
         }
         setTimeout("disableBackButton()", 0);
     </script>
-
     <script type="text/javascript">
 
         history.pushState(null, null, location.href);
@@ -133,22 +126,12 @@
     <div class="container mt-4">
         <div class="row justify-content-center">
             <form id="aspnetForm" runat="server" name="aspnetForm">
-                <%--<div class="form-body without-side">--%>
                 <div class="widget" style="width: 40%; margin: auto;">
-                    <!-- <div class="website-logo">
-         <a href="#">
-             <div class="logo">
-                 <img class="logo-size" src="./files/logo-light.svg" alt="">
-             </div>
-         </a>
-     </div> -->
-                    <%--  <div class="row">--%>
                     <div class="widget-title">
                         <h4><i class="icon-user"></i>Login details</h4>
                     </div>
                     <div class="form-holder">
                         <div class="form-content">
-
                             <div class="widget-body">
                                 <!--Logo-->
                                 <div class="">
@@ -176,14 +159,17 @@
                                 </div>
                                 <br>
                                 <div class="form-group">
-                                    <%--       <asp:Button ID="BtnSubmit" runat="server" Text="Login" type="submit" class="ibtn" OnClick="BtnSubmit_Click" />--%>
                                     <button type="submit" class="btn btn-danger w-100 p-10" id="BtnSubmit" runat="server" onserverclick="BtnSubmit_ServerClick">
                                         Login
                                     </button>
                                     <br>
-                                    <p class="text-center">Don't Have an account ? <b><a href="Newjoining1.aspx" class="text-primary">Sign Up</a></b></p>
+                                    <p class="text-center">
+                                        Don't Have an account ?
+                                        <b>
+                                            <a href="Newjoining1.aspx" class="text-primary">Sign Up</a>
+                                        </b>
+                                    </p>
                                 </div>
-
                                 <div class="other-links">
                                 </div>
                                 <div class="page-links" style="display: none;">
@@ -192,9 +178,7 @@
                             </div>
                         </div>
                     </div>
-                    <%-- </div>--%>
                 </div>
-
             </form>
         </div>
     </div>

@@ -48,7 +48,7 @@ public partial class Default : System.Web.UI.Page
                 Response.Redirect("Index.aspx", false);
                 return;
             }
-            imgLogo.Src = Session["LogoUrl"].ToString();
+            //imgLogo.Src = Session["LogoUrl"].ToString();
             string strURL = HttpContext.Current.Request.Url.AbsoluteUri;
             string url = "";
 

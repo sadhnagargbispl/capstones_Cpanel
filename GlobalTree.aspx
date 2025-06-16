@@ -1,196 +1,207 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="GlobalTree.aspx.cs" Inherits="GlobalTree" %>
 
 <!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head runat="server">
-    <meta charset="UTF-8" />
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1" /> -->
-    <title>Tree Blocks</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Global Pool Tree</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <style>
-        body {
-            font-family: Calibri, Arial, sans-serif;
+        table {
+            font-size: 11px;
         }
 
-        .justify-center {
-            justify-content: center !important;
+        .globalpooltree th .globalpooltree th {
+            width: 30px;
+            height: 20px;
+            min-width: 30px;
+            min-height: 30px;
+            text-align: center;
+            vertical-align: middle;
         }
 
-        .items-center {
-            align-items: center !important;
+        .globalpooltree tr {
+            height: 30px;
         }
 
-        .min-h-screen {
-            min-height: 100vh !important;
+        .selftree td,
+        .selftree th {
+            width: 30px;
+            height: 20px;
+            min-width: 30px;
+            min-height: 30px;
+            text-align: center;
+            vertical-align: middle;
         }
 
-        .flex {
-            display: flex !important;
-        }
-
-        .flex-col {
-            flex-direction: column !important;
-        }
-
-        .font-normal {
-            font-size: 25px !important;
-        }
-
-        .w-6 {
-            width: 3.5rem !important;
-        }
-
-        .h-6 {
-            height: 3.5rem !important;
-        }
-
-        .text-\[11px\] {
-            font-size: 25px !important;
-        }
-
-        .py-0\.5 {
-            padding-top: 1.125rem !important;
-            padding-bottom: 1.125rem !important;
-        }
-
-        .bg-yellow-700 {
-            opacity: 1;
-            background-color: #ffcb70 !important;
-        }
-
-        .md\:flex-row {
-            flex-direction: row !important;
-        }
-
-        .gap-20 {
-            gap: 5rem;
-        }
-
-        .bg-yellow-300 {
-            bg-opacity: 1;
-            background-color: rgb(253 224 71);
-        }
-
-        .space-x-1 > :not([hidden]) ~ :not([hidden]) {
-            margin-right: 0.25rem;
-            margin-left: 0.25rem;
-        }
-
-        td.w-6.h-6.border.border-black.bg-yellow-700.text-center.font-normal {
-            padding: 12px;
-            font-size: 10px !important;
-            height: 20px !important;
+        .selftree tr {
+            height: 33px;
         }
 
 
-        .bg-yellow-700 {
-            opacity: 1;
-            background-color: #482289 !important;
+        .leftarrow {
+            margin-top: 200px;
+            ;
+        }
+
+        .text-dark {
+            color: black;
+        }
+
+        .selftree tr {
+            background: linear-gradient(90deg, #372475 0%, #5e4fa2 100%);
             color: white;
         }
 
-
-        .bg-yellow-300 {
-            bg-opacity: 1;
-            background-color: rgb(99 60 167 / 52%);
+        .globalpooltree tr {
+            background: linear-gradient(90deg, #372475 0%, #5e4fa2 100%);
             color: white;
         }
 
-        .border-black {
-            --bs-border-opacity: 1;
-            border-color: rgb(133 125 151) !important;
+        @media (max-width: 767px) {
+            .leftarrow {
+                display: none !important;
+            }
         }
 
 
-        .text-\[11px\] {
-            font-size: 25px !important;
-            color: #482289 !important;
-        }
-
-        .btn-danger {
-            --bs-btn-color: #fff;
-            --bs-btn-bg: #482289;
-            border: 1px solid #482289;
-            --bs-btn-border-color: #482289;
-            --bs-btn-hover-color: #fff;
-            --bs-btn-hover-bg: #482289;
-            --bs-btn-hover-border-color: #482289;
-            --bs-btn-focus-shadow-rgb: 225, 83, 97;
-            --bs-btn-active-color: #fff;
-            --bs-btn-active-bg: #482289;
-            --bs-btn-active-border-color: #a52834;
-            --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-            --bs-btn-disabled-color: #fff;
-            --bs-btn-disabled-bg: #482289;
-            --bs-btn-disabled-border-color: #482289;
+        @media (min-width: 768px) {
+            .downarrow {
+                display: none !important;
+            }
         }
     </style>
 </head>
-<body class="bg-white">
+<body>
     <form id="form1" runat="server">
         <div>
-            <br />
-            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-            <button type="submit" class="btn btn-danger w-10 p-15" id="BtnSubmit" runat="server" onserverclick="BtnSubmit_ServerClick">
-                BACK TO HOME
-            </button>
-            <div class="flex justify-center items-center p-4">
-                <div class="flex flex-col md:flex-row items-center gap-20">
+            <div class="jumbotron text-center">
+                <p>
+                    <a href="index.aspx" class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-home" aria-hidden="true"></span>BACK TO HOME
+                    </a>
+                </p>
+            </div>
+            <div class="container-fluid" style="max-width: 1800px;">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="table-responsive" style="max-width: 400px; margin: auto; margin-bottom: 20px;">
+                            <table class="table table-bordered text-center" style="font-size: 14px;">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2" style="background: #f5f5f5;">Global Pool Tree (999)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="text-align: left;">Total Entry In Pool</td>
+                                        <td><asp:Literal ID="LblTotalEntryInPool" runat="server" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">Today Entry In Pool</td>
+                                        <td><asp:Literal ID="LblTodayEntryInPool" runat="server" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
-                    <!-- MEMBER SELF TREE block -->
-                    <div class="flex flex-col items-center">
-                        <div class="text-[11px] mb-1 select-none">MEMBER SELF TREE (block)</div>
-                        <table class="border-collapse border border-black" style="font-size: 11px; line-height: 1;">
-                            <tbody>
-                                <asp:Repeater ID="RptSelf" runat="server" OnItemDataBound="RptSelf_ItemDataBound">
+                    <hr>
+
+                    <div class="col-sm-5">
+                        <h3 class="text-center">Global Pool Tree (999) </h3>
+                        <hr>
+                        <div class="table-responsive" style="background-color: #ebebeb; padding: 10px;">
+                            <table class="globalpooltree table table-bordered text-center global-pool-table">
+                                <!-- Root FormNo -->
+                                <tr style="background-color: antiquewhite;">
+                                    <td colspan="10" class="global-pool-header text-center">
+                                        <span class="text-dark">
+                                            <asp:Literal ID="litRootID" runat="server" /></span>
+                                    </td>
+                                </tr>
+
+                                <!-- Grid Rows -->
+                                <asp:Repeater ID="rptRows" runat="server" OnItemDataBound="rptRows_ItemDataBound">
                                     <ItemTemplate>
                                         <tr>
-                                            <asp:Repeater ID="InnerRepeaterSelf" runat="server">
+                                            <asp:Repeater ID="rptCols" runat="server">
                                                 <ItemTemplate>
-                                                    <%# Eval("FormNoDwn") %>
+                                                    <td class="global-pool-cell"><%# Container.DataItem %></td>
                                                 </ItemTemplate>
                                             </asp:Repeater>
                                         </tr>
                                     </ItemTemplate>
                                 </asp:Repeater>
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- Arrows between blocks -->
-                    <div class="flex flex-col items-center space-y-6">
-                        <i class="fa fa-long-arrow-down text-black text-xl font-normal  select-none"></i>
-                        <i class="fa fa-long-arrow-left text-black text-xl  font-normal select-none"></i>
-                    </div>
-                    <!-- GLOBLE POOL TREE block -->
-                    <div class="flex flex-col items-center relative">
-                        <div class="text-[11px] mb-1 select-none">GLOBLE POOL TREE (block)</div>
-                        <table class="border-collapse border border-black" style="font-size: 11px; line-height: 1;">
-
-                            <asp:Repeater ID="Grdtotal" runat="server" OnItemDataBound="Grdtotal_ItemDataBound">
-                                <ItemTemplate>
-                                    <tr>
-                                        <asp:Repeater ID="InnerRepeater" runat="server">
-                                            <ItemTemplate>
-                                                <%# Eval("FormNoDwn") %>
-                                            </ItemTemplate>
-                                        </asp:Repeater>
-                                    </tr>
-                                </ItemTemplate>
-                            </asp:Repeater>
-                        </table>
-                        <div class="flex items-center mt-1 space-x-1 select-none" style="font-size: 11px;">
-                            <i class="fa fa-long-arrow-left font-normal"></i>
-                            <span class="font-normal">ENTRY</span>
+                            </table>
                         </div>
                     </div>
+
+                    <div class="col-sm-2">
+                        <div class="leftarrow"
+                            style="display: flex; justify-content: center; align-items: center; height: 100%;">
+                            <i class="fa fa-arrow-right" style="font-size: 48px; color: #337ab7;"></i>
+                        </div>
+
+
+
+                        <div class="clearfix"></div>
+
+
+
+                        <!-- Only show this arrow on mobile (max-width: 767px) -->
+                        <div class="downarrow"
+                            style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%;">
+                            <i class="fa fa-arrow-down" style="font-size: 48px; color: #337ab7;"></i>
+                        </div>
+
+                    </div>
+
+                    <div class="col-sm-5">
+
+                        <h3 class="text-center">Member Self Tree - (1999) </h3>
+                        <hr>
+                        <div class="table-responsive" style="background-color: #ebebeb; padding: 10px;">
+                            <table class="selftree table table-bordered text-center" style="font-size: 11px;">
+
+                                <tbody>
+                                    <tr style="background-color: antiquewhite;">
+                                        <td colspan="10" class="global-pool-header">
+                                            <span class="text-dark">
+                                                <asp:Literal ID="litRootID1" runat="server" /></span>
+                                        </td>
+                                    </tr>
+                                    <!-- 10 rows, 10 columns, empty cells -->
+                                    <asp:Repeater ID="RptMemberselfTree" runat="server" OnItemDataBound="RptMemberselfTree_ItemDataBound">
+                                        <ItemTemplate>
+                                            <tr>
+                                                <asp:Repeater ID="rptColsMemberselfTree" runat="server">
+                                                    <ItemTemplate>
+                                                        <td><%# Container.DataItem %></td>
+                                                    </ItemTemplate>
+                                                </asp:Repeater>
+                                            </tr>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                    </div>
+
+
                 </div>
             </div>
+
+
         </div>
     </form>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+
 </body>
 </html>
