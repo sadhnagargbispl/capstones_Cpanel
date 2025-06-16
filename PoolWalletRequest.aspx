@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="PoolWalletRequest.aspx.cs" Inherits="PoolWalletRequest" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="PoolWalletRequest.aspx.cs" Inherits="PoolWalletRequest" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 
@@ -254,13 +254,13 @@
                                             <div id="div2" runat="server" visible="false">
                                                 <center>
                                                     <div class="form-group">
-                                                        <img src="images/qrcode1.jpg" alt="" style="height: 160px" />
+                                                        <img src="images/999-QRCode.jpg" alt="" style="height: 360px" />
                                                     </div>
 
-                                                    <span style="font-weight: 700">Wallet Address: </span>&nbsp;&nbsp;&nbsp;
+<%--                                                    <span style="font-weight: 700">Wallet Address: </span>&nbsp;&nbsp;&nbsp;
             <asp:Label ID="lblLink" runat="server" Style="font-weight: 500" CssClass="Link">TLznxdPoQQNT9KqXnyZ4ufyTgJ4GxwLTTu </asp:Label>&nbsp;&nbsp;
             <asp:ImageButton ID="btncopy" runat="Server" OnClientClick="return copyText();" ImageUrl="images/copy.png"
-                Width="20px" />
+                Width="20px" />--%>
                                                 </center>
                                                 <style>
                                                     @media only screen and (max-width:768) {
