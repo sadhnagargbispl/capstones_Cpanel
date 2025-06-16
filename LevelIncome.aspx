@@ -44,8 +44,8 @@
                                         <div id="DivSideA" runat="server">
                                             <div class="table-responsive">
                                                 <div class="table mb-0" cellspacing="0" cellpadding="4" rules="all" border="1" id="DibDateCondition"
-                                                    style="width: 100%; border-collapse: collapse;" runat="server" visible="false">
-                                                    <asp:GridView ID="RptDirects" runat="server" AutoGenerateColumns="TRUE" CssClass="table table-bordered"
+                                                    style="width: 100%; border-collapse: collapse;" runat="server" visible="true">
+                                                    <asp:GridView ID="RptDirects" runat="server" AutoGenerateColumns="true" CssClass="table table-bordered"
                                                         HeaderStyle-BackColor="" HeaderStyle-ForeColor="White" HeaderStyle-HorizontalAlign="Center" AllowPaging="true"
                                                         PageSize="10" RowStyle-HorizontalAlign="Right" OnPageIndexChanging="RptDirects_PageIndexChanging">
                                                         <Columns>
