@@ -104,7 +104,7 @@ public partial class EnterPool : System.Web.UI.Page
                     LblMobile.Text = string.Empty;
                     string str1 = string.Empty;
                     DataTable dt1 = new DataTable();
-                    str1 = objDal.Isostart + "select * from " + objDal.dBName + "..MstPool where formno = '" + hdnFormno.Value + "'" + objDal.IsoEnd;
+                    str1 = objDal.Isostart + " Exec sp_GetPoolDetailsPoolExist '" + hdnFormno.Value + "','" + CmbKit.SelectedValue + "'" + objDal.IsoEnd;
                     dt1 = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str1).Tables[0];
                     if (dt1.Rows.Count == 0)
                     {
@@ -297,9 +297,8 @@ public partial class EnterPool : System.Web.UI.Page
         {
             string query = "";
             DataTable dt;
-            string condition = "";
             dt = new DataTable();
-            query = objDal.Isostart + " Exec sp_GetPoolDetails " + objDal.IsoEnd;
+            query = objDal.Isostart + " Exec sp_GetPoolDetailsPool '" + Session["formno"].ToString() + "' " + objDal.IsoEnd;
             dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, query).Tables[0];
             if (dt.Rows.Count > 0)
             {
