@@ -225,7 +225,7 @@
                                                 Member Id<span style="color: Red; font-weight: bold; font-size: 1.4em">*</span></label>
                                             <div class="controls">
                                                 <asp:TextBox ID="txtMemberId" runat="server" class="input-xxlarge validate[required]"
-                                                    AutoPostBack="true" OnTextChanged="txtMemberId_TextChanged"  ></asp:TextBox>
+                                                    AutoPostBack="true" OnTextChanged="txtMemberId_TextChanged"></asp:TextBox>
                                                 <asp:Label ID="lblFormno" runat="server" Visible="false"></asp:Label>
                                                 <asp:HiddenField ID="hdnMacadrs" runat="server" />
                                                 <asp:HiddenField ID="HdnTopupSeq" runat="server" />
@@ -245,7 +245,7 @@
                                                         <asp:Label ID="LblMobile" runat="server" Visible="false"></asp:Label>
                                                         <asp:TextBox ID="TxtMemberName" runat="server" CssClass="input-xxlarge" Enabled="false"></asp:TextBox>
                                                         <asp:HiddenField ID="HdnCheckTrnns" runat="server" />
-                                                 </div>
+                                                    </div>
                                                 </div>
                                             </ContentTemplate>
                                             <Triggers>
@@ -262,43 +262,38 @@
 
                                             </asp:DropDownList>
                                         </div>
-                                        <asp:UpdatePanel ID="UpdatePanel2" runat="server">
-                                            <ContentTemplate>
-                                                <div class="control-group " id="DivCurrency" runat="server" visible="false">
-                                                    <label class="control-label">
-                                                        Currency <span class="red">*</span></label>
-                                                    <asp:DropDownList ID="ddlcurrency" runat="server" CssClass="input-xxlarge">
-                                                    </asp:DropDownList>
-                                                </div>
-                                                <div class="control-group " id="Div1" runat="server" >
-                                                    <label class="control-label">
-                                                        Package</label>
-                                                    <div class="controls">
-                                                    <asp:DropDownList ID="CmbKit" CssClass="input-xxlarge" runat="server" AutoPostBack="true">
-                                                    </asp:DropDownList>
-                                                         </div>
-                                                </div>
 
-                                            </ContentTemplate>
-                                            <Triggers>
-                                                <asp:AsyncPostBackTrigger ControlID="DDLPaymode" EventName="SelectedIndexChanged" />
-                                            </Triggers>
-                                        </asp:UpdatePanel>
+                                        <div class="control-group " id="DivCurrency" runat="server" visible="false">
+                                            <label class="control-label">
+                                                Currency <span class="red">*</span></label>
+                                            <asp:DropDownList ID="ddlcurrency" runat="server" CssClass="input-xxlarge">
+                                            </asp:DropDownList>
+                                        </div>
+                                        <div class="control-group " id="Div1" runat="server">
+                                            <label class="control-label">
+                                                Package</label>
+                                            <div class="controls">
+                                                <asp:DropDownList ID="CmbKit" CssClass="input-xxlarge" runat="server" AutoPostBack="true" OnSelectedIndexChanged="CmbKit_SelectedIndexChanged">
+                                                </asp:DropDownList>
+                                            </div>
+                                        </div>
+
+
                                         <div class="control-group " runat="server">
                                             <label class="control-label">
-                                                Request Amount <span class="red"><span style="color: red !important; font-weight: bolder; font-size: 0.9em;">*</span></span></label>
-                                             <div class="controls">
-                                            <asp:TextBox ID="txtAmount" runat="server" class="input-xxlarge" AutoPostBack="true" OnTextChanged="txtAmount_TextChanged" Text="0" onkeypress="return isNumberKey(event);" ReadOnly="true" ></asp:TextBox>
-                                            <asp:Label ID="LblAmount" runat="server" Visible="false"></asp:Label>
-                                            <asp:Label ID="LblAmountUse" runat="server" Visible="false"></asp:Label>
-                                                 </div> 
+                                                Amount <span class="red"><span style="color: red !important; font-weight: bolder; font-size: 0.9em;">*</span></span></label>
+                                            <div class="controls">
+                                                <asp:TextBox ID="txtAmount" runat="server" class="input-xxlarge" AutoPostBack="true" OnTextChanged="txtAmount_TextChanged" Text="0" onkeypress="return isNumberKey(event);" ReadOnly="true"></asp:TextBox>
+                                                <asp:Label ID="LblAmount" runat="server" Visible="false"></asp:Label>
+                                                <asp:Label ID="LblAmountUse" runat="server" Visible="false"></asp:Label>
+                                            </div>
                                         </div>
 
                                         <div class="control-group ">
                                             <label class="control-label">Wallet Password</label>
-                                             <div class="controls">
-                                            <asp:TextBox ID="TxtTransPass" runat="server" CssClass="input-xxlarge" TextMode="Password"></asp:TextBox>
-                                                 </div> 
+                                            <div class="controls">
+                                                <asp:TextBox ID="TxtTransPass" runat="server" CssClass="input-xxlarge" TextMode="Password"></asp:TextBox>
+                                            </div>
                                         </div>
                                         <div class="control-group ">
                                             <asp:Button ID="cmdSave1" runat="server" Text="Submit" class="btn btn-danger" ValidationGroup="Validation" OnClick="cmdSave1_Click" />

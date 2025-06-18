@@ -28,10 +28,6 @@ public partial class Idactivation : System.Web.UI.Page
                     HdnCheckTrnns.Value = GenerateRandomStringActive(6);
                     FundWalletGetBalance();
                     FillKit();
-                    //AirDropWalletGetBalance();
-
-                    //txtMemberId.Text = Session["IdNo"] != null ? Session["IdNo"].ToString() : string.Empty;
-                    //GetName();
                 }
             }
             else
@@ -172,7 +168,7 @@ public partial class Idactivation : System.Web.UI.Page
                 scrName = "<script language='javascript'>alert('Please Fill Request Amount !');</script>";
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Upgraded", scrName, false);
                 txtAmount.Text = "";
-                return; // Exit the method
+                return;
             }
             if (Convert.ToDouble(txtAmount.Text) == 0)
             {
@@ -183,11 +179,9 @@ public partial class Idactivation : System.Web.UI.Page
             
             if (!string.IsNullOrEmpty(txtAmount.Text))
             {
-                //if (!Check_Amount_Condition())
                 if (!CheckAmount())
                 {
-                    txtAmount.Text = "";
-                    //TxtPointWallet.Text = "";
+                    txtAmount.Text = "0";
                     return;
                 }
             }
@@ -256,31 +250,14 @@ public partial class Idactivation : System.Web.UI.Page
                 if (GetName() == "OK")
                 {
                     CheckAmount();
-                    //Check_Amount_Condition();
-                    //if (Convert.ToDecimal(Session["ServiceWallet"]) >= Convert.ToDecimal(txtAmount.Text))
                     if (Convert.ToDecimal(Session["ServiceWallet"]) >= Convert.ToDecimal(txtAmount.Text))
                     {
                             DataTable dt_ = new DataTable();
-                            //string str = "select  * from " + objDal.dBName + "..m_kitmaster where joinamount <= '" + txtAmount.Text + "' AND kitamount >= '" + txtAmount.Text + "' order by kitid desc";
-                            //dt_ = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
-                            //if (dt_.Rows.Count > 0)
-                            //{
-                            //    kitid = Convert.ToString(dt_.Rows[0]["kitid"]);
-                            //}
                             string sql = "";
-                            //string strSql1 = "EXEC Sp_trnAcivate '" + txtMemberId.Text.Trim() + "', '" + kitid + "'";
-                            //DataTable dtCheck = SqlHelper.ExecuteDataset(constr, CommandType.Text, strSql1).Tables[0];
                             var billNo = GenerateRandomStringactive(6);
-                            //if (Convert.ToInt32(dtCheck.Rows[0]["Result"]) == 0)
-                            //{
-                            //    scrName = "<SCRIPT language='javascript'>alert('Your request in processing, Please try after 10 min.!!');</SCRIPT>";
-                            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Upgraded", scrName, false);
-                            //    return;
-                            //}
                             sql = "EXEC Sp_PaymentActivateNew '" + txtMemberId.Text.Trim() + "','" + CmbKit.SelectedValue + "', '','" + txtAmount.Text + "','USDT',";
                             sql += "'" + billNo + "','" + Session["Formno"] + "'";
                             DataTable dt = SqlHelper.ExecuteDataset(constr, CommandType.Text, sql).Tables[0];
-
                             if (dt.Rows[0]["Result"].ToString().ToUpper() == "SUCCESS")
                             {
                                 Clear();
@@ -292,7 +269,6 @@ public partial class Idactivation : System.Web.UI.Page
                             {
                                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Key", "alert('Id Activation/Upgrade Not Successfully!!');", true);
                             }
-                        
                     }
                     else
                     {
@@ -364,12 +340,9 @@ public partial class Idactivation : System.Web.UI.Page
             string query = "";
             DataTable dt;
             string condition = "";
-
             dt = new DataTable();
-            //query = objDal.Isostart + " Exec Sp_GetKitForActivation '" + Session["Formno"] + "','S', '" + HdnMemberTopupseq.Value + "'" + objDal.IsoEnd;
             query = objDal.Isostart + " Exec sp_GetKitDetails " + objDal.IsoEnd;
             dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, query).Tables[0];
-
             if (dt.Rows.Count > 0)
             {
                 Session["KitTable"] = dt;
@@ -390,36 +363,6 @@ public partial class Idactivation : System.Web.UI.Page
             string text = path + ":  " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss:fff ") + Environment.NewLine;
             objDal.WriteToFile(text + ex.Message);
             Response.Write("Try later.");
-        }
-    }
-    private bool CheckValidId()
-    {
-        try
-        {
-            DataTable dt;
-            string query = "SELECT TOP 1 Amount FROM MemberKitPurchase WHERE Formno='" + hdnFormno.Value + "' ORDER BY KId DESC";
-            dt = objDal.GetData(query);
-
-            if (dt.Rows.Count > 0)
-            {
-                if (Convert.ToDecimal(txtAmount.Text) >= Convert.ToDecimal(dt.Rows[0]["Amount"]))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return true;
-            }
-        }
-        catch (Exception ex)
-        {
-            // Log or handle the exception if needed.
-            throw new ApplicationException("Error in CheckValidId: " + ex.Message, ex);
         }
     }
     protected bool CheckAmount()
@@ -486,125 +429,29 @@ public partial class Idactivation : System.Web.UI.Page
             throw new Exception(ex.Message);
         }
     }
-   
     protected void txtAmount_TextChanged(object sender, EventArgs e)
     {
         try
         {
-           // //if (Convert.ToDecimal(txtAmount.Text) <= 1 || Convert.ToDecimal(txtAmount.Text) % 10 != 0)
-           // if (Convert.ToDecimal(txtAmount.Text) < 1)
-           // {
-           //     scrName = "<script language='javascript'>alert('The Investment be more than 1 !!');</script>";
-           //     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Upgraded", scrName, false);
-           //     txtAmount.Text = "";
-           //     return; // Exit the method
-           // }
-           //// AirDropWalletGetBalance();
-           // FundWalletGetBalance();
-           // CheckAmountTop();
-           // //Check_Amount_Condition();
         }
         catch (Exception ex)
         {
         }
 
     }
-    //protected bool CheckAmountTop()
-    //{
-    //    try
-    //    {
-    //        DataTable dt = new DataTable();
-    //        // Change the SQL query to sum the Repurchincome for the given Formno
-    //        string str = " SELECT SUM(Repurchincome) AS TotalInvestment FROM " + objDal.dBName + "..repurchincome WHERE Formno = '" + hdnFormno.Value + "'";
-    //        dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
-    //        if (dt.Rows.Count > 0)
-    //        {
-    //            decimal totalInvestment = Convert.ToDecimal(dt.Rows[0]["TotalInvestment"]);
-    //            LblAmount.Text = totalInvestment.ToString();
-    //            // Check if the activation amount is greater than or equal to total investment and a multiple of 90
-    //            decimal activationAmount = Convert.ToDecimal(txtAmount.Text);
-    //            //if (activationAmount < totalInvestment || activationAmount % 10 != 0)
-    //            if (activationAmount < totalInvestment)
-    //            {
-    //                string scrName = "<SCRIPT language='javascript'>alert('Your Activation Amount must be equal to or greater than the total investment !');</SCRIPT>";
-    //                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Upgraded", scrName, false);
-    //                cmdSave1.Enabled = false;
-    //                cmdSave1.Attributes.Add("onclick", DisableTheButton(this.Page, cmdSave1));
-    //                txtAmount.Text = "0";
-    //                //TxtPointWallet.Text = "0";
-    //                txtAmount.Text = "0";
-    //                return false; // Return false if the condition is not met
-    //            }
-    //            else
-    //            {
-    //                cmdSave1.Enabled = true;
-    //                LblAmount.Visible = false;
-    //                return true; // Return true if the condition is met
-    //            }
-    //        }
-    //        else
-    //        {
-    //            cmdSave1.Enabled = true;
-    //            LblAmount.Visible = false;
-    //            return true; // Return true if no records found
-    //        }
-    //    }
-    //    catch (Exception ex)
-    //    {
-
-    //    }
-
-    //    return false; // Default return false in case of exception
-    //}
-    //private bool Check_Amount_Condition()
-    //{
-    //    bool result = false;
-
-    //    // Fetch wallet balances
-    //    decimal fundWalletAmount = Convert.ToDecimal(Session["ServiceWallet"]); // Fund Wallet balance
-    //    //decimal airdropWalletAmount = Convert.ToDecimal(Session["PointWallet"]); // Airdrop Wallet balance
-    //    decimal requestAmount = Convert.ToDecimal(txtAmount.Text); // Requested amount
-
-    //    // Calculate maximum allowed usage from Airdrop Wallet (50% of request amount)
-    //    decimal maxAirdropWalletUsage = requestAmount * 0.50m;
-
-    //    // Calculate actual usage from Airdrop Wallet (use as much as possible)
-    //    //decimal amountFromAirdropWallet = Math.Min(maxAirdropWalletUsage, airdropWalletAmount);
-
-    //    // Remaining amount to be fulfilled from Fund Wallet
-    //    //decimal remainingAmount = requestAmount - amountFromAirdropWallet;
-
-    //    // Calculate actual usage from Fund Wallet
-    //    //decimal amountFromFundWallet = Math.Min(remainingAmount, fundWalletAmount);
-    //    decimal amountFromFundWallet= fundWalletAmount;
-    //    // Check if the total fulfilled amount meets the request
-    //    //bool isRequestFulfilled = (amountFromAirdropWallet + amountFromFundWallet) >= requestAmount;
-    //    bool isRequestFulfilled = (amountFromFundWallet) >= requestAmount;
-
-    //    // Update UI
-    //    //TxtPointWallet.Text = amountFromAirdropWallet.ToString("F2"); // Airdrop Wallet Usage
-    //    txtAmount.Text = amountFromFundWallet.ToString("F2");        // Fund Wallet Usage
-    //    //LblAmountUse.Text = (amountFromAirdropWallet + amountFromFundWallet).ToString("F2"); // Total Usage
-    //    LblAmountUse.Text = (amountFromFundWallet).ToString("F2"); // Total Usage
-
-    //    // Check and return result
-    //    if (isRequestFulfilled)
-    //    {
-    //        cmdSave1.Visible = true;
-    //        result = true;
-    //    }
-    //    else
-    //    {
-    //        string scrName = "<SCRIPT language='javascript'>alert('Your wallet does not have the balance required to meet the requested amount.!');</SCRIPT>";
-    //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Wallet Error", scrName, false);
-    //        cmdSave1.Visible = false;
-    //        result = false;
-    //    }
-    //    return result;
-    //}
-
     protected void txtMemberId_TextChanged(object sender, EventArgs e)
     {
         GetName();
+    }
+    protected void CmbKit_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        DataTable Dt = new DataTable();
+        Dt = (DataTable)Session["KitTable"];
+        DataRow[] Dr = Dt.Select("KitID='" + CmbKit.SelectedValue + "'");
+        if (Dr.Length > 0)
+        {
+            txtAmount.Text = Dr[0]["KitAmount"].ToString();
+        }
+
     }
 }
