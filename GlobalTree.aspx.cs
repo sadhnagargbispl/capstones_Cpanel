@@ -9,6 +9,8 @@ using System.Linq;
 
 public partial class GlobalTree : System.Web.UI.Page
 {
+    protected string RootFormNo = "";
+    protected string ShowTopRow = "N";
     string constr1 = ConfigurationManager.ConnectionStrings["constr1"].ConnectionString;
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -48,135 +50,59 @@ public partial class GlobalTree : System.Web.UI.Page
     }
     private void BindTreeDataTeam(string formNo)
     {
-        List<List<string>> tableData = new List<List<string>>();
-        string rootID = "";
-        int totalRows = 0;
-
         using (SqlConnection con = new SqlConnection(constr1))
         {
             using (SqlCommand cmd = new SqlCommand("Sp_GetTreeT", con))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@FormNo", formNo);
-
-                con.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                // Result 1: 110 Downline IDs
-                List<string> flatList = new List<string>();
-                while (reader.Read())
+                cmd.Parameters.Add("@FormNo", SqlDbType.VarChar).Value = formNo;
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+                if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 {
-                    flatList.Add(reader["FormNoDwn"].ToString());
+                    rptTreeGrid.DataSource = ds.Tables[0];
+                    rptTreeGrid.DataBind();
                 }
-
-                // Result 2: Root ID
-                if (reader.NextResult() && reader.Read())
+                // Root row check
+                if (ds.Tables.Count > 1 && ds.Tables[1].Rows.Count > 0)
                 {
-                    rootID = reader["RootFormNo"].ToString();
-                    litRootID.Text = rootID;
-                }
-
-                // Result 3: Total rows (usually 11)
-                if (reader.NextResult() && reader.Read())
-                {
-                    totalRows = Convert.ToInt32(reader["TotalRows"]);
-                }
-
-                // Build 10x11 grid
-                for (int i = 0; i < totalRows; i++)
-                {
-                    List<string> row = new List<string>();
-                    for (int j = 0; j < 10; j++)
+                    string root = ds.Tables[1].Rows[0]["RootFormNo"].ToString();
+                    if (!string.IsNullOrWhiteSpace(root))
                     {
-                        int index = i * 10 + j;
-                        if (index < flatList.Count)
-                            row.Add(flatList[index]);
-                        else
-                            row.Add("-");
+                        RootFormNo = root;
+                        ShowTopRow = "Y";
                     }
-                    tableData.Add(row);
                 }
-            }
-        }
-
-        rptRows.DataSource = tableData;
-        rptRows.DataBind();
-    }
-    protected void rptRows_ItemDataBound(object sender, RepeaterItemEventArgs e)
-    {
-        if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-        {
-            var rowData = (List<string>)e.Item.DataItem;
-            Repeater rptCols = (Repeater)e.Item.FindControl("rptCols");
-            if (rptCols != null)
-            {
-                rptCols.DataSource = rowData;
-                rptCols.DataBind();
             }
         }
     }
     private void BindTreeDataSelf(string formNo)
     {
-        List<List<string>> tableData = new List<List<string>>();
-        string rootID = "";
-        int totalRows = 0;
         using (SqlConnection con = new SqlConnection(constr1))
         {
-            using (SqlCommand cmd = new SqlCommand("Sp_GetTreeSelfT", con))
+            using (SqlCommand cmd = new SqlCommand("Sp_GetTreeTSelf", con))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@FormNo", formNo);
-                con.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-                // Result 1: 110 Downline IDs
-                List<string> flatList = new List<string>();
-                while (reader.Read())
+                cmd.Parameters.Add("@FormNo", SqlDbType.VarChar).Value = formNo;
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+                if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 {
-                    flatList.Add(reader["FormNoDwn"].ToString());
+                    RptSlefTree.DataSource = ds.Tables[0];
+                    RptSlefTree.DataBind();
                 }
-                // Result 2: Root ID
-                if (reader.NextResult() && reader.Read())
+                // Root row check
+                if (ds.Tables.Count > 1 && ds.Tables[1].Rows.Count > 0)
                 {
-                    rootID = reader["RootFormNo"].ToString();
-                    litRootID1.Text = rootID;
-                }
-
-                // Result 3: Total rows (usually 11)
-                if (reader.NextResult() && reader.Read())
-                {
-                    totalRows = Convert.ToInt32(reader["TotalRows"]);
-                }
-
-                // Build 10x11 grid
-                for (int i = 0; i < totalRows; i++)
-                {
-                    List<string> row = new List<string>();
-                    for (int j = 0; j < 10; j++)
+                    string root = ds.Tables[1].Rows[0]["RootFormNo"].ToString();
+                    if (!string.IsNullOrWhiteSpace(root))
                     {
-                        int index = i * 10 + j;
-                        if (index < flatList.Count)
-                            row.Add(flatList[index]);
-                        else
-                            row.Add("-");
+                        RootFormNo = root;
+                        ShowTopRow = "Y";
                     }
-                    tableData.Add(row);
                 }
-            }
-        }
-
-        RptMemberselfTree.DataSource = tableData;
-        RptMemberselfTree.DataBind();
-    }
-    protected void RptMemberselfTree_ItemDataBound(object sender, RepeaterItemEventArgs e)
-    {
-        if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-        {
-            var rowData = (List<string>)e.Item.DataItem;
-            Repeater rptColsMemberselfTree = (Repeater)e.Item.FindControl("rptColsMemberselfTree");
-            if (rptColsMemberselfTree != null)
-            {
-                rptColsMemberselfTree.DataSource = rowData;
-                rptColsMemberselfTree.DataBind();
             }
         }
     }

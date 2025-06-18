@@ -75,6 +75,15 @@
                 display: none !important;
             }
         }
+
+        .global-pool-cell {
+            padding: 8px;
+            line-height: 1.42857143;
+            vertical-align: top;
+            border-top: 1px solid #ddd;
+            width: 50px;
+            height: auto !important;
+        }
     </style>
 </head>
 <body>
@@ -100,33 +109,55 @@
                                 <tbody>
                                     <tr>
                                         <td style="text-align: left;">Total Entry In Pool</td>
-                                        <td><asp:Literal ID="LblTotalEntryInPool" runat="server" /></td>
+                                        <td>
+                                            <asp:Literal ID="LblTotalEntryInPool" runat="server" /></td>
                                     </tr>
                                     <tr>
                                         <td style="text-align: left;">Today Entry In Pool</td>
-                                        <td><asp:Literal ID="LblTodayEntryInPool" runat="server" /></td>
+                                        <td>
+                                            <asp:Literal ID="LblTodayEntryInPool" runat="server" /></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-
                     <hr>
-
                     <div class="col-sm-5">
                         <h3 class="text-center">Global Pool Tree (999) </h3>
                         <hr>
                         <div class="table-responsive" style="background-color: #ebebeb; padding: 10px;">
                             <table class="globalpooltree table table-bordered text-center global-pool-table">
-                                <!-- Root FormNo -->
-                                <tr style="background-color: antiquewhite;">
+                                <asp:Repeater ID="rptTreeGrid" runat="server">
+                                    <HeaderTemplate>
+                                        <tr style="background-color: antiquewhite;">
+                                            <td colspan="10" class="global-pool-header">
+                                                <span class="text-dark"><%= RootFormNo %></span>
+                                            </td>
+                                        </tr>
+                                    </HeaderTemplate>
+
+                                    <ItemTemplate>
+                                        <tr>
+                                            <td class="global-pool-cell"><%# Eval("Col1") %></td>
+                                            <td class="global-pool-cell"><%# Eval("Col2") %></td>
+                                            <td class="global-pool-cell"><%# Eval("Col3") %></td>
+                                            <td class="global-pool-cell"><%# Eval("Col4") %></td>
+                                            <td class="global-pool-cell"><%# Eval("Col5") %></td>
+                                            <td class="global-pool-cell"><%# Eval("Col6") %></td>
+                                            <td class="global-pool-cell"><%# Eval("Col7") %></td>
+                                            <td class="global-pool-cell"><%# Eval("Col8") %></td>
+                                            <td class="global-pool-cell"><%# Eval("Col9") %></td>
+                                            <td class="global-pool-cell"><%# Eval("Col10") %></td>
+                                        </tr>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+
+                                <%--<tr style="background-color: antiquewhite;">
                                     <td colspan="10" class="global-pool-header text-center">
                                         <span class="text-dark">
                                             <asp:Literal ID="litRootID" runat="server" /></span>
                                     </td>
                                 </tr>
-
-                                <!-- Grid Rows -->
                                 <asp:Repeater ID="rptRows" runat="server" OnItemDataBound="rptRows_ItemDataBound">
                                     <ItemTemplate>
                                         <tr>
@@ -137,7 +168,7 @@
                                             </asp:Repeater>
                                         </tr>
                                     </ItemTemplate>
-                                </asp:Repeater>
+                                </asp:Repeater>--%>
                             </table>
                         </div>
                     </div>
@@ -168,15 +199,38 @@
                         <hr>
                         <div class="table-responsive" style="background-color: #ebebeb; padding: 10px;">
                             <table class="selftree table table-bordered text-center" style="font-size: 11px;">
+                                <asp:Repeater ID="RptSlefTree" runat="server">
+                                    <HeaderTemplate>
+                                        <tr style="background-color: antiquewhite;">
+                                            <td colspan="10" class="global-pool-header">
+                                                <span class="text-dark"><%= RootFormNo %></span>
+                                            </td>
+                                        </tr>
+                                    </HeaderTemplate>
 
-                                <tbody>
+                                    <ItemTemplate>
+                                        <tr>
+                                            <td class="global-pool-cell"><%# Eval("Col1") %></td>
+                                            <td class="global-pool-cell"><%# Eval("Col2") %></td>
+                                            <td class="global-pool-cell"><%# Eval("Col3") %></td>
+                                            <td class="global-pool-cell"><%# Eval("Col4") %></td>
+                                            <td class="global-pool-cell"><%# Eval("Col5") %></td>
+                                            <td class="global-pool-cell"><%# Eval("Col6") %></td>
+                                            <td class="global-pool-cell"><%# Eval("Col7") %></td>
+                                            <td class="global-pool-cell"><%# Eval("Col8") %></td>
+                                            <td class="global-pool-cell"><%# Eval("Col9") %></td>
+                                            <td class="global-pool-cell"><%# Eval("Col10") %></td>
+                                        </tr>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                                <%--   <tbody>
                                     <tr style="background-color: antiquewhite;">
                                         <td colspan="10" class="global-pool-header">
                                             <span class="text-dark">
                                                 <asp:Literal ID="litRootID1" runat="server" /></span>
                                         </td>
                                     </tr>
-                                    <!-- 10 rows, 10 columns, empty cells -->
+                                
                                     <asp:Repeater ID="RptMemberselfTree" runat="server" OnItemDataBound="RptMemberselfTree_ItemDataBound">
                                         <ItemTemplate>
                                             <tr>
@@ -188,7 +242,7 @@
                                             </tr>
                                         </ItemTemplate>
                                     </asp:Repeater>
-                                </tbody>
+                                </tbody>--%>
                             </table>
                         </div>
 
@@ -198,10 +252,7 @@
 
                 </div>
             </div>
-
-
         </div>
     </form>
-
 </body>
 </html>
