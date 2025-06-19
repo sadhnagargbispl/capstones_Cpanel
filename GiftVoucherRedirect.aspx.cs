@@ -26,7 +26,13 @@ public partial class GiftVoucherRedirect : System.Web.UI.Page
                 //string refes = Base64Encode(info12);
                 //string data = Base64Decode(refes);
                 //Response.Redirect("http://gv.megamart.ai/Login/DirectLogin?URL=" + refes);
-
+                //Session["mobl"].ToString();
+                if (Session["email"].ToString() == "" || Session["MobileNo"].ToString() == "")
+                {
+                    Response.Redirect("Profile.aspx");
+                }
+                else 
+                { 
                 string formPostText = "";
                 formPostText = "<form method=\"POST\" action=\"https://gv.capstones.in/members/index.php\" name=\"frm2Post\">";
                 formPostText += "<input type=\"hidden\" name=\"token\" value=\"a50a9b21519a609e43df238db88ee36a\" />";
@@ -36,6 +42,7 @@ public partial class GiftVoucherRedirect : System.Web.UI.Page
                 formPostText += "<script type=\"text/javascript\">document.frm2Post.submit();</script>";
                 formPostText += "</form>";
                 Response.Write(formPostText);
+                }
             }
         }
         catch (Exception ex)
