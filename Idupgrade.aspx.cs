@@ -72,7 +72,7 @@ public partial class Idupgrade : System.Web.UI.Page
             DataTable dt = new DataTable();
 
             //str = objDal.Isostart + " Exec Sp_Getupgrademember '" + txtMemberId.Text + "'" + objDal.IsoEnd;
-            str = objDal.Isostart + " Exec Sp_Getupgrademember '" + Session["Idno"] + "'" + objDal.IsoEnd;
+            str = objDal.Isostart + " Exec Sp_GetupgradememberNew '" + Session["Idno"] + "'" + objDal.IsoEnd;
             dt = SqlHelper.ExecuteDataset(ConfigurationManager.ConnectionStrings["constr1"].ConnectionString, CommandType.Text, str).Tables[0];
 
             if (dt.Rows.Count == 0)
@@ -109,24 +109,38 @@ public partial class Idupgrade : System.Web.UI.Page
                     LblMobile.Text = string.Empty;
                     return "OK";
                 }
-                //else if (dt.Rows[0]["ActiveStatus"].ToString() == "Y")
-                else if (dt.Rows[0]["Kitid"].ToString() == "26" || dt.Rows[0]["Kitid"].ToString() == "27" || dt.Rows[0]["Kitid"].ToString() == "28" || dt.Rows[0]["Kitid"].ToString() == "29" || dt.Rows[0]["Kitid"].ToString() == "30")
+                else if (dt.Rows[0]["IsAlreadyUpgraded"].ToString() == "Y")
                 {
                     txtMemberId.Text = string.Empty;
                     TxtMemberName.Text = string.Empty;
                     HdnMemberMacAdrs.Value = string.Empty;
                     HdnMemberTopupseq.Value = string.Empty;
-
-                    string scrName = "<SCRIPT language='javascript'>alert('This Id already Upgrade.');location.replace('Idupgrade.aspx');</SCRIPT>";
+                    string scrName = "<SCRIPT language='javascript'>alert('This ID is already upgraded.');location.replace('index.aspx');</SCRIPT>";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrName, false);
                     return string.Empty;
                 }
-                else if (dt.Rows[0]["Kitid"].ToString() == "21" || dt.Rows[0]["Kitid"].ToString() == "22" || dt.Rows[0]["Kitid"].ToString() == "23" || dt.Rows[0]["Kitid"].ToString() == "24" || dt.Rows[0]["Kitid"].ToString() == "25")
+                else if (dt.Rows[0]["IsEligibleForUpgrade"].ToString() != "Y")
                 {
-                    scrName = "<SCRIPT language='javascript'>alert('This Id do not upgrade.');location.replace('Idupgrade.aspx');</SCRIPT>";
+                    string scrName = "<script>alert('This ID is not eligible for upgrade.');location.replace('index.aspx');</script>";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrName, false);
-                    return string.Empty;
                 }
+                //else if (dt.Rows[0]["Kitid"].ToString() == "26" || dt.Rows[0]["Kitid"].ToString() == "27" || dt.Rows[0]["Kitid"].ToString() == "28" || dt.Rows[0]["Kitid"].ToString() == "29" || dt.Rows[0]["Kitid"].ToString() == "30")
+                //{
+                //    txtMemberId.Text = string.Empty;
+                //    TxtMemberName.Text = string.Empty;
+                //    HdnMemberMacAdrs.Value = string.Empty;
+                //    HdnMemberTopupseq.Value = string.Empty;
+
+                //    string scrName = "<SCRIPT language='javascript'>alert('This Id already Upgrade.');location.replace('Idupgrade.aspx');</SCRIPT>";
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrName, false);
+                //    return string.Empty;
+                //}
+                //else if (dt.Rows[0]["Kitid"].ToString() == "21" || dt.Rows[0]["Kitid"].ToString() == "22" || dt.Rows[0]["Kitid"].ToString() == "23" || dt.Rows[0]["Kitid"].ToString() == "24" || dt.Rows[0]["Kitid"].ToString() == "25")
+                //{
+                //    scrName = "<SCRIPT language='javascript'>alert('This Id do not upgrade.');location.replace('Idupgrade.aspx');</SCRIPT>";
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrName, false);
+                //    return string.Empty;
+                //}
                 else
                 {
                     TxtMemberName.Text = dt.Rows[0]["memname"].ToString();
