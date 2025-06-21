@@ -342,6 +342,7 @@
                                 <li><a href="myinvestment.aspx">My Purchase detail</a></li>
                                 <li><a href="EnterPool.aspx">Pool Enter</a></li>
                                 <li><a href="PoolReport.aspx">Pool Report</a></li>
+                                <li><a href="IdUpgrade.aspx">Id Upgrade </a></li>
                                 <%-- <li><a href="myinvestment.aspx">My Investment</a></li>--%>
                             </ul>
                         </li>

@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Idactivation.aspx.cs" Inherits="Idactivation" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Idupgrade.aspx.cs" Inherits="Idupgrade" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script type="text/javascript" src="assets/jquery.min.js">
@@ -189,7 +189,7 @@
                 <%-- <h3 class="page-title">Change Password </h3>--%>
                 <ul class="breadcrumb">
                     <li><a href="#"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
-                    <li><a href="#">Activation</a><span class="divider-last">&nbsp;</span></li>
+                    <li><a href="#">Upgrade</a><span class="divider-last">&nbsp;</span></li>
                 </ul>
             </div>
         </div>
@@ -205,7 +205,7 @@
 
                             <div class="widget">
                                 <div class="widget-title">
-                                    <h4><i class="icon-credit-card"></i>Activation</h4>
+                                    <h4><i class="icon-credit-card"></i>Upgrade</h4>
                                     <span class="tools">
                                         <a href="javascript:;" class="icon-chevron-down"></a>
                                     </span>
@@ -225,7 +225,7 @@
                                                 Member Id<span style="color: Red; font-weight: bold; font-size: 1.4em">*</span></label>
                                             <div class="controls">
                                                 <asp:TextBox ID="txtMemberId" runat="server" class="input-xxlarge validate[required]"
-                                                    AutoPostBack="true" OnTextChanged="txtMemberId_TextChanged"></asp:TextBox>
+                                                    AutoPostBack="true" OnTextChanged="txtMemberId_TextChanged" ReadOnly="true" ></asp:TextBox>
                                                 <asp:Label ID="lblFormno" runat="server" Visible="false"></asp:Label>
                                                 <asp:HiddenField ID="hdnMacadrs" runat="server" />
                                                 <asp:HiddenField ID="HdnTopupSeq" runat="server" />

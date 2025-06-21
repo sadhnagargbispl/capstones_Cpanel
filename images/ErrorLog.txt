@@ -178,3 +178,12 @@ Thread was being aborted.
 http://localhost:51212/index.aspx:  16-Jun-2025 01:51:05:810
 Thread was being aborted.
 --------------------------------------------------------
+http://localhost:51212/idupgrade.aspx:  21-Jun-2025 11:30:29:411 
+Thread was being aborted.
+--------------------------------------------------------
+http://localhost:51212/idupgrade.aspx: 21-Jun-2025 11:39:18:744
+Column 'Kitid' does not belong to table Table.
+--------------------------------------------------------
+http://localhost:51212/idupgrade.aspx:  21-Jun-2025 12:26:52:947 
+Thread was being aborted.
+--------------------------------------------------------
