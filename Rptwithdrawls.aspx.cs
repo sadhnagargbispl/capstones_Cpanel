@@ -27,23 +27,6 @@ public partial class Rptwithdrawls : System.Web.UI.Page
             }
             if(!Page.IsPostBack)
             {
-                //string strQuery = "";
-                //DataTable tmpTable = new DataTable();
-                //string prefix = Session["Idno"].ToString().Substring(0, 1); // "D" or "A"
-                //string referralIdWithoutPrefix = Session["Idno"].ToString().Substring(1); // Remove first character
-
-                //strQuery = IsoStart + "Exec Sp_GetRegistrationClient '" + referralIdWithoutPrefix + "'" + IsoEnd;
-
-                //tmpTable = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strQuery).Tables[0];
-
-                //if (tmpTable.Rows.Count > 0)
-                //{
-                //    if (Convert.ToInt32(tmpTable.Rows[0]["Cnt"]) > 0)
-                //    {
-                //        ScriptManager.RegisterStartupScript(this, this.GetType(), "Key", "alert('You Are Not Access This Page.Please Contact To Admin.!');location.replace('index.aspx');", true);
-                //        return;
-                //    }
-                //}
                 LevelDetail();
             }
         }

@@ -187,15 +187,7 @@
                                         class="input-xxlarge "></asp:TextBox>
                                 </div>
                             </div>
-                           <%-- <div class="col-xl-12"  >
-                                <div class="form-group mb-3">
-                                    <label for="inputdefault">
-                                        Wallet Type<span style="color: Red;">*</span></label>
-                                    <asp:DropDownList ID="ddlWalletType" runat="server" CssClass="input-xxlarge" AutoPostBack="true" OnTextChanged="ddlWalletType_SelectedIndexChanged">
-                                    </asp:DropDownList>
-                                    <asp:Label ID="LblWithdrawalConditonIncome" runat="server" ForeColor="red" Text="" Visible="false"></asp:Label>
-                                </div>
-                            </div>--%>
+                           <br />
                             <div class="col-xl-12">
                                 <div class="form-group mb-3">
                                     <label for="inputdefault">
@@ -273,9 +265,9 @@
                             </div>
                             <div class="form-group">
                                 <asp:Button ID="BtnOtp" runat="server" Text="Submit" class="btn btn-warning btn-sm p-2"
-                                    Visible="false " ValidationGroup="Save" OnClick="BtnOtp_Click" />
+                                    Visible="false " ValidationGroup="Save"  />
                                 <asp:Button ID="ResendOtp" runat="server" Text="Resend Otp" class="btn btn-warning btn-sm p-2"
-                                    Visible="false " OnClick="ResendOtp_Click" />
+                                    Visible="false "  />
                             </div>
                         </div>
                         <div class="col-md-6">
