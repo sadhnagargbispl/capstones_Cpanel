@@ -1,4 +1,4 @@
-﻿using ClosedXML.Excel;
+using ClosedXML.Excel;
 using System;
 using System.CodeDom;
 using System.Configuration;
@@ -50,62 +50,47 @@ public partial class Fundwithdrawal : System.Web.UI.Page
             {
                 Response.Redirect("Logout.aspx");
             }
-            Fun_Sp_GetCryptoAPIFor_FundWithdraw_Admin();
             GetFundwithdrawalLimit();
 
-            if (!FillDetailUpdate())
+            //if (!FillDetailUpdate())
+            //{
+            //    ScriptManager.RegisterStartupScript(this, this.GetType(), "Key", "alert('Please Update Your Wallet Address.');location.replace('Index.aspx');", true);
+            //    return;
+            //}
+            //if (!GetKycPerStatus())
+            //{
+            //    ScriptManager.RegisterStartupScript(this, this.GetType(), "Key", "alert('Please approve kyc detail.');location.replace('Index.aspx');", true);
+            //    return;
+            //}
+            string walletType = "M";
+
+            if (walletType == "M")
             {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Key", "alert('Please Update Your Wallet Address.');location.replace('Index.aspx');", true);
-                return;
+                if (!GetReqStatus())
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Key", "alert('You can withdrawal only one time in a day.!');location.replace('Index.aspx');", true);
+                    return;
+                }
             }
 
-            string walletType = ddlWalletType.SelectedValue;
-
-            //if (walletType == "M" || walletType == "T" || walletType == "W")
-            //{
-            //    if (!GetReqStatus())
-            //    {
-            //        ScriptManager.RegisterStartupScript(this, this.GetType(), "Key", "alert('You can withdrawal only one time in a day.!');location.replace('Index.aspx');", true);
-            //        return;
-            //    }
-            //}
-
-            //if (walletType == "M")
-            //{
-            //    if (GetWithdrawlStatus())
-            //    {
-            //        ScriptManager.RegisterStartupScript(this, this.GetType(), "Key", "alert('You can Not withdrawal 1 and 11 and 21 date on every month.!');location.replace('Index.aspx');", true);
-            //        return;
-            //    }
-            //}
-
-            //if (walletType == "T")
-            //{
-            //    if (!GetWithdrawlStatus())
-            //    {
-            //        ScriptManager.RegisterStartupScript(this, this.GetType(), "Key", "alert('You can withdrawal only 1 and 11 and 21 date on every month.!');location.replace('Index.aspx');", true);
-            //        return;
-            //    }
-            //}
-
-            //if (walletType == "W")
-            //{
-            //    if (!GetWithdrawlmonthStatus())
-            //    {
-            //        ScriptManager.RegisterStartupScript(this, this.GetType(), "Key", "alert('You can withdrawal only 1 date on every month.!');location.replace('Index.aspx');", true);
-            //        return;
-            //    }
-            //}
-
+            if (walletType == "M")
+            {
+                if (GetWithdrawlStatus())
+                {
+                    //ScriptManager.RegisterStartupScript(this, this.GetType(), "Key", "alert('You can Not withdrawal 1 and 11 and 21 date on every month.!');location.replace('Index.aspx');", true);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Key", "alert('You can withdrawal sunday on every month.!');location.replace('Index.aspx');", true);
+                    return;
+                }
+            }
             if (!IsPostBack)
             {
                 Session["OtpCount"] = 0;
                 Session["OtpTime"] = null;
                 Session["Retry"] = null;
                 Session["OTP_"] = null;
-                Fill_WalletType();
+                //Fill_WalletType();
                 HdnCheckTrnns.Value = GenerateRandomString();
-
+                FillDetail();
                 if (FillDetailUpdate())
                 {
                     // Additional logic if needed
@@ -117,19 +102,31 @@ public partial class Fundwithdrawal : System.Web.UI.Page
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Key", "alert('" + ex.Message + "');", true);
         }
     }
-    private void Fun_Sp_GetCryptoAPIFor_FundWithdraw_Admin()
+
+    private void FillDetail()
     {
-        try
+        DataTable tmpTable = new DataTable();
+
+        using (SqlConnection Conn = new SqlConnection(constr))
         {
-            string sql = "";
-            DataTable dt_API_Master = new DataTable();
-            sql = " Exec Sp_GetCryptoAPIFor_FundWithdraw_Admin";
-            dt_API_Master = SqlHelper.ExecuteDataset(constr1, CommandType.Text, sql).Tables[0];
-            Session["SinglePayout"] = dt_API_Master.Rows[0]["APIURL"].ToString();
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(ex.Message);
+            Conn.Open();
+
+            string query = "SELECT 1 AS Sno, a.BankId, b.BANKNAME, a.aCnO, a.iFsCODE, " +
+                           "A.MemFirstName AS pAYEEnAME, A.BranchName, a.pANnO " +
+                           "FROM M_MemberMaster AS a, m_BANKmASTER AS b " +
+                           "WHERE a.bANKid = b.bANKcODE AND a.fORMnO = @FormNo";
+
+            using (SqlCommand Comm = new SqlCommand(query, Conn))
+            {
+                Comm.Parameters.AddWithValue("@FormNo", Session["FormNo"]);
+
+                using (SqlDataAdapter Adp = new SqlDataAdapter(Comm))
+                {
+                    Adp.Fill(tmpTable);
+                    GrdBankDetail.DataSource = tmpTable;
+                    GrdBankDetail.DataBind();
+                }
+            }
         }
     }
     private bool GetReqStatus()
@@ -139,7 +136,7 @@ public partial class Fundwithdrawal : System.Web.UI.Page
         {
             DataTable dt = new DataTable();
             DataSet ds = new DataSet();
-            string strSql = ObjDal.Isostart + " exec SP_GetReqStatusUpdate '" + Session["FormNo"] + "', '" + ddlWalletType.SelectedValue + "' " + ObjDal.IsoEnd;
+            string strSql = ObjDal.Isostart + " exec SP_GetReqStatusUpdate '" + Session["FormNo"] + "', 'M' " + ObjDal.IsoEnd;
             ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql);
             if (ds.Tables.Count > 0)
             {
@@ -164,27 +161,27 @@ public partial class Fundwithdrawal : System.Web.UI.Page
             return result;
         }
     }
-    private void Fill_WalletType()
-    {
-        try
-        {
-            DataTable dt = new DataTable();
-            string str = ObjDal.Isostart + " exec Sp_GetWallet " + ObjDal.IsoEnd;
-            dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
+    //private void Fill_WalletType()
+    //{
+    //    try
+    //    {
+    //        DataTable dt = new DataTable();
+    //        string str = ObjDal.Isostart + " exec Sp_GetWallet " + ObjDal.IsoEnd;
+    //        dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
 
-            if (dt.Rows.Count > 0)
-            {
-                ddlWalletType.DataSource = dt;
-                ddlWalletType.DataTextField = "WalletName";
-                ddlWalletType.DataValueField = "AcType";
-                ddlWalletType.DataBind();
-            }
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(ex.Message);
-        }
-    }
+    //        if (dt.Rows.Count > 0)
+    //        {
+    //            ddlWalletType.DataSource = dt;
+    //            ddlWalletType.DataTextField = "WalletName";
+    //            ddlWalletType.DataValueField = "AcType";
+    //            ddlWalletType.DataBind();
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        throw new Exception(ex.Message);
+    //    }
+    //}
     protected void ddlWalletType_SelectedIndexChanged(object sender, EventArgs e)
     {
         TxtReqAmt.Text = "0";
@@ -193,7 +190,7 @@ public partial class Fundwithdrawal : System.Web.UI.Page
         TxtFinalSritoken.Text = "0";
         try
         {
-            string selectedValue = ddlWalletType.SelectedValue;
+            string selectedValue = "M";
             if (!GetReqStatus())
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Key", "alert('You can withdrawal only one time in a day.!');location.replace('Index.aspx');", true);
@@ -210,40 +207,33 @@ public partial class Fundwithdrawal : System.Web.UI.Page
                 {
                     if (Convert.ToInt32(dt.Rows[0]["Income"]) > 0)
                     {
-                        LblWithdrawalConditonIncome.Visible = true;
+                        //LblWithdrawalConditonIncome.Visible = true;
                         TxtReqAmt.Enabled = true;
-                        LblWithdrawalConditonIncome.Text = "Your Daily Withdrawal Limit For Stacking Bonus is " + Convert.ToInt32(dt.Rows[0]["PercentageMultiplier"]) + "% of Daily Stacking Bonus Is " + (dt.Rows[0]["DailyStackingBonus"]) + ".";
+                        //LblWithdrawalConditonIncome.Text = "Your Daily Withdrawal Limit For Stacking Bonus is " + Convert.ToInt32(dt.Rows[0]["PercentageMultiplier"]) + "% of Daily Stacking Bonus Is " + (dt.Rows[0]["DailyStackingBonus"]) + ".";
                     }
                     else
                     {
                         TxtReqAmt.Enabled = false;
-                        LblWithdrawalConditonIncome.Visible = true;
-                        LblWithdrawalConditonIncome.Text = "Your Daily Withdrawal Limit For Stacking Bonus is " + Convert.ToInt32(dt.Rows[0]["PercentageMultiplier"]) + "% of Daily Stacking Bonus Is " + (dt.Rows[0]["DailyStackingBonus"]) + ".";
+                        //LblWithdrawalConditonIncome.Visible = true;
+                        //LblWithdrawalConditonIncome.Text = "Your Daily Withdrawal Limit For Stacking Bonus is " + Convert.ToInt32(dt.Rows[0]["PercentageMultiplier"]) + "% of Daily Stacking Bonus Is " + (dt.Rows[0]["DailyStackingBonus"]) + ".";
                     }
                 }
             }
             else
             {
                 TxtReqAmt.Enabled = true;
-                LblWithdrawalConditonIncome.Visible = false;
+                //LblWithdrawalConditonIncome.Visible = false;
             }
-            //if (selectedValue == "T")
-            //{
-            //    if (!GetWithdrawlStatus())
-            //    {
-            //        ScriptManager.RegisterStartupScript(this, this.GetType(), "Key", "alert('You can withdrawal only 1 and 11 and 21 date on every month.!');location.replace('Index.aspx');", true);
-            //        return;
-            //    }
-            //}
 
-            //if (selectedValue == "W")
-            //{
-            //    if (!GetWithdrawlmonthStatus())
-            //    {
-            //        ScriptManager.RegisterStartupScript(this, this.GetType(), "Key", "alert('You can withdrawal only 1 date on every month.!');location.replace('Index.aspx');", true);
-            //        return;
-            //    }
-            //}
+            if (selectedValue == "M" )
+            {
+                if (GetWithdrawlStatus())
+                {
+                    //ScriptManager.RegisterStartupScript(this, this.GetType(), "Key", "alert('You can Not withdrawal 1 and 11 and 21 date on every month.!');location.replace('Index.aspx');", true);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Key", "alert('You can withdrawal sunday on every month.!');location.replace('Index.aspx');", true);
+                    return;
+                }
+            }
             if (!GetAmountStatus())
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Key", "alert('You Are Not Authorised For Withdrawal.Because Of Your Wallet Balance Is Low.!');location.replace('Index.aspx');", true);
@@ -363,7 +353,7 @@ public partial class Fundwithdrawal : System.Web.UI.Page
 
             DataTable dt = new DataTable();
             DataSet ds = new DataSet();
-            string strSql = ObjDal.Isostart + " Select * from  [dbo].[ufnGetWithdrawalCharge]('" + TxtReqAmt.Text + "','" + Session["formno"] + "','" + ddlWalletType.SelectedValue + "') " + ObjDal.IsoEnd;
+            string strSql = ObjDal.Isostart + " Select * from  [dbo].[ufnGetWithdrawalCharge]('" + TxtReqAmt.Text + "','" + Session["formno"] + "','M') " + ObjDal.IsoEnd;
             ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql);
             dt = ds.Tables[0];
 
@@ -373,7 +363,7 @@ public partial class Fundwithdrawal : System.Web.UI.Page
                 TxtTds.Text = Math.Round(Convert.ToDouble(dt.Rows[0]["AdminChargeAmount"]), 2).ToString();
                 txtwithdrawls.Text = Math.Round(Convert.ToDouble(dt.Rows[0]["NetAMount"]), 2).ToString();
                 TxtFinalSritoken.Text = Math.Round(Convert.ToDouble(dt.Rows[0]["FinalWithdrawalAmount"]), 2).ToString();
-                LblCoinRate.Text = Math.Round(Convert.ToDouble(dt.Rows[0]["RPRate"]), 2).ToString();
+                //LblCoinRate.Text = Math.Round(Convert.ToDouble(dt.Rows[0]["RPRate"]), 2).ToString();
             }
             //}
             //else
@@ -413,7 +403,7 @@ public partial class Fundwithdrawal : System.Web.UI.Page
         try
         {
             Decimal RtrVal = 0;
-            string Str = ObjDal.Isostart + "Select balance From dbo.ufnGetBalance('" + Session["FormNo"] + "','" + ddlWalletType.SelectedValue + "')" + ObjDal.IsoEnd;
+            string Str = ObjDal.Isostart + "Select balance From dbo.ufnGetBalance('" + Session["FormNo"] + "','M')" + ObjDal.IsoEnd;
             SqlConnection cnn = new SqlConnection(constr1);
             using (SqlDataReader dr = SqlHelper.ExecuteReader(cnn, CommandType.Text, Str))
             {
@@ -518,7 +508,7 @@ public partial class Fundwithdrawal : System.Web.UI.Page
         {
             bool result = false;
             DataTable dt = new DataTable();
-            string strSql = ObjDal.Isostart + "Select balance From dbo.ufnGetBalance('" + Session["FormNo"] + "','" + ddlWalletType.SelectedValue + "')" + ObjDal.IsoEnd;
+            string strSql = ObjDal.Isostart + "Select balance From dbo.ufnGetBalance('" + Session["FormNo"] + "','M')" + ObjDal.IsoEnd;
             DataSet ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql);
             dt = ds.Tables[0];
 
@@ -562,6 +552,11 @@ public partial class Fundwithdrawal : System.Web.UI.Page
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Key", "alert('Please Select Wallet Type.!');", true);
                 return;
             }
+            if (!GetKycPerStatus())
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Key", "alert('Please approve kyc detail.');location.replace('Index.aspx');", true);
+                return;
+            }
 
             if (!GetAmountStatus())
             {
@@ -570,84 +565,84 @@ public partial class Fundwithdrawal : System.Web.UI.Page
             }
 
             ObjDal = new DAL();
-            DataTable dtCheck = new DataTable();
-            string strCheck = ObjDal.Isostart + " exec Sp_GetTimeOfWithdrawal '" + Session["formno"] + "'" + ObjDal.IsoEnd;
-            dtCheck = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strCheck).Tables[0];
+            //DataTable dtCheck = new DataTable();
+            //string strCheck = ObjDal.Isostart + " exec Sp_GetTimeOfWithdrawal '" + Session["formno"] + "'" + ObjDal.IsoEnd;
+            //dtCheck = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strCheck).Tables[0];
 
-            if (dtCheck.Rows.Count > 0)
-            {
-                DateTime minTime = DateTime.Parse(dtCheck.Rows[0]["Min"].ToString());
-                DateTime currentTime = DateTime.Parse(dtCheck.Rows[0]["CurrentTime"].ToString());
-
-                if (minTime > currentTime)
-                {
-                    string scrName = "<SCRIPT language='javascript'>alert('You can withdrawal after 10 Min.');</SCRIPT>";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrName, false);
-                    ResetFields();
-                    return;
-                }
-            }
-            //string strSql = ObjDal.Isostart + "EXEC Sp_CheckTransctionPassword " + Session["Formno"] + ",'" + TxtPassword.Text.Trim() + "'" + ObjDal.IsoEnd;
-            //DataTable dtPassword = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql).Tables[0];
-
-            //if (dtPassword.Rows.Count > 0)
+            //if (dtCheck.Rows.Count > 0)
             //{
-            //otp_save_function();
-            //}
-            //else
-            //{
-            //    ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "Upgraded", "<SCRIPT language='javascript'>alert('Please Enter Valid Transaction Password.!');</SCRIPT>", false);
-            //}
-            int OTP_ = 0;
-            Random rs = new Random();
-            OTP_ = rs.Next(100001, 999999);
+            //    DateTime minTime = DateTime.Parse(dtCheck.Rows[0]["Min"].ToString());
+            //    DateTime currentTime = DateTime.Parse(dtCheck.Rows[0]["CurrentTime"].ToString());
 
-            if (Session["OTP_"] == null)
+            //    if (minTime > currentTime)
+            //    {
+            //        string scrName = "<SCRIPT language='javascript'>alert('You can withdrawal after 10 Min.');</SCRIPT>";
+            //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrName, false);
+            //        ResetFields();
+            //        return;
+            //    }
+            //}
+            string strSql = ObjDal.Isostart + "EXEC Sp_CheckTransctionPassword " + Session["Formno"] + ",'" + TxtPassword.Text.Trim() + "'" + ObjDal.IsoEnd;
+            DataTable dtPassword = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql).Tables[0];
+
+            if (dtPassword.Rows.Count > 0)
             {
-                if (SendMail(OTP_.ToString()))
-                {
-                    Session["OtpTime"] = DateTime.Now.AddMinutes(5);
-                    Session["Retry"] = "1";
-                    Session["OTP_"] = OTP_;
-                    int i = 0;
-                    string query = "";
-                    query = "INSERT INTO AdminLogin (UserID, Username, Passw, MobileNo, OTP, LoginTime, emailotp, EmailID, ForType) ";
-                    query += "VALUES ('" + Session["formno"] + "', '" + Session["MemName"] + "', '" + TxtOtp.Text + "', '0', '" + OTP_ + "', GETDATE(), '" + OTP_ + "', ";
-                    query += "'" + Session["EMail"].ToString().Trim() + "', 'Withdrawal')";
-                    i = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, query));
-                    if (i > 0)
-                    {
-                        divotp.Visible = true;
-                        BtnSubmit.Visible = false;
-                        BtnOtp.Visible = true;
-                        ResendOtp.Visible = true;
-                        string scrname = "<script language='javascript'>alert('OTP Sent On Mail');</script>";
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrname, false);
-                        return;
-                    }
-                    else
-                    {
-                        string scrname = "<script language='javascript'>alert('Try Later');</script>";
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrname, false);
-                        return;
-                    }
-                }
-                else
-                {
-                    string scrname = "<script language='javascript'>alert('OTP Try Later');</script>";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrname, false);
-                    return;
-                }
+                otp_save_function();
             }
             else
             {
-                TxtReqAmt.Enabled = false;
-                ddlWalletType.Enabled = false;
-                divotp.Visible = true;
-                BtnSubmit.Visible = false;
-                BtnOtp.Visible = true;
-                ResendOtp.Visible = false;
+                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "Upgraded", "<SCRIPT language='javascript'>alert('Please Enter Valid Transaction Password.!');</SCRIPT>", false);
             }
+            //int OTP_ = 0;
+            //Random rs = new Random();
+            //OTP_ = rs.Next(100001, 999999);
+
+            //if (Session["OTP_"] == null)
+            //{
+            //    if (SendMail(OTP_.ToString()))
+            //    {
+            //        Session["OtpTime"] = DateTime.Now.AddMinutes(5);
+            //        Session["Retry"] = "1";
+            //        Session["OTP_"] = OTP_;
+            //        int i = 0;
+            //        string query = "";
+            //        query = "INSERT INTO AdminLogin (UserID, Username, Passw, MobileNo, OTP, LoginTime, emailotp, EmailID, ForType) ";
+            //        query += "VALUES ('" + Session["formno"] + "', '" + Session["MemName"] + "', '" + TxtOtp.Text + "', '0', '" + OTP_ + "', GETDATE(), '" + OTP_ + "', ";
+            //        query += "'" + Session["EMail"].ToString().Trim() + "', 'Withdrawal')";
+            //        i = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, query));
+            //        if (i > 0)
+            //        {
+            //            divotp.Visible = true;
+            //            BtnSubmit.Visible = false;
+            //            BtnOtp.Visible = true;
+            //            ResendOtp.Visible = true;
+            //            string scrname = "<script language='javascript'>alert('OTP Sent On Mail');</script>";
+            //            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrname, false);
+            //            return;
+            //        }
+            //        else
+            //        {
+            //            string scrname = "<script language='javascript'>alert('Try Later');</script>";
+            //            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrname, false);
+            //            return;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        string scrname = "<script language='javascript'>alert('OTP Try Later');</script>";
+            //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrname, false);
+            //        return;
+            //    }
+            //}
+            //else
+            //{
+            //    TxtReqAmt.Enabled = false;
+            //    ddlWalletType.Enabled = false;
+            //    divotp.Visible = true;
+            //    BtnSubmit.Visible = false;
+            //    BtnOtp.Visible = true;
+            //    ResendOtp.Visible = false;
+            //}
         }
         catch (Exception ex)
         {
@@ -694,7 +689,7 @@ public partial class Fundwithdrawal : System.Web.UI.Page
             smtp.Credentials = new System.Net.NetworkCredential(Session["CompMail"].ToString(), Session["MailPass"].ToString());
             smtp.Send(myMessage);
             TxtReqAmt.Enabled = false;
-            ddlWalletType.Enabled = false;
+            //ddlWalletType.Enabled = false;
             return true;
         }
         catch (Exception ex)
@@ -830,6 +825,11 @@ public partial class Fundwithdrawal : System.Web.UI.Page
                         ScriptManager.RegisterClientScriptBlock(Page, GetType(), "Login Error", scrname, false);
                         return;
                     }
+                    if (!GetKycPerStatus())
+                    {
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Key", "alert('Please approve kyc detail.');location.replace('Index.aspx');", true);
+                        return;
+                    }
 
                     if (FillDetailUpdate())
                     {
@@ -876,14 +876,14 @@ public partial class Fundwithdrawal : System.Web.UI.Page
 
                             if (i > 0)
                             {
-                                string responseResult = "";
-                                string responseResultSTDS = "";
-                                responseResult = DeductWalletApi(Session["Formno"].ToString(), ddlWalletType.SelectedValue, TxtFinalSritoken.Text, reqNo, TxtWalletAddres.Text);
-                                if (responseResult.ToUpper() == "SUCCESS")
-                                {
-                                    responseResultSTDS = DeductWalletTDS(Session["Formno"].ToString(), ddlWalletType.SelectedValue, TxtTds.Text, "0xe1d85E5D39E1909c7be6FDa8a9eCE329Db03AD77", reqNo);
-                                    if (responseResultSTDS.ToUpper() == "SUCCESS")
-                                    {
+                                //string responseResult = "";
+                                //string responseResultSTDS = "";
+                                //responseResult = DeductWalletApi(Session["Formno"].ToString(), ddlWalletType.SelectedValue, TxtFinalSritoken.Text, reqNo, TxtWalletAddres.Text);
+                                //if (responseResult.ToUpper() == "SUCCESS")
+                                //{
+                                //    responseResultSTDS = DeductWalletTDS(Session["Formno"].ToString(), ddlWalletType.SelectedValue, TxtTds.Text, "0xe1d85E5D39E1909c7be6FDa8a9eCE329Db03AD77", reqNo);
+                                //    if (responseResultSTDS.ToUpper() == "SUCCESS")
+                                //    {
                                         TxtCredit.Text = Amount().ToString();
                                         TxtReqAmt.Text = "0";
                                         TxtTds.Text = "0";
@@ -892,30 +892,30 @@ public partial class Fundwithdrawal : System.Web.UI.Page
                                         TxtFrxInfra.Text = string.Empty;
                                         ScriptManager.RegisterStartupScript(Page, GetType(), "Key", "alert('Withdrawal Successfully.!');location.replace('FundWithdrawal.aspx');", true);
                                         return;
-                                    }
-                                    else
-                                    {
-                                        TxtReqAmt.Text = "0";
-                                        TxtTds.Text = "0";
-                                        txtwithdrawls.Text = "0";
-                                        TxtFinalSritoken.Text = "0";
-                                        TxtCredit.Text = Amount().ToString();
-                                        TxtFrxInfra.Text = string.Empty;
-                                        ScriptManager.RegisterStartupScript(Page, GetType(), "Key", "alert('Your Request Is Rejected. Please Contact Admin.!');location.replace('FundWithdrawal.aspx');", true);
-                                        return;
-                                    }
-                                }
-                                else
-                                {
-                                    TxtReqAmt.Text = "0";
-                                    TxtTds.Text = "0";
-                                    txtwithdrawls.Text = "0";
-                                    TxtFinalSritoken.Text = "0";
-                                    TxtCredit.Text = Amount().ToString();
-                                    TxtFrxInfra.Text = string.Empty;
-                                    ScriptManager.RegisterStartupScript(Page, GetType(), "Key", "alert('Your Request Is Rejected. Please Contact Admin.!');location.replace('FundWithdrawal.aspx');", true);
-                                    return;
-                                }
+                                    //}
+                                    //else
+                                    //{
+                                    //    TxtReqAmt.Text = "0";
+                                    //    TxtTds.Text = "0";
+                                    //    txtwithdrawls.Text = "0";
+                                    //    TxtFinalSritoken.Text = "0";
+                                    //    TxtCredit.Text = Amount().ToString();
+                                    //    TxtFrxInfra.Text = string.Empty;
+                                    //    ScriptManager.RegisterStartupScript(Page, GetType(), "Key", "alert('Your Request Is Rejected. Please Contact Admin.!');location.replace('FundWithdrawal.aspx');", true);
+                                    //    return;
+                                    //}
+                                //}
+                                //else
+                                //{
+                                //    TxtReqAmt.Text = "0";
+                                //    TxtTds.Text = "0";
+                                //    txtwithdrawls.Text = "0";
+                                //    TxtFinalSritoken.Text = "0";
+                                //    TxtCredit.Text = Amount().ToString();
+                                //    TxtFrxInfra.Text = string.Empty;
+                                //    ScriptManager.RegisterStartupScript(Page, GetType(), "Key", "alert('Your Request Is Rejected. Please Contact Admin.!');location.replace('FundWithdrawal.aspx');", true);
+                                //    return;
+                                //}
                             }
                             else
                             {
@@ -963,290 +963,290 @@ public partial class Fundwithdrawal : System.Web.UI.Page
             Console.WriteLine("Error in otp_save_function: " + ex.Message);
         }
     }
-    public string DeductWalletApi(string formNo, string ddlWalletType, string withdrawAmount, string reqNo, string walletAddress)
-    {
-        string sResult = string.Empty;
-        string current_datetime = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-        int random_number = new Random().Next(0, 999);
-        string formatted_datetime = current_datetime + random_number.ToString().PadLeft(3, '0');
-        sResult = formatted_datetime;
-        DataTable dtQuery = new DataTable();
-        string responseFromServer = string.Empty;
-        string statusApi = "";
-        int i = 0;
-        string hash_ = "";
-        DataSet dsLogin = new DataSet();
-        string str = string.Empty;
-        DataSet ds = new DataSet();
-        DataSet data = new DataSet();
-        string url = "";
-        try
-        {
+    //public string DeductWalletApi(string formNo, string ddlWalletType, string withdrawAmount, string reqNo, string walletAddress)
+    //{
+    //    string sResult = string.Empty;
+    //    string current_datetime = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+    //    int random_number = new Random().Next(0, 999);
+    //    string formatted_datetime = current_datetime + random_number.ToString().PadLeft(3, '0');
+    //    sResult = formatted_datetime;
+    //    DataTable dtQuery = new DataTable();
+    //    string responseFromServer = string.Empty;
+    //    string statusApi = "";
+    //    int i = 0;
+    //    string hash_ = "";
+    //    DataSet dsLogin = new DataSet();
+    //    string str = string.Empty;
+    //    DataSet ds = new DataSet();
+    //    DataSet data = new DataSet();
+    //    string url = "";
+    //    try
+    //    {
 
 
-            try
-            {
-                ServicePointManager.Expect100Continue = true;
-                ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072; // TLS 1.2
-                url = Session["SinglePayout"].ToString();
-                WebRequest tRequest = WebRequest.Create(url);
-                tRequest.Method = "POST";
-                tRequest.ContentType = "application/json";
-                tRequest.ContentLength = 0;
+    //        try
+    //        {
+    //            ServicePointManager.Expect100Continue = true;
+    //            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072; // TLS 1.2
+    //            url = Session["SinglePayout"].ToString();
+    //            WebRequest tRequest = WebRequest.Create(url);
+    //            tRequest.Method = "POST";
+    //            tRequest.ContentType = "application/json";
+    //            tRequest.ContentLength = 0;
 
-                string postData = "{\"to\":\"" + walletAddress.Trim() + "\",\"amount\":\"" + Convert.ToDecimal(withdrawAmount) + "\",\"txId\":\"" + reqNo + "\"}";
-                byte[] byteArray = Encoding.UTF8.GetBytes(postData);
-
-
-                int xReq = 0;
-                try
-                {
-                    string sqlReq = "INSERT INTO Tbl_ApiRequest_Response (ReqID, Formno, Request, PostData, ForType,FundReqNo) " +
-                  "VALUES ('" + reqNo.Trim() + "','" + formNo + "','" + url.Trim() + "','" + postData.Trim() + "','SINGLEPAYOUT','" + sResult + "')";
-                    xReq = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sqlReq));
-                }
-                catch (SqlException ex)
-                {
-                    if (ex.Number == 2627) // SQL error code for primary key violation
-                    {
-                        xReq = 0;
-                    }
-                }
-                tRequest.ContentLength = byteArray.Length;
-                Stream dataStream = tRequest.GetRequestStream();
-                dataStream.Write(byteArray, 0, byteArray.Length);
-                dataStream.Close();
-
-                WebResponse tResponse = tRequest.GetResponse();
-                dataStream = tResponse.GetResponseStream();
-                StreamReader tReader = new StreamReader(dataStream);
-                str = tReader.ReadToEnd();
-                string sqlRes = "UPDATE Tbl_ApiRequest_Response SET Response = '" + str.Trim() + "',DateUpdate = getdate() WHERE ReqID = '" + reqNo.Trim() + "'";
-                int xRes = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sqlRes));
-                dsLogin = convertJsonStringToDataSet(str.ToString());
-
-                string resultStatus = string.IsNullOrEmpty(str) ? "failed" : dsLogin.Tables[0].Rows[0]["Status"].ToString();
-
-                if (resultStatus.ToUpper() == "FAILED")
-                {
-                    hash_ = dsLogin.Tables[0].Rows[0]["txhash"].ToString();
-                }
-                else if (resultStatus.ToUpper() == "SUCCESS")
-                {
-                    hash_ = dsLogin.Tables[0].Rows[0]["txhash"].ToString();
-                }
-
-                if (resultStatus.ToUpper() == "SUCCESS")
-                {
-                    string query = "EXEC Sp_TrnIncomeCapitalWithDraw '" + reqNo.Trim() + "','" + formNo + "','" + Convert.ToDecimal(withdrawAmount) + "','" + hash_.Trim() + "';";
-                    query += "INSERT INTO ApiReqResponse(Formno, Orderid, WalletAddress, PrivateKey, Request, Response, ApiStatus, RectimeStamp, ApiType, TxnHash, Amount, PostData) ";
-                    query += "VALUES ('" + formNo.ToString() + "','" + reqNo + "','" + walletAddress + "','','" + url + "','" + str + "','" + hash_ + "',GETDATE(),'singlePayout','" + hash_ + "','" + Convert.ToDecimal(withdrawAmount) + "','')";
-
-                    i = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, query));
-
-                    if (i > 0 && resultStatus.ToUpper() == "SUCCESS")
-                    {
-                        statusApi = resultStatus;
-                    }
-                }
-                else
-                {
-                    string MaxVoucherNo_ = "3" + DateTime.Now.ToString("ddMMyyyyHHmmssfff");
-                    long maxVno_ = Convert.ToInt64(MaxVoucherNo_) + Convert.ToInt64(formNo);
-                    MaxVoucherNo_ = maxVno_.ToString();
-
-                    string MaxVoucherNo1_ = "4" + DateTime.Now.ToString("ddMMyyyyHHmmssfff");
-                    long maxVno1_ = Convert.ToInt64(MaxVoucherNo1_) + Convert.ToInt64(formNo);
-                    MaxVoucherNo1_ = maxVno1_.ToString();
-
-                    string MaxVoucherNo2_ = "5" + DateTime.Now.ToString("ddMMyyyyHHmmssfff");
-                    long maxVno2_ = Convert.ToInt64(MaxVoucherNo2_) + Convert.ToInt64(formNo);
-                    MaxVoucherNo2_ = maxVno2_.ToString();
-
-                    string StrQuery = " exec Sp_FundWithdrawalRejected '" + Convert.ToInt64(formNo) + "','" + reqNo.Trim() + "','" + hash_.Trim() + "',";
-                    StrQuery += "'" + MaxVoucherNo_ + "','" + MaxVoucherNo1_ + "','" + MaxVoucherNo2_ + "','" + ddlWalletType + "';";
-                    StrQuery += "insert into ApiReqResponse(Formno, Orderid, WalletAddress, PrivateKey, Request, Response, ApiStatus, RectimeStamp, ";
-                    StrQuery += "ApiType, TxnHash, AMount, PostData) ";
-                    StrQuery += "Values('" + formNo + "','" + reqNo + "','" + walletAddress.Trim() + "','',";
-                    StrQuery += "'" + Session["SinglePayout"].ToString() + "','','" + hash_ + "',getdate(),'singlePayout',";
-                    StrQuery += "'" + hash_ + "','" + Convert.ToDecimal(withdrawAmount) + "','Failed Case');";
-
-                    int updateeffect = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, StrQuery));
-
-                    string strSuccess = "INSERT INTO ApiReqResponse(Formno, Orderid, WalletAddress, PrivateKey, Request, Response, ApiStatus, RectimeStamp, ApiType, TxnHash, Amount, PostData) ";
-                    strSuccess += "VALUES ('" + formNo.ToString() + "','" + reqNo + "','" + walletAddress.Trim() + "','','" + url + "','" + str + "',";
-                    strSuccess += "'" + hash_ + "',GETDATE(),'singlePayout','" + hash_ + "','" + Convert.ToDecimal(withdrawAmount) + "','Failed Case');";
-
-                    int x = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, strSuccess));
-
-                    string sqlRes1 = "UPDATE Tbl_ApiRequest_Response SET Response = '" + str.Trim() + "',DateUpdate = getdate() WHERE ReqID = '" + reqNo.Trim() + "'";
-                    int xRes1 = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sqlRes1));
-
-                    if (x > 0)
-                    {
-                        statusApi = resultStatus;
-                    }
-
-                }
-            }
-            catch (Exception ex)
-            {
-                string MaxVoucherNo_ = "3" + DateTime.Now.ToString("ddMMyyyyHHmmssfff");
-                long maxVno_ = Convert.ToInt64(MaxVoucherNo_) + Convert.ToInt64(formNo);
-                MaxVoucherNo_ = maxVno_.ToString();
-
-                string MaxVoucherNo1_ = "4" + DateTime.Now.ToString("ddMMyyyyHHmmssfff");
-                long maxVno1_ = Convert.ToInt64(MaxVoucherNo1_) + Convert.ToInt64(formNo);
-                MaxVoucherNo1_ = maxVno1_.ToString();
-
-                string MaxVoucherNo2_ = "5" + DateTime.Now.ToString("ddMMyyyyHHmmssfff");
-                long maxVno2_ = Convert.ToInt64(MaxVoucherNo2_) + Convert.ToInt64(formNo);
-                MaxVoucherNo2_ = maxVno2_.ToString();
-
-                string StrQuery = " exec Sp_FundWithdrawalRejected '" + Convert.ToInt64(formNo) + "','" + reqNo.Trim() + "','" + hash_.Trim() + "',";
-                StrQuery += "'" + MaxVoucherNo_ + "','" + MaxVoucherNo1_ + "','" + MaxVoucherNo2_ + "','" + ddlWalletType + "';";
-                StrQuery += "insert into ApiReqResponse(Formno, Orderid, WalletAddress, PrivateKey, Request, Response, ApiStatus, RectimeStamp, ";
-                StrQuery += "ApiType, TxnHash, AMount, PostData) ";
-                StrQuery += "Values('" + formNo + "','" + reqNo + "','" + walletAddress.Trim() + "','',";
-                StrQuery += "'" + Session["SinglePayout"].ToString() + "','','" + hash_ + "',getdate(),'singlePayout',";
-                StrQuery += "'" + hash_ + "','" + Convert.ToDecimal(withdrawAmount) + "','Exception Case');";
-
-                int updateeffect = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, StrQuery));
-
-                string strSuccess = "INSERT INTO ApiReqResponse(Formno, Orderid, WalletAddress, PrivateKey, Request, Response, ApiStatus, RectimeStamp, ApiType, TxnHash, Amount, PostData) ";
-                strSuccess += "VALUES ('" + formNo.ToString() + "','" + reqNo + "','" + walletAddress.Trim() + "','','" + url + "','" + str + "',";
-                strSuccess += "'" + hash_ + "',GETDATE(),'singlePayout','" + hash_ + "','" + Convert.ToDecimal(withdrawAmount) + "','Exception Case');";
-
-                int x = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, strSuccess));
-
-                string sqlRes1 = "UPDATE Tbl_ApiRequest_Response SET Response = '" + ex.Message.Trim() + "',DateUpdate = getdate() WHERE ReqID = '" + reqNo.Trim() + "'";
-                int xRes1 = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sqlRes1));
-
-                statusApi = "failed";
-            }
-        }
-        catch (Exception ex)
-        {
-
-            throw new Exception(ex.Message);
-        }
-
-        return statusApi;
-    }
-    public string DeductWalletTDS(string formNo, string ddlWalletType, string withdrawAmount, string walletAddress, string reqNo)
-    {
-        string sResult = string.Empty;
-        string current_datetime = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-        int random_number = new Random().Next(0, 999);
-        string formatted_datetime = current_datetime + random_number.ToString().PadLeft(3, '0');
-        sResult = formatted_datetime;
-        DataTable dtQuery = new DataTable();
-        string responseFromServer = string.Empty;
-        string statusApi = "";
-        int i = 0;
-        string hash_ = "";
-
-        try
-        {
-            DataSet dsLogin = new DataSet();
-            string str = string.Empty;
-            DataSet ds = new DataSet();
-            DataSet data = new DataSet();
-            string url = "";
-
-            try
-            {
-                ServicePointManager.Expect100Continue = true;
-                ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072; // TLS 1.2
-                url = Session["SinglePayout"].ToString();
-                WebRequest tRequest = WebRequest.Create(url);
-                tRequest.Method = "POST";
-                tRequest.ContentType = "application/json";
-                tRequest.ContentLength = 0;
-
-                string postData = "{\"to\":\"" + walletAddress.Trim() + "\",\"amount\":\"" + Convert.ToDecimal(withdrawAmount) + "\",\"txId\":\"" + sResult + "\"}";
-                byte[] byteArray = Encoding.UTF8.GetBytes(postData);
+    //            string postData = "{\"to\":\"" + walletAddress.Trim() + "\",\"amount\":\"" + Convert.ToDecimal(withdrawAmount) + "\",\"txId\":\"" + reqNo + "\"}";
+    //            byte[] byteArray = Encoding.UTF8.GetBytes(postData);
 
 
-                int xReq = 0;
-                try
-                {
-                    string sqlReq = "INSERT INTO Tbl_ApiRequest_Response (ReqID, Formno, Request, PostData, ForType,FundReqNo) " +
-                  "VALUES ('" + sResult.Trim() + "','" + formNo + "','" + url.Trim() + "','" + postData.Trim() + "','SINGLEPAYOUTTDS','" + reqNo + "')";
-                    xReq = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sqlReq));
-                }
-                catch (SqlException ex)
-                {
-                    if (ex.Number == 2627) // SQL error code for primary key violation
-                    {
-                        xReq = 0;
-                    }
-                }
-                tRequest.ContentLength = byteArray.Length;
-                Stream dataStream = tRequest.GetRequestStream();
-                dataStream.Write(byteArray, 0, byteArray.Length);
-                dataStream.Close();
+    //            int xReq = 0;
+    //            try
+    //            {
+    //                string sqlReq = "INSERT INTO Tbl_ApiRequest_Response (ReqID, Formno, Request, PostData, ForType,FundReqNo) " +
+    //              "VALUES ('" + reqNo.Trim() + "','" + formNo + "','" + url.Trim() + "','" + postData.Trim() + "','SINGLEPAYOUT','" + sResult + "')";
+    //                xReq = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sqlReq));
+    //            }
+    //            catch (SqlException ex)
+    //            {
+    //                if (ex.Number == 2627) // SQL error code for primary key violation
+    //                {
+    //                    xReq = 0;
+    //                }
+    //            }
+    //            tRequest.ContentLength = byteArray.Length;
+    //            Stream dataStream = tRequest.GetRequestStream();
+    //            dataStream.Write(byteArray, 0, byteArray.Length);
+    //            dataStream.Close();
 
-                WebResponse tResponse = tRequest.GetResponse();
-                dataStream = tResponse.GetResponseStream();
-                StreamReader tReader = new StreamReader(dataStream);
-                str = tReader.ReadToEnd();
-                string sqlRes = "UPDATE Tbl_ApiRequest_Response SET Response = '" + str.Trim() + "',DateUpdate = getdate() WHERE ReqID = '" + sResult.Trim() + "'";
-                int xRes = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sqlRes));
-                dsLogin = convertJsonStringToDataSet(str.ToString());
+    //            WebResponse tResponse = tRequest.GetResponse();
+    //            dataStream = tResponse.GetResponseStream();
+    //            StreamReader tReader = new StreamReader(dataStream);
+    //            str = tReader.ReadToEnd();
+    //            string sqlRes = "UPDATE Tbl_ApiRequest_Response SET Response = '" + str.Trim() + "',DateUpdate = getdate() WHERE ReqID = '" + reqNo.Trim() + "'";
+    //            int xRes = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sqlRes));
+    //            dsLogin = convertJsonStringToDataSet(str.ToString());
 
-                string resultStatus = string.IsNullOrEmpty(str) ? "failed" : dsLogin.Tables[0].Rows[0]["Status"].ToString();
+    //            string resultStatus = string.IsNullOrEmpty(str) ? "failed" : dsLogin.Tables[0].Rows[0]["Status"].ToString();
 
-                if (resultStatus.ToUpper() == "FAILED")
-                {
-                    hash_ = dsLogin.Tables[0].Rows[0]["txhash"].ToString();
-                }
-                else if (resultStatus.ToUpper() == "SUCCESS")
-                {
-                    hash_ = dsLogin.Tables[0].Rows[0]["txhash"].ToString();
-                }
+    //            if (resultStatus.ToUpper() == "FAILED")
+    //            {
+    //                hash_ = dsLogin.Tables[0].Rows[0]["txhash"].ToString();
+    //            }
+    //            else if (resultStatus.ToUpper() == "SUCCESS")
+    //            {
+    //                hash_ = dsLogin.Tables[0].Rows[0]["txhash"].ToString();
+    //            }
 
-                if (resultStatus.ToUpper() == "SUCCESS")
-                {
-                    string query = "";
-                    query += "INSERT INTO ApiReqResponse(Formno, Orderid, WalletAddress, PrivateKey, Request, Response, ApiStatus, RectimeStamp, ApiType, TxnHash, Amount, PostData) ";
-                    query += "VALUES ('" + formNo.ToString() + "','" + reqNo + "','" + walletAddress + "','','" + url + "','" + str + "','" + hash_ + "',GETDATE(),'SINGLEPAYOUTTDS','" + hash_ + "','" + Convert.ToDecimal(withdrawAmount) + "','')";
-                    i = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, query));
+    //            if (resultStatus.ToUpper() == "SUCCESS")
+    //            {
+    //                string query = "EXEC Sp_TrnIncomeCapitalWithDraw '" + reqNo.Trim() + "','" + formNo + "','" + Convert.ToDecimal(withdrawAmount) + "','" + hash_.Trim() + "';";
+    //                query += "INSERT INTO ApiReqResponse(Formno, Orderid, WalletAddress, PrivateKey, Request, Response, ApiStatus, RectimeStamp, ApiType, TxnHash, Amount, PostData) ";
+    //                query += "VALUES ('" + formNo.ToString() + "','" + reqNo + "','" + walletAddress + "','','" + url + "','" + str + "','" + hash_ + "',GETDATE(),'singlePayout','" + hash_ + "','" + Convert.ToDecimal(withdrawAmount) + "','')";
 
-                    if (i > 0 && resultStatus.ToUpper() == "SUCCESS")
-                    {
-                        statusApi = resultStatus;
-                    }
-                }
-                else
-                {
+    //                i = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, query));
 
-                    string strSuccess = "INSERT INTO ApiReqResponse(Formno, Orderid, WalletAddress, PrivateKey, Request, Response, ApiStatus, RectimeStamp, ApiType, TxnHash, Amount, PostData) ";
-                    strSuccess += "VALUES ('" + formNo.ToString() + "','" + reqNo + "','" + walletAddress.Trim() + "','','" + url + "','" + str + "',";
-                    strSuccess += "'" + hash_ + "',GETDATE(),'SINGLEPAYOUTTDS','" + hash_ + "','" + Convert.ToDecimal(withdrawAmount) + "','Failed Case');";
+    //                if (i > 0 && resultStatus.ToUpper() == "SUCCESS")
+    //                {
+    //                    statusApi = resultStatus;
+    //                }
+    //            }
+    //            else
+    //            {
+    //                string MaxVoucherNo_ = "3" + DateTime.Now.ToString("ddMMyyyyHHmmssfff");
+    //                long maxVno_ = Convert.ToInt64(MaxVoucherNo_) + Convert.ToInt64(formNo);
+    //                MaxVoucherNo_ = maxVno_.ToString();
 
-                    int x = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, strSuccess));
+    //                string MaxVoucherNo1_ = "4" + DateTime.Now.ToString("ddMMyyyyHHmmssfff");
+    //                long maxVno1_ = Convert.ToInt64(MaxVoucherNo1_) + Convert.ToInt64(formNo);
+    //                MaxVoucherNo1_ = maxVno1_.ToString();
 
-                    if (x > 0)
-                    {
-                        statusApi = resultStatus;
-                    }
+    //                string MaxVoucherNo2_ = "5" + DateTime.Now.ToString("ddMMyyyyHHmmssfff");
+    //                long maxVno2_ = Convert.ToInt64(MaxVoucherNo2_) + Convert.ToInt64(formNo);
+    //                MaxVoucherNo2_ = maxVno2_.ToString();
 
-                }
-            }
-            catch (Exception ex)
-            {
+    //                string StrQuery = " exec Sp_FundWithdrawalRejected '" + Convert.ToInt64(formNo) + "','" + reqNo.Trim() + "','" + hash_.Trim() + "',";
+    //                StrQuery += "'" + MaxVoucherNo_ + "','" + MaxVoucherNo1_ + "','" + MaxVoucherNo2_ + "','" + ddlWalletType + "';";
+    //                StrQuery += "insert into ApiReqResponse(Formno, Orderid, WalletAddress, PrivateKey, Request, Response, ApiStatus, RectimeStamp, ";
+    //                StrQuery += "ApiType, TxnHash, AMount, PostData) ";
+    //                StrQuery += "Values('" + formNo + "','" + reqNo + "','" + walletAddress.Trim() + "','',";
+    //                StrQuery += "'" + Session["SinglePayout"].ToString() + "','','" + hash_ + "',getdate(),'singlePayout',";
+    //                StrQuery += "'" + hash_ + "','" + Convert.ToDecimal(withdrawAmount) + "','Failed Case');";
 
-                statusApi = "failed";
-            }
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(ex.Message);
-        }
+    //                int updateeffect = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, StrQuery));
 
-        return statusApi;
-    }
+    //                string strSuccess = "INSERT INTO ApiReqResponse(Formno, Orderid, WalletAddress, PrivateKey, Request, Response, ApiStatus, RectimeStamp, ApiType, TxnHash, Amount, PostData) ";
+    //                strSuccess += "VALUES ('" + formNo.ToString() + "','" + reqNo + "','" + walletAddress.Trim() + "','','" + url + "','" + str + "',";
+    //                strSuccess += "'" + hash_ + "',GETDATE(),'singlePayout','" + hash_ + "','" + Convert.ToDecimal(withdrawAmount) + "','Failed Case');";
+
+    //                int x = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, strSuccess));
+
+    //                string sqlRes1 = "UPDATE Tbl_ApiRequest_Response SET Response = '" + str.Trim() + "',DateUpdate = getdate() WHERE ReqID = '" + reqNo.Trim() + "'";
+    //                int xRes1 = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sqlRes1));
+
+    //                if (x > 0)
+    //                {
+    //                    statusApi = resultStatus;
+    //                }
+
+    //            }
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            string MaxVoucherNo_ = "3" + DateTime.Now.ToString("ddMMyyyyHHmmssfff");
+    //            long maxVno_ = Convert.ToInt64(MaxVoucherNo_) + Convert.ToInt64(formNo);
+    //            MaxVoucherNo_ = maxVno_.ToString();
+
+    //            string MaxVoucherNo1_ = "4" + DateTime.Now.ToString("ddMMyyyyHHmmssfff");
+    //            long maxVno1_ = Convert.ToInt64(MaxVoucherNo1_) + Convert.ToInt64(formNo);
+    //            MaxVoucherNo1_ = maxVno1_.ToString();
+
+    //            string MaxVoucherNo2_ = "5" + DateTime.Now.ToString("ddMMyyyyHHmmssfff");
+    //            long maxVno2_ = Convert.ToInt64(MaxVoucherNo2_) + Convert.ToInt64(formNo);
+    //            MaxVoucherNo2_ = maxVno2_.ToString();
+
+    //            string StrQuery = " exec Sp_FundWithdrawalRejected '" + Convert.ToInt64(formNo) + "','" + reqNo.Trim() + "','" + hash_.Trim() + "',";
+    //            StrQuery += "'" + MaxVoucherNo_ + "','" + MaxVoucherNo1_ + "','" + MaxVoucherNo2_ + "','" + ddlWalletType + "';";
+    //            StrQuery += "insert into ApiReqResponse(Formno, Orderid, WalletAddress, PrivateKey, Request, Response, ApiStatus, RectimeStamp, ";
+    //            StrQuery += "ApiType, TxnHash, AMount, PostData) ";
+    //            StrQuery += "Values('" + formNo + "','" + reqNo + "','" + walletAddress.Trim() + "','',";
+    //            StrQuery += "'" + Session["SinglePayout"].ToString() + "','','" + hash_ + "',getdate(),'singlePayout',";
+    //            StrQuery += "'" + hash_ + "','" + Convert.ToDecimal(withdrawAmount) + "','Exception Case');";
+
+    //            int updateeffect = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, StrQuery));
+
+    //            string strSuccess = "INSERT INTO ApiReqResponse(Formno, Orderid, WalletAddress, PrivateKey, Request, Response, ApiStatus, RectimeStamp, ApiType, TxnHash, Amount, PostData) ";
+    //            strSuccess += "VALUES ('" + formNo.ToString() + "','" + reqNo + "','" + walletAddress.Trim() + "','','" + url + "','" + str + "',";
+    //            strSuccess += "'" + hash_ + "',GETDATE(),'singlePayout','" + hash_ + "','" + Convert.ToDecimal(withdrawAmount) + "','Exception Case');";
+
+    //            int x = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, strSuccess));
+
+    //            string sqlRes1 = "UPDATE Tbl_ApiRequest_Response SET Response = '" + ex.Message.Trim() + "',DateUpdate = getdate() WHERE ReqID = '" + reqNo.Trim() + "'";
+    //            int xRes1 = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sqlRes1));
+
+    //            statusApi = "failed";
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+
+    //        throw new Exception(ex.Message);
+    //    }
+
+    //    return statusApi;
+    //}
+    //public string DeductWalletTDS(string formNo, string ddlWalletType, string withdrawAmount, string walletAddress, string reqNo)
+    //{
+    //    string sResult = string.Empty;
+    //    string current_datetime = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+    //    int random_number = new Random().Next(0, 999);
+    //    string formatted_datetime = current_datetime + random_number.ToString().PadLeft(3, '0');
+    //    sResult = formatted_datetime;
+    //    DataTable dtQuery = new DataTable();
+    //    string responseFromServer = string.Empty;
+    //    string statusApi = "";
+    //    int i = 0;
+    //    string hash_ = "";
+
+    //    try
+    //    {
+    //        DataSet dsLogin = new DataSet();
+    //        string str = string.Empty;
+    //        DataSet ds = new DataSet();
+    //        DataSet data = new DataSet();
+    //        string url = "";
+
+    //        try
+    //        {
+    //            ServicePointManager.Expect100Continue = true;
+    //            ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072; // TLS 1.2
+    //            url = Session["SinglePayout"].ToString();
+    //            WebRequest tRequest = WebRequest.Create(url);
+    //            tRequest.Method = "POST";
+    //            tRequest.ContentType = "application/json";
+    //            tRequest.ContentLength = 0;
+
+    //            string postData = "{\"to\":\"" + walletAddress.Trim() + "\",\"amount\":\"" + Convert.ToDecimal(withdrawAmount) + "\",\"txId\":\"" + sResult + "\"}";
+    //            byte[] byteArray = Encoding.UTF8.GetBytes(postData);
+
+
+    //            int xReq = 0;
+    //            try
+    //            {
+    //                string sqlReq = "INSERT INTO Tbl_ApiRequest_Response (ReqID, Formno, Request, PostData, ForType,FundReqNo) " +
+    //              "VALUES ('" + sResult.Trim() + "','" + formNo + "','" + url.Trim() + "','" + postData.Trim() + "','SINGLEPAYOUTTDS','" + reqNo + "')";
+    //                xReq = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sqlReq));
+    //            }
+    //            catch (SqlException ex)
+    //            {
+    //                if (ex.Number == 2627) // SQL error code for primary key violation
+    //                {
+    //                    xReq = 0;
+    //                }
+    //            }
+    //            tRequest.ContentLength = byteArray.Length;
+    //            Stream dataStream = tRequest.GetRequestStream();
+    //            dataStream.Write(byteArray, 0, byteArray.Length);
+    //            dataStream.Close();
+
+    //            WebResponse tResponse = tRequest.GetResponse();
+    //            dataStream = tResponse.GetResponseStream();
+    //            StreamReader tReader = new StreamReader(dataStream);
+    //            str = tReader.ReadToEnd();
+    //            string sqlRes = "UPDATE Tbl_ApiRequest_Response SET Response = '" + str.Trim() + "',DateUpdate = getdate() WHERE ReqID = '" + sResult.Trim() + "'";
+    //            int xRes = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, sqlRes));
+    //            dsLogin = convertJsonStringToDataSet(str.ToString());
+
+    //            string resultStatus = string.IsNullOrEmpty(str) ? "failed" : dsLogin.Tables[0].Rows[0]["Status"].ToString();
+
+    //            if (resultStatus.ToUpper() == "FAILED")
+    //            {
+    //                hash_ = dsLogin.Tables[0].Rows[0]["txhash"].ToString();
+    //            }
+    //            else if (resultStatus.ToUpper() == "SUCCESS")
+    //            {
+    //                hash_ = dsLogin.Tables[0].Rows[0]["txhash"].ToString();
+    //            }
+
+    //            if (resultStatus.ToUpper() == "SUCCESS")
+    //            {
+    //                string query = "";
+    //                query += "INSERT INTO ApiReqResponse(Formno, Orderid, WalletAddress, PrivateKey, Request, Response, ApiStatus, RectimeStamp, ApiType, TxnHash, Amount, PostData) ";
+    //                query += "VALUES ('" + formNo.ToString() + "','" + reqNo + "','" + walletAddress + "','','" + url + "','" + str + "','" + hash_ + "',GETDATE(),'SINGLEPAYOUTTDS','" + hash_ + "','" + Convert.ToDecimal(withdrawAmount) + "','')";
+    //                i = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, query));
+
+    //                if (i > 0 && resultStatus.ToUpper() == "SUCCESS")
+    //                {
+    //                    statusApi = resultStatus;
+    //                }
+    //            }
+    //            else
+    //            {
+
+    //                string strSuccess = "INSERT INTO ApiReqResponse(Formno, Orderid, WalletAddress, PrivateKey, Request, Response, ApiStatus, RectimeStamp, ApiType, TxnHash, Amount, PostData) ";
+    //                strSuccess += "VALUES ('" + formNo.ToString() + "','" + reqNo + "','" + walletAddress.Trim() + "','','" + url + "','" + str + "',";
+    //                strSuccess += "'" + hash_ + "',GETDATE(),'SINGLEPAYOUTTDS','" + hash_ + "','" + Convert.ToDecimal(withdrawAmount) + "','Failed Case');";
+
+    //                int x = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, strSuccess));
+
+    //                if (x > 0)
+    //                {
+    //                    statusApi = resultStatus;
+    //                }
+
+    //            }
+    //        }
+    //        catch (Exception ex)
+    //        {
+
+    //            statusApi = "failed";
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        throw new Exception(ex.Message);
+    //    }
+
+    //    return statusApi;
+    //}
     public DataSet convertJsonStringToDataSet(string jsonString)
     {
         try
