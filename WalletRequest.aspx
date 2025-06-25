@@ -252,16 +252,15 @@
                                         </div>
                                         <div class="col-sm-6 pull-none">
                                             <div id="div2" runat="server" visible="false">
-                                                <center>
-                                                    <div class="form-group">
-                                                        <img src="images/9999-Activation-QRCode.jpg" alt="" style="height: 360px" />
-                                                    </div>
-                                                   
-                                                   <%-- <span style="font-weight: 700">Wallet Address: </span>&nbsp;&nbsp;&nbsp;
-            <asp:Label ID="lblLink" runat="server" Style="font-weight: 500" CssClass="Link">TLznxdPoQQNT9KqXnyZ4ufyTgJ4GxwLTTu </asp:Label>&nbsp;&nbsp;
-            <asp:ImageButton ID="btncopy" runat="Server" OnClientClick="return copyText();" ImageUrl="images/copy.png"
-                Width="20px" />--%>
-                                                </center>
+                                                  <div class="row text-center">
+    <div class="col-sm-6">
+        <img src="images/9999-Activation-QRCode.jpg" alt="" style="height: 360px; width:360px;" class="img-fluid" />
+    <%--</div>
+    <div class="col-sm-3">--%>
+        &nbsp;
+        <img src="images/9999-Activation-QRCode-1.jpg" alt="" style="height: 360px; width:360px;" class="img-fluid" />
+   <%-- </div>--%>
+</div>
                                                 <style>
                                                     @media only screen and (max-width:768) {
                                                         .Link {
@@ -279,7 +278,13 @@
                                          <span style="font-weight: 700">Bank Name - Bank Of India </span><br />
  <span style="font-weight: 700">A/c No. - 082920110000038 </span><br />
  <span style="font-weight: 700">IFSC Code - BKID0000829 </span><br />
- <span style="font-weight: 700">Branch - MIDC Waluj Branch </span>
+ <span style="font-weight: 700">Branch - MIDC Waluj Branch </span><br /><br />
+
+                        <span style="font-weight: 700">A/c Holder Name - Capstons industries limited liability partnership </span><br />
+<span style="font-weight: 700">A/c No. - 082920110000060 </span><br />
+<span style="font-weight: 700">IFSC Code - BKID0000829 </span><br />
+<span style="font-weight: 700">Bank Name - Bank Of India </span><br />
+<span style="font-weight: 700">Branch - Waluj </span>
                     </center>
     </div>
 </div>
