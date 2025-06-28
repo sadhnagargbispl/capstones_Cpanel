@@ -291,14 +291,14 @@
                                                                 IFSC Code :</label>
                                                             <div class="form-group">
                                                                 <asp:TextBox ID="Txtcode" runat="server" CssClass="input-xxlarge validate[required,custom[ifsccode]]"></asp:TextBox>
-                                                                <asp:RegularExpressionValidator
+                                                                <%--<asp:RegularExpressionValidator
                                                                     ID="regexIFSC"
                                                                     runat="server"
                                                                     ControlToValidate="Txtcode"
                                                                     ErrorMessage="Invalid IFSC Code"
                                                                     ValidationExpression="^[A-Z]{4}0[A-Z0-9]{6}$"
                                                                     ForeColor="Red"
-                                                                    Display="Dynamic" />
+                                                                    Display="Dynamic" />--%>
                                                                 <asp:RequiredFieldValidator
                                                                     ID="requiredIFSC"
                                                                     runat="server"
