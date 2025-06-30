@@ -14,6 +14,8 @@ using System.Activities.Expressions;
 using System.Collections.Generic;
 using System.IdentityModel.Protocols.WSTrust;
 using System.Security.Principal;
+using System.Drawing.Imaging;
+using System.Linq;
 public partial class KYC : System.Web.UI.Page
 {
     double dblBank;
@@ -663,7 +665,10 @@ public partial class KYC : System.Web.UI.Page
                     else
                     {
                         flAddrs = "FA" + DateTime.Now.ToString("yyMMddhhmmssfff") + Session["formno"].ToString() + System.IO.Path.GetExtension(Fuidentity.PostedFile.FileName);
-                        Fuidentity.PostedFile.SaveAs(Server.MapPath("images/UploadImage/") + flAddrs);
+                        //Fuidentity.PostedFile.SaveAs(Server.MapPath("images/UploadImage/") + flAddrs);
+                        string savePath = Server.MapPath("images/UploadImage/") + flAddrs;
+                        Fuidentity.PostedFile.SaveAs(savePath);
+                        CompressAndSaveImage(Fuidentity.PostedFile.InputStream, savePath, strextension, 50L); // Quality 50%
                         adrsProof = "https://" + HttpContext.Current.Request.Url.Host + "/images/UploadImage/" + flAddrs;
                     }
                 }
@@ -706,7 +711,10 @@ public partial class KYC : System.Web.UI.Page
                     else
                     {
                         string FlBackAddrs = "BA" + DateTime.Now.ToString("yyMMddhhmmssfff") + Session["formno"].ToString() + System.IO.Path.GetExtension(FileUpload1.PostedFile.FileName);
-                        FileUpload1.PostedFile.SaveAs(Server.MapPath("images/UploadImage/") + FlBackAddrs);
+                        //FileUpload1.PostedFile.SaveAs(Server.MapPath("images/UploadImage/") + FlBackAddrs);
+                        string savePath2 = Server.MapPath("images/UploadImage/") + FlBackAddrs;
+                        FileUpload1.PostedFile.SaveAs(savePath2);
+                        CompressAndSaveImage(FileUpload1.PostedFile.InputStream, savePath2, strextension, 50L); // Quality 50%
                         backAdrsProof = "https://" + HttpContext.Current.Request.Url.Host + "/images/UploadImage/" + FlBackAddrs;
                     }
                 }
@@ -751,6 +759,9 @@ public partial class KYC : System.Web.UI.Page
                     {
                         string FlPan = "PAN" + DateTime.Now.ToString("yyMMddhhmmssfff") + Session["formno"].ToString() + System.IO.Path.GetExtension(PanKYCFileUpload.PostedFile.FileName);
                         PanKYCFileUpload.PostedFile.SaveAs(Server.MapPath("images/UploadImage/") + FlPan);
+                        string savePath3 = Server.MapPath("images/UploadImage/") + FlPan;
+                        PanKYCFileUpload.PostedFile.SaveAs(savePath3);
+                        CompressAndSaveImage(PanKYCFileUpload.PostedFile.InputStream, savePath3, strextension, 50L); // Quality 50%
                         panProof = "https://" + HttpContext.Current.Request.Url.Host + "/images/UploadImage/" + FlPan;
                     }
                 }
@@ -793,7 +804,10 @@ public partial class KYC : System.Web.UI.Page
                     else
                     {
                         string FlBank = "Bank" + DateTime.Now.ToString("yyMMddhhmmssfff") + Session["formno"].ToString() + System.IO.Path.GetExtension(BankKYCFileUpload3.PostedFile.FileName);
-                        BankKYCFileUpload3.PostedFile.SaveAs(Server.MapPath("images/UploadImage/") + FlBank);
+                        //BankKYCFileUpload3.PostedFile.SaveAs(Server.MapPath("images/UploadImage/") + FlBank);
+                        string savePath4 = Server.MapPath("images/UploadImage/") + FlBank;
+                        BankKYCFileUpload3.PostedFile.SaveAs(savePath4);
+                        CompressAndSaveImage(BankKYCFileUpload3.PostedFile.InputStream, savePath4, strextension, 50L); // Quality 50%
                         bankProof = "https://" + HttpContext.Current.Request.Url.Host + "/images/UploadImage/" + FlBank;
                     }
                 }
@@ -1006,6 +1020,49 @@ public partial class KYC : System.Web.UI.Page
         {
             string error = "Error: " + ex.Message;
             ScriptManager.RegisterStartupScript(this, GetType(), "Exception", "alert('" + error + "');", true);
+        }
+    }
+
+    private void CompressAndSaveImage(Stream inputStream, string savePath, string extension, long quality = 50L)
+    {
+        using (System.Drawing.Image img = System.Drawing.Image.FromStream(inputStream))
+        {
+            EncoderParameters encoderParams = new EncoderParameters(1);
+            ImageCodecInfo codec = null;
+
+            switch (extension.ToLower())
+            {
+                case ".jpg":
+                case ".jpeg":
+                    codec = ImageCodecInfo.GetImageEncoders().FirstOrDefault(c => c.MimeType == "image/jpeg");
+                    encoderParams.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, quality);
+                    break;
+
+                case ".png":
+                    codec = ImageCodecInfo.GetImageEncoders().FirstOrDefault(c => c.MimeType == "image/png");
+                    encoderParams = null; // PNG doesn't support quality settings
+                    break;
+
+                case ".gif":
+                    codec = ImageCodecInfo.GetImageEncoders().FirstOrDefault(c => c.MimeType == "image/gif");
+                    encoderParams = null;
+                    break;
+
+                default:
+                    throw new Exception("Unsupported file type.");
+            }
+
+            if (codec != null)
+            {
+                if (encoderParams != null)
+                {
+                    img.Save(savePath, codec, encoderParams);
+                }
+                else
+                {
+                    img.Save(savePath, codec, null);
+                }
+            }
         }
     }
     private string ClearInject(string strObj)
