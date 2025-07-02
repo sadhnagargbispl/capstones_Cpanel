@@ -106,7 +106,7 @@
              <img src="<%#Eval("Vouimg")%>" class="img-responsive img-thumbnail"  alt="Voucher Image" style="object-fit: contain;" >
                  </div>
                  <div class="card-body d-flex flex-column">
-                     <h4 class="card-title text-center text-primary">  <%#Eval("CouponNo")%> </h4>
+                     <h4 class="card-title text-center text-primary"> <%#Eval("BillCoupon")%> <%--<%#Eval("CouponNo")%>--%> </h4>
                      <p class="card-text text-muted text-center">  From :
   <%#Eval("FromDAte")%>
   <br>
