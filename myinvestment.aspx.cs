@@ -56,12 +56,32 @@ public partial class myinvestment : System.Web.UI.Page
         {
             throw new Exception(ex.Message);
         }
+   }
+    protected void RptDirects_ItemDataBound(object sender, RepeaterItemEventArgs e)
+    {
+        if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+        {
+            DataRowView drv = (DataRowView)e.Item.DataItem;
+            string orderNo = drv["billno"].ToString();
+            string billNo = drv["billno"].ToString(); // if you still want to append this
+
+            string encoded = Base64Encode(drv["billno"].ToString());
+            string col2 = $"<a href='https://capstones.in/Invoice.aspx?orderno={encoded}' target='_blank' class='order-link'>{orderNo}</a>";
+
+            Literal ltlOrderLink = (Literal)e.Item.FindControl("ltlOrderLink");
+            ltlOrderLink.Text = col2;
+        }
+    }
+    private static string Base64Encode(string plainText)
+    {
+        byte[] plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+        return Convert.ToBase64String(plainTextBytes);
     }
     protected void RptDirects_PageIndexChanging(object sender, System.Web.UI.WebControls.GridViewPageEventArgs e)
     {
         try
         {
-            RptDirects.PageIndex = e.NewPageIndex;
+            //RptDirects.PageIndex = e.NewPageIndex;
             FillDetail();
         }
         catch (Exception ex)

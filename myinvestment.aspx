@@ -21,6 +21,12 @@
 
                 <div class="row-fluid panelpart">
 
+                    <style>
+                        .order-link {
+                            color: blue;
+                            text-decoration: underline; /* Optional */
+                        }
+                    </style>
 
 
                     <div class="span12">
@@ -47,12 +53,52 @@
                                             <div class="table-responsive">
                                                 <div class="table mb-0" cellspacing="0" cellpadding="4" rules="all" border="1" id="ctl00_ContentPlaceHolder2_DGVReferral"
                                                     style="width: 100%; border-collapse: collapse;">
-                                                    <asp:GridView ID="RptDirects" runat="server" AutoGenerateColumns="true" CssClass="table table-bordered"
+                                                    <table id="customers2" class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>SNo
+                                                                </th>
+                                                                <th>Order No
+                                                                </th>
+                                                                <th>Date
+                                                                </th>
+                                                                <th>Package Name
+                                                                </th>
+                                                                <th>Amount
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <asp:Repeater ID="RptDirects" runat="server" OnItemDataBound="RptDirects_ItemDataBound">
+                                                                <ItemTemplate>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <%#Eval("SNo")%>
+                                                                        </td>
+                                                                        <td style="color: blue;">
+                                                                            <asp:Literal ID="ltlOrderLink" runat="server" />
+                                                                        </td>
+                                                                        <td>
+                                                                            <%#Eval("Date")%>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%#Eval("Package Name")%>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%#Eval("Amount")%>
+                                                                        </td>
+                                                                    </tr>
+                                                                </ItemTemplate>
+                                                            </asp:Repeater>
+                                                        </tbody>
+                                                    </table>
+                                                    <%--<asp:GridView ID="RptDirects" runat="server" AutoGenerateColumns="true" CssClass="table table-bordered"
                                                         HeaderStyle-BackColor="#c6c8ca" HeaderStyle-ForeColor="Red" AllowPaging="true"
                                                         PageSize="10" OnPageIndexChanging="RptDirects_PageIndexChanging">
                                                         <Columns>
+
                                                         </Columns>
-                                                    </asp:GridView>
+                                                    </asp:GridView>--%>
                                                 </div>
                                             </div>
                                         </div>
