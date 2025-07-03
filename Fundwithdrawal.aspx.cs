@@ -57,7 +57,7 @@ public partial class Fundwithdrawal : System.Web.UI.Page
             }
             if (GetDateFormatCondition())
             {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Key", "alert('Withdrawals are only allowed on Monday.!');location.replace('Index.aspx');", true);
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Key", "alert('Withdrawals are only allowed on Sunday.!');location.replace('Index.aspx');", true);
                 return;
             }
             if (!GetAmountStatus())
