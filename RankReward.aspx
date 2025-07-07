@@ -36,7 +36,9 @@
                                     <asp:Label ID="errMsg" runat="server" CssClass="error"></asp:Label>
                                 </div>
                                 <div class="widget-body">
+                                    <center><span style="color: orangered !important; font-weight: bold;">Required Business Next To Next Basis</span></center>
                                     <div class="form-vertical">
+
                                         <div style="margin-bottom: 30px;">
                                             <span id="ctl00_ContentPlaceHolder1_lblMsg" style="color: #C00000;"></span>
                                             <asp:Label ID="Label1" runat="server" CssClass="error"></asp:Label>
