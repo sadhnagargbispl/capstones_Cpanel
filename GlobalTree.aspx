@@ -49,10 +49,10 @@
             ;
         }
 
-        .text-dark {
+        /*  .text-dark {
             color: black;
         }
-
+*/
         .selftree tr {
             background: linear-gradient(90deg, #372475 0%, #5e4fa2 100%);
             color: white;
@@ -99,26 +99,51 @@
             <div class="container-fluid" style="max-width: 1800px;">
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="table-responsive" style="max-width: 400px; margin: auto; margin-bottom: 20px;">
-                            <table class="table table-bordered text-center" style="font-size: 14px;">
-                                <thead>
-                                    <tr>
-                                        <th colspan="2" style="background: #f5f5f5;">Global Pool Tree (999)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td style="text-align: left;">Total Entry In Pool</td>
-                                        <td>
-                                            <asp:Literal ID="LblTotalEntryInPool" runat="server" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: left;">Today Entry In Pool</td>
-                                        <td>
-                                            <asp:Literal ID="LblTodayEntryInPool" runat="server" /></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="col-md-6">
+                            <div class="table-responsive" style="max-width: 400px; margin: auto; margin-bottom: 20px;">
+                                <table class="table table-bordered text-center" style="font-size: 14px;">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2" style="background: #f5f5f5;">Global Pool Tree (999)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align: left;">Total Entry In Pool</td>
+                                            <td>
+                                                <asp:Literal ID="LblTotalEntryInPool" runat="server" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left;">Today Entry In Pool</td>
+                                            <td>
+                                                <asp:Literal ID="LblTodayEntryInPool" runat="server" /></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="table-responsive" style="max-width: 400px; margin: auto; margin-bottom: 20px;">
+                                <table class="table table-bordered text-center" style="font-size: 14px;">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2" style="background: #f5f5f5;">Global Pool Tree (1999)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align: left;">Total Entry In Pool</td>
+                                            <td>
+                                                <asp:Literal ID="LblTotalEntryIn1999Pool" runat="server" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left;">Today Entry In Pool</td>
+                                            <td>
+                                                <asp:Literal ID="LblTodayEntryIn1999Pool" runat="server" /></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <hr>
@@ -131,7 +156,7 @@
                                     <HeaderTemplate>
                                         <tr style="background-color: antiquewhite;">
                                             <td colspan="10" class="global-pool-header">
-                                                <span class="text-dark"><%= RootFormNo %></span>
+                                                <span class="text-dark" style="color: white;"><%= RootFormNo %></span>
                                             </td>
                                         </tr>
                                     </HeaderTemplate>

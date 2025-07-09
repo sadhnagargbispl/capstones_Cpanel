@@ -41,6 +41,8 @@ public partial class GlobalTree : System.Web.UI.Page
             {
                 LblTotalEntryInPool.Text = dt_API_MAster.Rows[0]["TotalPoolTreeCount"].ToString();
                 LblTodayEntryInPool.Text = dt_API_MAster.Rows[0]["TodayPoolTreeCount"].ToString();
+                LblTotalEntryIn1999Pool.Text = dt_API_MAster.Rows[1]["TotalPoolTreeCount"].ToString();
+                LblTodayEntryIn1999Pool.Text = dt_API_MAster.Rows[1]["TodayPoolTreeCount"].ToString();
             }
         }
         catch (Exception ex)

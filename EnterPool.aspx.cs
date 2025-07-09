@@ -238,7 +238,7 @@ public partial class EnterPool : System.Web.UI.Page
                         DataTable dt_ = new DataTable();
                         string sql = "";
                         var billNo = GenerateRandomStringactive(6);
-                        sql = "EXEC Sp_AddPoolInsert '" + Session["Formno"] + "','" + txtAmount.Text + "'";
+                        sql = "EXEC Sp_AddPoolInsert '" + Session["Formno"] + "','" + txtAmount.Text + "','" + CmbKit.SelectedValue + "'";
                         DataTable dt = SqlHelper.ExecuteDataset(constr, CommandType.Text, sql).Tables[0];
                         if (dt.Rows[0]["Result"].ToString().ToUpper() == "SUCCESS")
                         {
