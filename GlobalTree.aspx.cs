@@ -10,6 +10,7 @@ using System.Linq;
 public partial class GlobalTree : System.Web.UI.Page
 {
     protected string RootFormNo = "";
+    protected string RootSelfFormNo = "";
     protected string ShowTopRow = "N";
     string constr1 = ConfigurationManager.ConnectionStrings["constr1"].ConnectionString;
     protected void Page_Load(object sender, EventArgs e)
@@ -101,7 +102,7 @@ public partial class GlobalTree : System.Web.UI.Page
                     string root = ds.Tables[1].Rows[0]["RootFormNo"].ToString();
                     if (!string.IsNullOrWhiteSpace(root))
                     {
-                        RootFormNo = root;
+                        RootSelfFormNo = root;
                         ShowTopRow = "Y";
                     }
                 }

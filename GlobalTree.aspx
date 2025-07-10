@@ -228,7 +228,7 @@
                                     <HeaderTemplate>
                                         <tr style="background-color: antiquewhite;">
                                             <td colspan="10" class="global-pool-header">
-                                                <span class="text-dark"><%= RootFormNo %></span>
+                                                <span class="text-dark"><%= RootSelfFormNo %></span>
                                             </td>
                                         </tr>
                                     </HeaderTemplate>
