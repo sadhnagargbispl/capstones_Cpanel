@@ -84,8 +84,9 @@
                             </p>
                             <asp:HiddenField ID="hdnKitiD" runat="server" Value='<%#Eval("KitiD")%>' />
                             <asp:Button ID="btnUse" runat="server" Text="Use Voucher" CssClass="btn btn-primary"
-                                CommandName="USED" Visible='<%# Convert.ToBoolean(Eval("IsVible")) %>' OnClientClick="return confirm('Are you sure about this action ?')" />
+                                CommandName="USED" Visible='<%# Convert.ToBoolean(Eval("IsVisibleUsed")) %>' OnClientClick="return confirm('Are you sure about this action ?')" />
                             <hr>
+                            <%--<%# Convert.ToBoolean(Eval("IsVible")) %>--%>
                             <h3 class="text-left text-uppercase mt-0 text-success fw-bolder">Cancel Voucher
                             </h3>
                             <p align="justify"  >
