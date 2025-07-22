@@ -673,7 +673,7 @@ partial class WalletRequest : System.Web.UI.Page
             DataTable dt;
             dt = new DataTable();
             obj = new DAL();
-            if (Convert.ToInt32(DdlPaymode.SelectedValue) != 8)
+            if (Convert.ToInt32(DdlPaymode.SelectedValue) != 3)
             {
                 if (divDDno.Visible == true)
                 {
@@ -702,7 +702,7 @@ partial class WalletRequest : System.Web.UI.Page
         DataTable dt;
         dt = new DataTable();
         obj = new DAL();
-        if (Convert.ToInt32(DdlPaymode.SelectedValue) != 8)
+        if (Convert.ToInt32(DdlPaymode.SelectedValue) != 3)
         {
             if (divDDno.Visible == true & TxtDDNo.Text != "")
             {

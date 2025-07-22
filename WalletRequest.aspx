@@ -153,7 +153,7 @@
                                                 <asp:Label ID="LblDDNo" runat="server" Text="Draft/CHEQUE No. *"></asp:Label></label>
                                             <div class="controls">
                                                 <asp:TextBox ID="TxtDDNo" onkeypress="return isNumberKey(event);" class="input-xxlarge validate[required]"
-                                                    TabIndex="3" runat="server" MaxLength="16" AutoPostBack="true"></asp:TextBox>
+                                                    TabIndex="3" runat="server" MaxLength="16" OnTextChanged="TxtDDNo_TextChanged" AutoPostBack="true"></asp:TextBox>
                                             </div>
                                         </div>
                                         <div class="control-group " id="divDDDate" runat="server">

@@ -1099,7 +1099,7 @@ public partial class KYC : System.Web.UI.Page
             bool result = false;
             DataTable dt12 = new DataTable();
             DataSet ds12 = new DataSet();
-            string str12 = "SELECT COUNT(panno) AS cnt FROM KycVerify AS a, m_membermaster AS b WHERE a.formno = b.formno AND Panno <> '' AND Ispanverified = 'Y' AND panno = @panno";
+            string str12 = "SELECT COUNT(panno) AS cnt FROM KycVerify AS a, m_membermaster AS b WHERE a.formno = b.formno AND Panno <> '' AND Ispanverified<>'R' AND panno = @panno";
 
             string connectionString = constr;
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -1166,7 +1166,7 @@ public partial class KYC : System.Web.UI.Page
             bool result = false;
             DataTable dt12 = new DataTable();
             DataSet ds12 = new DataSet();
-            string str12 = "SELECT COUNT(IdProofNo) AS cnt FROM KycVerify AS a, m_membermaster AS b WHERE a.formno = b.formno AND IdProofNo <> '' AND IdProofNo = @IdProofNo";
+            string str12 = "SELECT COUNT(IdProofNo) AS cnt FROM KycVerify AS a, m_membermaster AS b WHERE a.formno = b.formno AND IdProofNo <> '' AND IsAddrssverified<>'R' AND IdProofNo = @IdProofNo";
             string connectionString = constr;
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
