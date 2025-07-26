@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -340,10 +340,11 @@ public partial class WalletTransfer : System.Web.UI.Page
                 {
                     lblfinal.Text = Convert.ToDecimal(txtAmount.Text).ToString();
                     string remark1 = "Received from " + ddlVoucherType.SelectedItem.Text + " of " + Session["IDNo"];
-                    string remark = "Debited for transfer To AirDrop Wallet of " + Session["IDNo"];
-                    string remarks = "" + ddlVoucherType.SelectedItem.Text + " To AirDrop Wallet Transfer Of " + txtAmount.Text + " from " + Session["IDNo"];
+                    
+                    string remark = "Debited for transfer To Fund Transfer of " + Session["IDNo"];
+                    string remarks = "" + ddlVoucherType.SelectedItem.Text + " To Fund Transfer Of " + txtAmount.Text + " from " + Session["IDNo"];
                     query = " exec Sp_WalletTransfer '" + Session["Formno"] + "','" + lblfinal.Text + "','" + Convert.ToDecimal(lblfinal.Text) + "','" + remark + "','/" + Session["idno"].ToString().Trim() + "'," +
-                            "'/" + Session["idno"].ToString().Trim() + "','" + remark1 + "','" + remarks + "',0,'" + Session["MemName"] + "','" + Session["Formno"] + "','" + ddlVoucherType.SelectedValue + "','A'";
+                            "'/" + Session["idno"].ToString().Trim() + "','" + remark1 + "','" + remarks + "',0,'" + Session["MemName"] + "','" + Session["Formno"] + "','" + ddlVoucherType.SelectedValue + "','S'";
 
                     CheckAmount();
 

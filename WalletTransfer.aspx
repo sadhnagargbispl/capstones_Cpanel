@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="WalletTransfer.aspx.cs" Inherits="WalletTransfer" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="WalletTransfer.aspx.cs" Inherits="WalletTransfer" %>
 
 <asp:Content ContentPlaceHolderID="head" runat="server" ID="content1">
     <script type="text/javascript" src="assets/jquery.min.js">
@@ -33,7 +33,7 @@
 
 
         });
-        function pageLoad(sender, args) {
+       <%-- function pageLoad(sender, args) {
 
             jq(document).ready(function () {
 
@@ -51,7 +51,7 @@
                 } else {
                     return false;
                 }
-            });
+            });--%>
         }
     </script>
     <style type="text/css">
@@ -178,7 +178,7 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <div class="col-md-12">
+  <%--  <div class="col-md-12">
         <div id="ctl00_ContentPlaceHolder1_divgenexbusiness" class="clearfix gen-profile-box">
             <div class="profile-bar-simple red-border clearfix">
                 <h6>Transfer In AirDrop
@@ -186,7 +186,24 @@
             </div>
             <div class="clearfix gen-profile-box" style="min-height: auto;">
                 <div class="profile-bar clearfix" style="background: #fff;">
-                    <div class="col-md-6">
+                    <div class="col-md-6">--%>
+      <div class="container-fluid">
+      <!-- BEGIN PAGE HEADER-->
+      <div class="row-fluid">
+          <div class="span12">
+              <%-- <h3 class="page-title">Change Password </h3>--%>
+              <ul class="breadcrumb">
+                  <li><a href="#"><i class="icon-home"></i></a><span class="divider">&nbsp;</span> </li>
+                  <li><a href="#">Wallet Transfer</a><span class="divider-last">&nbsp;</span></li>
+              </ul>
+          </div>
+      </div>
+      <div>
+              <div class="row-fluid panelpart">
+
+                  <div class="row">
+
+                      <div class="span12">
                         <%--    <div class="form-group">
                             <h4>Available Balance:<span class="red" id="AvailableBal" style="color: Red" runat="server"></span>
                             </h4>
