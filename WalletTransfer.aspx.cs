@@ -20,11 +20,16 @@ public partial class WalletTransfer : System.Web.UI.Page
     string constr1 = System.Configuration.ConfigurationManager.ConnectionStrings["constr1"].ConnectionString;
     protected void Page_Load(object sender, EventArgs e)
     {
+        try
+        {
+
+       
         if (Session["Status"] != null && Session["Status"].ToString() == "OK")
         {
             this.cmdSave1.Attributes.Add("onclick", DisableTheButton(this.Page, this.cmdSave1));
+           
 
-            if (!Page.IsPostBack)
+                if (!Page.IsPostBack)
             {
                 HdnCheckTrnns.Value = GenerateRandomString(6);
                 FillWallettype();
@@ -50,7 +55,11 @@ public partial class WalletTransfer : System.Web.UI.Page
         {
             Response.Redirect("logout.aspx");
         }
+        }
+        catch (Exception ex)
+        {
 
+        }
     }
     private void FillWallettype()
     {
@@ -339,9 +348,9 @@ public partial class WalletTransfer : System.Web.UI.Page
                 if (Convert.ToDecimal(Session["MainBalance"]) >= Convert.ToDecimal(txtAmount.Text))
                 {
                     lblfinal.Text = Convert.ToDecimal(txtAmount.Text).ToString();
-                    string remark1 = "Received from " + ddlVoucherType.SelectedItem.Text + " of " + Session["IDNo"];
+                    string remark1 = "Received from " + ddlVoucherType.SelectedItem.Text + " " ;
                     
-                    string remark = "Debited for transfer To Fund Transfer of " + Session["IDNo"];
+                    string remark = "Debited for transfer in Fund Wallet ";
                     string remarks = "" + ddlVoucherType.SelectedItem.Text + " To Fund Transfer Of " + txtAmount.Text + " from " + Session["IDNo"];
                     query = " exec Sp_WalletTransfer '" + Session["Formno"] + "','" + lblfinal.Text + "','" + Convert.ToDecimal(lblfinal.Text) + "','" + remark + "','/" + Session["idno"].ToString().Trim() + "'," +
                             "'/" + Session["idno"].ToString().Trim() + "','" + remark1 + "','" + remarks + "',0,'" + Session["MemName"] + "','" + Session["Formno"] + "','" + ddlVoucherType.SelectedValue + "','S'";

@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="WalletTransfer.aspx.cs" Inherits="WalletTransfer" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="WalletTransfer.aspx.cs" Inherits="WalletTransfer" EnableEventValidation="false" %>
 
 <asp:Content ContentPlaceHolderID="head" runat="server" ID="content1">
     <script type="text/javascript" src="assets/jquery.min.js">
@@ -204,6 +204,7 @@
                   <div class="row">
 
                       <div class="span12">
+                         
                         <%--    <div class="form-group">
                             <h4>Available Balance:<span class="red" id="AvailableBal" style="color: Red" runat="server"></span>
                             </h4>
@@ -250,7 +251,7 @@
                             <asp:TextBox ID="TxtPassword" runat="server" TextMode="Password" CssClass="input-xxlarge validate[required]"></asp:TextBox>
                         </div>
                         <div class="form-group">
-                            <asp:Button ID="cmdSave1" runat="server" Text="Submit" class="btn btn-primary" OnClick="cmdSave1_Click" />
+                            <asp:Button ID="cmdSave1" runat="server" Text="Submit" class="btn btn-danger" OnClick="cmdSave1_Click" />
                         </div>
                         <div class="form-group ">
                             <asp:Label ID="LblError" runat="server" Visible="false"></asp:Label>
@@ -280,6 +281,7 @@
                                     runat="server" ErrorMessage="Opt Required" SetFocusOnError="true" ValidationGroup="eInformation"></asp:RequiredFieldValidator>
                             </div>
                         </div>--%>
+                       
                     </div>
                 </div>
             </div>
