@@ -178,15 +178,6 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-  <%--  <div class="col-md-12">
-        <div id="ctl00_ContentPlaceHolder1_divgenexbusiness" class="clearfix gen-profile-box">
-            <div class="profile-bar-simple red-border clearfix">
-                <h6>Transfer In AirDrop
-                </h6>
-            </div>
-            <div class="clearfix gen-profile-box" style="min-height: auto;">
-                <div class="profile-bar clearfix" style="background: #fff;">
-                    <div class="col-md-6">--%>
       <div class="container-fluid">
       <!-- BEGIN PAGE HEADER-->
       <div class="row-fluid">
