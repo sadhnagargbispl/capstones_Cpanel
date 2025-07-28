@@ -352,7 +352,7 @@ public partial class WalletTransfer : System.Web.UI.Page
                     string remark1 = "Received from " + ddlVoucherType.SelectedItem.Text + " " ;
                     
                     string remark = "Debited for transfer in Fund Wallet ";
-                    string remarks = "" + ddlVoucherType.SelectedItem.Text + " To Fund Transfer Of " + txtAmount.Text + " from " + Session["IDNo"];
+                    string remarks = "" + ddlVoucherType.SelectedItem.Text + " To Fund Wallet Transfer Of " + txtAmount.Text + " from " + Session["IDNo"];
                     query = " exec Sp_WalletTransfer '" + Session["Formno"] + "','" + lblfinal.Text + "','" + Convert.ToDecimal(lblfinal.Text) + "','" + remark + "','/" + Session["idno"].ToString().Trim() + "'," +
                             "'/" + Session["idno"].ToString().Trim() + "','" + remark1 + "','" + remarks + "',0,'" + Session["MemName"] + "','" + Session["Formno"] + "','" + ddlVoucherType.SelectedValue + "','S'";
 
