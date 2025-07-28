@@ -240,6 +240,7 @@ public partial class WalletTransfer : System.Web.UI.Page
             {
                 LblAmount.Visible = false;
                 cmdSave1.Enabled = true;
+                cmdSave1.Enabled = true;
             }
         }
     }
@@ -415,11 +416,13 @@ public partial class WalletTransfer : System.Web.UI.Page
             {
                 LblAvailableBal.Text = Convert.ToDecimal(dt.Rows[0]["Balance"]).ToString();
                 Session["MainBalance"] = Convert.ToDecimal(dt.Rows[0]["Balance"]).ToString();
+                cmdSave1.Enabled = true;
             }
             else
             {
                 Session["MainBalance"] = 0;
                 LblAvailableBal.Text = "0";
+                cmdSave1.Enabled = false;
             }
         }
         catch (Exception ex)
