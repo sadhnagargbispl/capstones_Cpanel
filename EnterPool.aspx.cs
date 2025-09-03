@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -90,8 +90,29 @@ public partial class EnterPool : System.Web.UI.Page
                 }
                 else if (dt.Rows[0]["ActiveStatus"].ToString() == "N")
                 {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Key", "alert('This Id Not activate Please Activate First.');location.replace('Index.aspx');", true);
-                    return string.Empty;
+                    TxtMemberName.Text = dt.Rows[0]["memname"].ToString();
+                    HdnMemberMacAdrs.Value = dt.Rows[0]["MacAdrs"].ToString();
+                    HdnMemberTopupseq.Value = dt.Rows[0]["Topupseq"].ToString();
+                    MemberStatus.Value = dt.Rows[0]["ActiveStatus"].ToString();
+                    hdnFormno.Value = dt.Rows[0]["Formno"].ToString();
+                    hdnemail.Value = dt.Rows[0]["Email"].ToString();
+                    LblMobile.Text = string.Empty;
+                    string str1 = string.Empty;
+                    DataTable dt1 = new DataTable();
+                    str1 = objDal.Isostart + " Exec sp_GetPoolDetailsPoolExist '" + hdnFormno.Value + "','" + CmbKit.SelectedValue + "'" + objDal.IsoEnd;
+                    dt1 = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str1).Tables[0];
+                    if (dt1.Rows.Count == 0)
+                    {
+                        return "OK";
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Key", "alert('This Id Already Add pool.');location.replace('Index.aspx');", true);
+                        return string.Empty;
+                    }
+                    //ScriptManager.RegisterStartupScript(this, this.GetType(), "Key", "alert('This Id Not activate Please Activate First.');location.replace('Index.aspx');", true);
+                    //return string.Empty;
+
                 }
                 else if (dt.Rows[0]["ActiveStatus"].ToString() == "Y")
                 {
