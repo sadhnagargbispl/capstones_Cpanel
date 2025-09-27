@@ -1164,15 +1164,76 @@ public partial class Newjoining1 : System.Web.UI.Page
                     string scrname = "<SCRIPT language='javascript'>alert('Please Enter Email Id.!');</SCRIPT>";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrname, false);
                     return;
-                }
-                //else if (TxtWalletaddress.Text == "")
-                //{
-                //    string scrname = "<SCRIPT language='javascript'>alert('Please Enter Wallet Address.!');</SCRIPT>";
-                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrname, false);
-                //    return;
-                //}
+                }  
                 else
                 {
+                    if (!string.IsNullOrWhiteSpace(txtEMailId.Text)) // Check if txtEMailId is not empty
+                    {
+                        DataTable dtEmail = new DataTable(); // Initialize DataTable
+                        DataSet dsEmail = new DataSet(); // Initialize DataSet
+                        string strSql = IsoStart + " select Count(Email) as Email from " + ObjDAL.dBName + "..M_Membermaster where Email='" + txtEMailId.Text.Trim() + "' " + IsoEnd;
+
+                        dsEmail = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql); // Execute the SQL query
+                        dtEmail = dsEmail.Tables[0]; // Get the first DataTable from DataSet
+                        if (Convert.ToInt32(dtEmail.Rows[0]["Email"]) >= 1) // Check if the email already exists
+                        {
+                            CmdSave.Enabled = true; // Enable the save command
+                            chkterms.Checked = false; // Uncheck the terms checkbox
+                            string scrname = "<script language='javascript'>alert('Already Registered by this Email ID.');</script>"; // Prepare alert script
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrname, false); // Register script block
+                            return; // Exit the method
+                        }
+                    }
+                    if (!string.IsNullOrWhiteSpace(txtMobileNo.Text)) // Check if txtMobileNo is not empty
+                    {
+                        string moblno = txtMobileNo.Text; // Get mobile number
+                        string check = moblno.Substring(0, 1); // Get the first character
+
+                        if (check == "0") // Check if the first character is "0"
+                        {
+                            txtMobileNo.Text = ""; // Clear the mobile number
+                            CmdSave.Enabled = true; // Enable the save command
+                            chkterms.Checked = false; // Uncheck the terms checkbox
+                            string scrname = "<script language='javascript'>alert('Invalid Mobile No.!');</script>"; // Prepare alert script
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrname, false); // Register script block
+                            return; // Exit the method
+                        }
+                        string mobileNumber = txtMobileNo.Text;
+
+                        if (Regex.IsMatch(mobileNumber, @"^\d{10,}$"))
+                        {
+                            //   MessageBox.Show("Valid mobile number.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        }
+                        else
+                        {
+                            txtMobileNo.Text = "";
+                            CmdSave.Enabled = true;
+                            chkterms.Checked = false;
+                            string scrname = "<SCRIPT language='javascript'>alert('Invalid Mobile No.!');</SCRIPT>";
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrname, false);
+                            return;
+                        }
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(txtMobileNo.Text)) // Check if txtMobileNo is not empty
+                    {
+                        DataTable dt1 = new DataTable(); // Initialize DataTable
+                        DataSet dsmob = new DataSet(); // Initialize DataSet
+                        string strSql = IsoStart + "select Count(mobl) as mobileno from " + ObjDAL.dBName + "..M_Membermaster where Mobl='" + txtMobileNo.Text.Trim() + "' " + IsoEnd;
+
+                        dsmob = SqlHelper.ExecuteDataset(cnn, CommandType.Text, strSql); // Execute the SQL query
+                        dt1 = dsmob.Tables[0]; // Get the first table from the dataset
+
+                        if (Convert.ToInt32(dt1.Rows[0]["mobileno"]) >= 1) // Check if the mobile number is already registered
+                        {
+                            CmdSave.Enabled = true; // Enable the save command
+                            chkterms.Checked = false; // Uncheck the terms checkbox
+                            string scrname = "<script language='javascript'>alert('Already Registered by this Mobile Number.');</script>"; // Prepare alert script
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrname, false); // Register script block
+                            return; // Exit the method
+                        }
+                    }
                     SaveIntoDB();
 
                 }
@@ -1273,139 +1334,9 @@ public partial class Newjoining1 : System.Web.UI.Page
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('Enter Mobile No.');", true);
                             return;
                         }
-                        //if (TxtWalletaddress.Text == "")
-                        //{
-                        //    chkterms.Checked = false;
-                        //    CmdSave.Enabled = true;
-                        //    scrname = "<SCRIPT language='javascript'>alert('Enter Wallet Address.');" + "</SCRIPT>";
-                        //    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('Enter Wallet Address.');", true);
-                        //    return;
-                        //}
-                        //if (Txtusername.Text == "")
-                        //{
-                        //    chkterms.Checked = false;
-                        //    CmdSave.Enabled = true;
-                        //    scrname = "<SCRIPT language='javascript'>alert('Enter User-Id.');" + "</SCRIPT>";
-                        //    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('Enter User-Id.');", true);
-                        //    return;
-                        //}
-                        if (!string.IsNullOrWhiteSpace(txtEMailId.Text)) // Check if txtEMailId is not empty
-                        {
-                            DataTable dtEmail = new DataTable(); // Initialize DataTable
-                            DataSet dsEmail = new DataSet(); // Initialize DataSet
-                            string strSql = IsoStart + " select Count(Email) as Email from " + ObjDAL.dBName + "..M_Membermaster where Email='" + txtEMailId.Text.Trim() + "' " + IsoEnd;
+                        
 
-                            dsEmail = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql); // Execute the SQL query
-                            dtEmail = dsEmail.Tables[0]; // Get the first DataTable from DataSet
-
-                            if (Convert.ToInt32(dtEmail.Rows[0]["Email"]) >= 1) // Check if the email already exists
-                            {
-                                CmdSave.Enabled = true; // Enable the save command
-                                chkterms.Checked = false; // Uncheck the terms checkbox
-                                string scrname = "<script language='javascript'>alert('Already Registered by this Email ID.');</script>"; // Prepare alert script
-                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrname, false); // Register script block
-                                return; // Exit the method
-                            }
-                        }
-
-                        //if (!string.IsNullOrWhiteSpace(Txtusername.Text)) // Check if txtEMailId is not empty
-                        //{
-                        //    DataTable DtEmail = new DataTable();
-                        //    DataSet DsEmail = new DataSet();
-                        //    string strSql = IsoStart + "select Count(idno) as idno from " + ObjDAL.dBName + "..M_Membermaster where idno = '" + Txtusername.Text.Trim() + "' " + IsoEnd;
-                        //    DsEmail = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql);
-                        //    DtEmail = DsEmail.Tables[0];
-
-                        //    if (Convert.ToInt32(DtEmail.Rows[0]["idno"]) >= 1)
-                        //    {
-                        //        Txtusername.Text = "";
-                        //        CmdSave.Enabled = true;
-                        //        chkterms.Checked = false;
-                        //        LblUseName.Visible = true;
-                        //        LblUseName.Text = "Already Registered by this User ID.!";
-                        //        return;
-                        //    }
-                        //    else
-                        //    {
-                        //        LblUseName.Visible = false;
-                        //    }
-                        //}
-
-
-                        //if (!string.IsNullOrWhiteSpace(TxtWalletaddress.Text)) // Check if txtEMailtxtEMailId is not empty
-                        //{
-                        //    DataTable DtEmail = new DataTable();
-                        //    DataSet DsEmail = new DataSet();
-                        //    string strSql = IsoStart + "select Count(walletaddress) as walletaddress from " + ObjDAL.dBName + "..M_Membermaster where walletaddress = '" + TxtWalletaddress.Text.Trim() + "' " + IsoEnd;
-                        //    DsEmail = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql);
-                        //    DtEmail = DsEmail.Tables[0];
-
-                        //    if (Convert.ToInt32(DtEmail.Rows[0]["walletaddress"]) >= 1)
-                        //    {
-                        //        TxtWalletaddress.Text = "";
-                        //        CmdSave.Enabled = true;
-                        //        chkterms.Checked = false;
-                        //        LblWalletaddress.Visible = true;
-                        //        LblWalletaddress.Text = "Already Registered by this Wallet Address.!";
-                        //        return;
-                        //    }
-                        //    else
-                        //    {
-                        //        LblWalletaddress.Visible = false;
-                        //    }
-                        //}
-
-
-                        if (!string.IsNullOrWhiteSpace(txtMobileNo.Text)) // Check if txtMobileNo is not empty
-                        {
-                            string moblno = txtMobileNo.Text; // Get mobile number
-                            string check = moblno.Substring(0, 1); // Get the first character
-
-                            if (check == "0") // Check if the first character is "0"
-                            {
-                                txtMobileNo.Text = ""; // Clear the mobile number
-                                CmdSave.Enabled = true; // Enable the save command
-                                chkterms.Checked = false; // Uncheck the terms checkbox
-                                string scrname = "<script language='javascript'>alert('Invalid Mobile No.!');</script>"; // Prepare alert script
-                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrname, false); // Register script block
-                                return; // Exit the method
-                            }
-                            string mobileNumber = txtMobileNo.Text;
-
-                            if (Regex.IsMatch(mobileNumber, @"^\d{10,}$"))
-                            {
-                                //   MessageBox.Show("Valid mobile number.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                            }
-                            else
-                            {
-                                txtMobileNo.Text = "";
-                                CmdSave.Enabled = true;
-                                chkterms.Checked = false;
-                                string scrname = "<SCRIPT language='javascript'>alert('Invalid Mobile No.!');</SCRIPT>";
-                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrname, false);
-                                return;
-                            }
-                        }
-
-                        if (!string.IsNullOrWhiteSpace(txtMobileNo.Text)) // Check if txtMobileNo is not empty
-                        {
-                            DataTable dt1 = new DataTable(); // Initialize DataTable
-                            DataSet dsmob = new DataSet(); // Initialize DataSet
-                            string strSql = IsoStart + "select Count(mobl) as mobileno from " + ObjDAL.dBName + "..M_Membermaster where Mobl='" + txtMobileNo.Text.Trim() + "' " + IsoEnd;
-
-                            dsmob = SqlHelper.ExecuteDataset(cnn, CommandType.Text, strSql); // Execute the SQL query
-                            dt1 = dsmob.Tables[0]; // Get the first table from the dataset
-
-                            if (Convert.ToInt32(dt1.Rows[0]["mobileno"]) >= 1) // Check if the mobile number is already registered
-                            {
-                                CmdSave.Enabled = true; // Enable the save command
-                                chkterms.Checked = false; // Uncheck the terms checkbox
-                                string scrname = "<script language='javascript'>alert('Already Registered by this Mobile Number.');</script>"; // Prepare alert script
-                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrname, false); // Register script block
-                                return; // Exit the method
-                            }
-                        }
+                        
 
                         string q = "";
                         int i = 0;
