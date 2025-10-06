@@ -412,8 +412,8 @@ public partial class Idactivation : System.Web.UI.Page
         try
         {
             DataTable dt = new DataTable();
-            string str = " Select * From dbo.ufnGetBalance('" + Convert.ToInt32(Session["Formno"]) + "','S')";
-            dt = SqlHelper.ExecuteDataset(constr, CommandType.Text, str).Tables[0];
+            string str = objDal.Isostart +  " Select * From dbo.ufnGetBalance('" + Convert.ToInt32(Session["Formno"]) + "','S')" + objDal.IsoEnd;
+            dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, str).Tables[0];
             if (dt.Rows.Count > 0)
             {
                 AvailableBal.InnerText = Convert.ToString(dt.Rows[0]["Balance"]);

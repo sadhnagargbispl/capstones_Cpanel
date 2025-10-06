@@ -165,17 +165,6 @@ public partial class Newjoining1 : System.Web.UI.Page
                             goto refLink;
                         }
                     }
-
-                    //if (Request.QueryString["RefFormNo"].Length > 0)
-                    //{
-                    //    txtRefralId.Text = Get_IDNo(Convert.ToInt32(Request.QueryString["RefFormNo"]));
-                    //    if (txtRefralId.Text.Trim() != "")
-                    //    {
-                    //        FillReferral(cnn);
-                    //    }
-
-                    //    txtRefralId.ReadOnly = true;
-                    //}
                     if (!string.IsNullOrWhiteSpace(txtRefralId.Text))
                     {
                         // FillReferral(cnn);
@@ -185,22 +174,6 @@ public partial class Newjoining1 : System.Web.UI.Page
 
                         DataTable tmpTable = new DataTable();
                         string strQuery = "";
-
-                        //strQuery = IsoStart + "Exec Sp_GetRegistration '" + txtRefralId.Text.Replace("CS", "") + "'" + IsoEnd;
-                        ////string prefix = txtRefralId.Text.Substring(0, 1); // "D" or "A"
-                        ////string referralIdWithoutPrefix = txtRefralId.Text.Substring(1); // Remove first character
-                        ////strQuery = IsoStart + "Exec Sp_GetRegistration '" + referralIdWithoutPrefix + "'" + IsoEnd;
-
-                        //tmpTable = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strQuery).Tables[0];
-
-                        //if (tmpTable.Rows.Count > 0)
-                        //{
-                        //    if (Convert.ToInt32(tmpTable.Rows[0]["Cnt"]) > 0)
-                        //    {
-                        //        ScriptManager.RegisterStartupScript(this, this.GetType(), "Key", "alert('You Are Not Access This Page.Please Contact To Admin.!');location.replace('index.aspx');", true);
-                        //        return;
-                        //    }
-                        //}
                     }
                     if (txtRefralId.Text.Trim() != "")
                     {
@@ -238,108 +211,7 @@ public partial class Newjoining1 : System.Web.UI.Page
             {
                 rwSpnsr.Visible = false;
             }
-            //if (!Page.IsPostBack)
-            //{
-            //    Session["OtpCount"] = 0;
-            //    Session["OtpTime"] = null;
-            //    Session["OTP_"] = null;
-            //    Session["Retry"] = null;
-            //    HdnCheckTrnns.Value = GenerateRandomStringJoining(6);
-            //    // getData();
-            //    Session["OtpCount"] = 0;
-            //    ClrCtrl();
-            //    RbtnLegNo.Items.Add("Left");
-            //    RbtnLegNo.Items.Add("Right");
 
-            //    RbtnLegNo.Items[0].Selected = true;
-
-            //    if (!string.IsNullOrEmpty(Request.QueryString["s"]))
-            //    {
-            //        K = Request["s"];
-            //        K = K.Replace(" ", "+");
-            //        sr = Crypto.Decrypt(K);
-
-            //        sbstr = sr.Split('/');
-            //        string UplinerFormno = sbstr[1];
-
-            //        string s = IsoStart + " select * from " + ObjDAL.dBName + "..M_MemberMaster where Formno='" + UplinerFormno + "'" + IsoEnd;
-            //        DataSet Ds = new DataSet();
-            //        Ds = SqlHelper.ExecuteDataset(cnn, CommandType.Text, s);
-
-            //        DataTable dt;
-            //        dt = new DataTable();
-            //        dt = Ds.Tables[0];
-            //        if (dt.Rows.Count > 0)
-            //            txtUplinerId.Text = dt.Rows[0]["Idno"].ToString();
-            //        string LegNo = sbstr[3];
-
-            //        txtUplinerId.ReadOnly = true;
-            //        txtRefralId.Text = Session["Idno"].ToString();
-
-            //        if (LegNo == "1")
-            //        {
-            //            RbtnLegNo.SelectedIndex = 0;
-            //        }
-            //        else
-            //        {
-            //            RbtnLegNo.SelectedIndex = 1;
-            //        }
-            //        RbtnLegNo.Enabled = false;
-            //        Session["iLeg"] = LegNo;
-            //    }
-
-
-            //    if (!string.IsNullOrEmpty(Request.QueryString["RefFormNo"]))
-            //    {
-            //        txtRefralId.Text = Get_IDNoUp(Request.QueryString["RefFormNo"]);
-            //        TxtWalletaddress.Text = HiddenField4.Value;
-            //    refLink:
-            //        ;
-            //        //if (txtRefralId.Text.Trim() != "")
-            //        //    FillReferralUp();
-            //        //txtRefralId.ReadOnly = true;
-            //        if (txtRefralId.Text.Trim() != "")
-            //        {
-            //            FillReferral(cnn);
-            //        }
-            //        txtRefralId.ReadOnly = true;
-            //        TxtWalletaddress.ReadOnly = true;
-            //    }
-            //    // If Len(Request.QueryString("RefFormNo")) > 0 Then
-            //    // txtRefralId.Text = Get_IDNo(Request.QueryString("RefFormNo"), cnn)
-            //    // refLink:            If Trim(txtRefralId.Text) <> "" Then
-            //    // FillReferral(cnn)
-            //    // End If
-            //    // txtRefralId.ReadOnly = True
-            //    // End If
-            //    // End If
-            //    FillPaymode(cnn);
-
-            //    dbGeneral.Fill_Date_box(ddlDOBdt, ddlDOBmnth, ddlDOBYr, 1940, DateTime.Now.AddYears(-18).Year);
-            //    dbGeneral.Fill_Date_box(DDlMDay, DDLMMonth, DDLMYear, 1940, DateTime.Now.Year);
-            //    FillBankMaster(cnn);
-            //    // FillStateMaster()
-            //    FillCountryMasterName();
-            //    FillCountryMasterCode();
-            //    FindSession();
-            //    GetConfigDtl(cnn);
-            //    // sendSMS()
-            //    vsblCtrl(false, true);
-            //}
-
-            //try
-            //{
-            //    Session["Dsessid"] = 0;
-            //}
-            //catch
-            //{
-            //}
-
-
-            //if (Session["IsGetExtreme"] == "N")
-            //    rwSpnsr.Visible = true;
-            //else
-            //    rwSpnsr.Visible = false;
         }
         catch (Exception ex)
         {
@@ -359,52 +231,11 @@ public partial class Newjoining1 : System.Web.UI.Page
             DataTable dt = new DataTable();
 
             //string strSql = IsoStart + "Select IDNO from " + ObjDAL.dBName + " ..M_MemberMAster Where MID = '" + Mid + "' " + IsoEnd;
-            string strSql = IsoStart + "Select IDNO from " + ObjDAL.dBName + "..M_MemberMAster Where MID = '" + Mid + "' " + IsoEnd;
+            string strSql = ObjDAL.Isostart + "Select IDNO from " + ObjDAL.dBName + "..M_MemberMAster Where MID = '" + Mid + "' " + ObjDAL.IsoEnd;
             dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql).Tables[0];
 
             if ((dt.Rows.Count > 0))
                 Result = dt.Rows[0]["IDNO"].ToString();
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(ex.Message);
-        }
-        return Result;
-    }
-    private string Get_IDNo(int MyFormNo)
-    {
-        string IdNo = "";
-        try
-        {
-
-            DataTable dt = new DataTable();
-
-            string strSql = IsoStart + "select IdNo  from " + ObjDAL.dBName + "..M_MemberMaster WHERE FormNo='" + MyFormNo + "' " + IsoEnd;
-            dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql).Tables[0];
-            if (dt.Rows.Count > 0)
-            {
-                IdNo = dt.Rows[0]["IdNo"].ToString();
-            }
-            //return IdNo;
-        }
-        catch (Exception ex)
-        {
-
-            throw new Exception(ex.Message);
-        }
-        return IdNo;
-    }
-    private string GetIDno(int Mid, ref SqlConnection cnn)
-    {
-        string Result = "";
-        try
-        {
-            string strSql = IsoStart + "Select IDNO from " + ObjDAL.dBName + "..M_MemberMAster Where MID = '" + Mid + "' " + IsoEnd;
-            Dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql).Tables[0];
-            if (Dt.Rows.Count > 0)
-            {
-                Result = Dt.Rows[0]["IDNO"].ToString();
-            }
         }
         catch (Exception ex)
         {
@@ -431,37 +262,12 @@ public partial class Newjoining1 : System.Web.UI.Page
             throw new Exception(ex.Message);
         }
     }
-    private string Get_IDNoUp(string myFormNo)
-    {
-        try
-        {
-            string idNo = "";
-            DataTable dt = new DataTable();
-            DataSet ds = new DataSet();
-            string strSql = "SELECT idno FROM M_MemberMaster WHERE formno = '" + myFormNo + "'";
-
-            ds = SqlHelper.ExecuteDataset(constr, CommandType.Text, strSql);
-            dt = ds.Tables[0];
-
-            if (dt.Rows.Count > 0)
-            {
-                idNo = dt.Rows[0]["idno"].ToString();
-            }
-
-            return idNo;
-        }
-        catch (Exception ex)
-        {
-            Response.Write("Try later.");
-            return null; // Ensure a return in case of exception
-        }
-    }
     private void FillCountryMasterName()
     {
         try
         {
             DataTable dt = new DataTable();
-            string strQuery = "Exec Sp_GetCountry";
+            string strQuery = ObjDAL.Isostart + "Exec Sp_GetCountry" + ObjDAL.IsoEnd;
             dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strQuery).Tables[0];
             ddlCountryNAme.DataSource = dt;
             ddlCountryNAme.DataValueField = "CId";
@@ -492,15 +298,14 @@ public partial class Newjoining1 : System.Web.UI.Page
         try
         {
             DataTable dtMaster = new DataTable();
-            string strQuery = "Exec Sp_GetState";
+            string strQuery = ObjDAL.Isostart + "Exec Sp_GetState" + ObjDAL.IsoEnd;
             dtMaster = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strQuery).Tables[0];
-
             ddlStatename.DataSource = dtMaster;
             ddlStatename.DataValueField = "STATECODE";
             ddlStatename.DataTextField = "StateName";
             ddlStatename.DataBind();
             ddlStatename.SelectedIndex = 0;
-           
+
         }
         catch (Exception ex)
         {
@@ -513,11 +318,11 @@ public partial class Newjoining1 : System.Web.UI.Page
         {
             DataTable dt = new DataTable();
             DataSet ds = new DataSet();
-            string strSql = IsoStart + "SELECT * FROM " + ObjDAL.dBName + "..M_PayModeMaster WHERE ActiveStatus='Y' " + IsoEnd;
+            string strSql = ObjDAL.Isostart + "SELECT top 1 * FROM " + ObjDAL.dBName + "..M_PayModeMaster WHERE ActiveStatus='Y' " + ObjDAL.IsoEnd;
 
             if (Session["DtPayMode"] == null)
             {
-                ds = SqlHelper.ExecuteDataset(cnn, CommandType.Text, strSql);
+                ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql);
                 dt = ds.Tables[0];
                 Session["DtPayMode"] = dt;
             }
@@ -545,19 +350,10 @@ public partial class Newjoining1 : System.Web.UI.Page
         {
             DataTable dt = new DataTable();
             DataSet ds = new DataSet();
-            string strSql = IsoStart + "select *  from " + ObjDAL.dBName + "..M_ConfigMaster " + IsoEnd;
-
-            if (Session["DtConfigDetail"] == null)
-            {
-                ds = SqlHelper.ExecuteDataset(cnn, CommandType.Text, strSql);
-                dt = ds.Tables[0];
-                Session["DtConfigDetail"] = dt;
-            }
-            else
-            {
-                dt = (DataTable)Session["DtConfigDetail"];
-            }
-
+            string strSql = ObjDAL.Isostart + "select *  from " + ObjDAL.dBName + "..M_ConfigMaster " + ObjDAL.IsoEnd;
+            ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql);
+            dt = ds.Tables[0];
+            Session["DtConfigDetail"] = dt;
             if (dt.Rows.Count > 0)
             {
                 Session["IsGetExtreme"] = dt.Rows[0]["IsGetExtreme"];
@@ -586,31 +382,6 @@ public partial class Newjoining1 : System.Web.UI.Page
             Session["CompName"] = "";
             Session["CompAdd"] = "";
             Session["CompWeb"] = "";
-        }
-    }
-    private string Get_IDNo(int myFormNo, ref SqlConnection cnn)
-    {
-        try
-        {
-            string idNo = "";
-            DataTable dt = new DataTable();
-            DataSet ds = new DataSet();
-            string strSql = IsoStart + "select IdNo  from " + ObjDAL.dBName + "..M_MemberMaster WHERE FormNo='" + myFormNo + "' " + IsoEnd;
-
-            ds = SqlHelper.ExecuteDataset(cnn, CommandType.Text, strSql);
-            dt = ds.Tables[0];
-
-            if (dt.Rows.Count > 0)
-            {
-                idNo = dt.Rows[0]["IdNo"].ToString();
-            }
-
-            return idNo;
-        }
-        catch (Exception ex)
-        {
-            Response.Write("Try later.");
-            return null;
         }
     }
     protected void vsblCtrl(bool isVsbl, bool isOnlyDv)
@@ -682,11 +453,11 @@ public partial class Newjoining1 : System.Web.UI.Page
 
             //if (Session["DtBankMaster"] == null)
             //{
-                DataSet Ds = new DataSet();
-                string strSql = IsoStart + "SELECT BankCode as Bid, BANKNAME as Bank FROM " + ObjDAL.dBName + "..M_BankMaster WHERE ACTIVESTATUS='Y' and Rowstatus='Y' ORDER BY BankName" + IsoEnd;
-                Ds = SqlHelper.ExecuteDataset(Cnn, CommandType.Text, strSql);
-                dt = Ds.Tables[0];
-                Session["DtBankMaster"] = dt;
+            DataSet Ds = new DataSet();
+            string strSql = ObjDAL.Isostart + "SELECT top 1 BankCode as Bid, BANKNAME as Bank FROM " + ObjDAL.dBName + "..M_BankMaster WHERE ACTIVESTATUS='Y' and Rowstatus='Y' ORDER BY BankName" + ObjDAL.IsoEnd;
+            Ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql);
+            dt = Ds.Tables[0];
+            Session["DtBankMaster"] = dt;
             //}
             //else
             //{
@@ -735,8 +506,8 @@ public partial class Newjoining1 : System.Web.UI.Page
                 {
                     DataTable dt = new DataTable();
                     DataSet Ds = new DataSet();
-                    string strSql = IsoStart + "Select FormNo, MemFirstName + ' ' + MemLastName as MemName, ActiveStatus from " + ObjDAL.dBName + "..M_MemberMaster where Idno = '" + txtRefralId.Text + "'" + IsoEnd;
-                    Ds = SqlHelper.ExecuteDataset(Cnn, CommandType.Text, strSql);
+                    string strSql = ObjDAL.Isostart + "Select FormNo, MemFirstName + ' ' + MemLastName as MemName, ActiveStatus from " + ObjDAL.dBName + "..M_MemberMaster where Idno = '" + txtRefralId.Text + "'" + ObjDAL.IsoEnd;
+                    Ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql);
                     dt = Ds.Tables[0];
 
                     if (dt.Rows.Count == 0)
@@ -838,7 +609,7 @@ public partial class Newjoining1 : System.Web.UI.Page
 
             DataTable dt = new DataTable();
             DataSet Ds = new DataSet();
-            string strSql = IsoStart + "Select * from " + ObjDAL.dBName + "..M_MemberMaster where IdNo='" + txtUplinerId.Text + "'" + IsoEnd;
+            string strSql = ObjDAL.Isostart + "Select * from " + ObjDAL.dBName + "..M_MemberMaster where IdNo='" + txtUplinerId.Text + "'" + ObjDAL.IsoEnd;
             Ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql);
             dt = Ds.Tables[0];
 
@@ -856,7 +627,7 @@ public partial class Newjoining1 : System.Web.UI.Page
 
             DataTable dt12 = new DataTable();
             DataSet Ds12 = new DataSet();
-            string strSql12 = IsoStart + "SELECT COUNT(*) AS CNT FROM " + ObjDAL.dBName + "..M_MemberMaster WHERE UpLnFormNo=" + iformNo + " And LegNo=" + iLegNo + IsoEnd;
+            string strSql12 = ObjDAL.Isostart + "SELECT COUNT(*) AS CNT FROM " + ObjDAL.dBName + "..M_MemberMaster WHERE UpLnFormNo=" + iformNo + " And LegNo=" + iLegNo + ObjDAL.IsoEnd;
             Ds12 = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql12);
             dt12 = Ds12.Tables[0];
 
@@ -894,9 +665,9 @@ public partial class Newjoining1 : System.Web.UI.Page
 
             DataTable dt = new DataTable();
             DataSet Ds = new DataSet();
-            string strSql = IsoStart + " Select FormNo,MemFirstName + ' ' + MemLastName as MemName from " + ObjDAL.dBName +
-                            "..M_MemberMaster where IDNo='" + txtUplinerId.Text + "'" + IsoEnd;
-            Ds = SqlHelper.ExecuteDataset(Cnn, CommandType.Text, strSql);
+            string strSql = ObjDAL.Isostart + " Select FormNo,MemFirstName + ' ' + MemLastName as MemName from " + ObjDAL.dBName +
+                            "..M_MemberMaster where IDNo='" + txtUplinerId.Text + "'" + ObjDAL.IsoEnd;
+            Ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql);
             dt = Ds.Tables[0];
 
             if (dt.Rows.Count > 0)
@@ -923,46 +694,6 @@ public partial class Newjoining1 : System.Web.UI.Page
             Response.Write("Try later.");
         }
     }
-    private void FillReferralUp()
-    {
-        try
-        {
-            string scrname = "";
-            txtRefralId.Text = txtRefralId.Text.Trim().Replace(";", "").Replace("'", "").Replace("=", "");
-
-            DataTable dt = new DataTable();
-            DataSet Ds = new DataSet();
-            string strSql = " Select FormNo,MemFirstName + ' ' + MemLastName as MemName,idno,kitname,kitamount,walletaddress  from M_MemberMaster as a, " +
-                            " m_kitmaster as b where a.kitid = b.kitid AND idno = '" + txtRefralId.Text + "' and IsBlock='N' ";
-            Ds = SqlHelper.ExecuteDataset(constr, CommandType.Text, strSql);
-            dt = Ds.Tables[0];
-
-            if (dt.Rows.Count > 0)
-            {
-                if (dt.Rows[0]["walletaddress"].ToString() == HiddenField4.Value.ToString())
-                {
-                    scrname = "<SCRIPT language='javascript'>alert('Invalid Referal Code.!!');</SCRIPT>";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrname, false);
-                    txtRefralId.Text = "";
-                    TxtWalletaddress.Text = "";
-                    return;
-                }
-                lblRefralNm.Text = dt.Rows[0]["MemName"].ToString();
-                TxtWalletaddress.Text = HiddenField4.Value;
-            }
-            else
-            {
-                scrname = "<SCRIPT language='javascript'>alert('Invalid Referal Code.!!');</SCRIPT>";
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrname, false);
-                txtRefralId.Text = "";
-                return;
-            }
-        }
-        catch (Exception ex)
-        {
-            Response.Write("Try later.");
-        }
-    }
     private void FillReferral(SqlConnection Cnn)
     {
         try
@@ -973,9 +704,9 @@ public partial class Newjoining1 : System.Web.UI.Page
 
             DataTable dt = new DataTable();
             DataSet Ds = new DataSet();
-            string strSql = IsoStart + "Select FormNo,MemFirstName + ' ' + MemLastName as MemName,ActiveStatus from " +
-                            ObjDAL.dBName + "..M_MemberMaster where IDNo='" + txtRefralId.Text + "' and IsBlock='N' " + IsoEnd;
-            Ds = SqlHelper.ExecuteDataset(Cnn, CommandType.Text, strSql);
+            string strSql = ObjDAL.Isostart + "Select FormNo,MemFirstName + ' ' + MemLastName as MemName,ActiveStatus from " +
+                            ObjDAL.dBName + "..M_MemberMaster where IDNo='" + txtRefralId.Text + "' and IsBlock='N' " + ObjDAL.IsoEnd;
+            Ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql);
             dt = Ds.Tables[0];
 
             if (dt.Rows.Count == 0)
@@ -1040,8 +771,8 @@ public partial class Newjoining1 : System.Web.UI.Page
             {
                 DataTable Dt1 = new DataTable();
                 DataSet Dsmob = new DataSet();
-                string strSql = IsoStart + "select Count(mobl) as mobileno from " + ObjDAL.dBName + "..M_Membermaster where Mobl='" + txtMobileNo.Text.Trim() + "' " + IsoEnd;
-                Dsmob = SqlHelper.ExecuteDataset(cnn, CommandType.Text, strSql);
+                string strSql = ObjDAL.Isostart + "select Count(mobl) as mobileno from " + ObjDAL.dBName + "..M_Membermaster where Mobl='" + txtMobileNo.Text.Trim() + "' " + ObjDAL.IsoEnd;
+                Dsmob = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql);
                 Dt1 = Dsmob.Tables[0];
 
                 if (Convert.ToInt32(Dt1.Rows[0]["mobileno"]) >= 1)
@@ -1072,7 +803,7 @@ public partial class Newjoining1 : System.Web.UI.Page
         {
             DataTable DtEmail = new DataTable();
             DataSet DsEmail = new DataSet();
-            string strSql = IsoStart + "select Count(Email) as Email from " + ObjDAL.dBName + "..M_Membermaster where Email='" + txtEMailId.Text.Trim() + "' " + IsoEnd;
+            string strSql = ObjDAL.IsoEnd + "select Count(Email) as Email from " + ObjDAL.dBName + "..M_Membermaster where Email='" + txtEMailId.Text.Trim() + "' " + ObjDAL.IsoEnd;
             DsEmail = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql);
             DtEmail = DsEmail.Tables[0];
 
@@ -1104,7 +835,7 @@ public partial class Newjoining1 : System.Web.UI.Page
         try
         {
             DataTable dt = new DataTable();
-            string strQuery = IsoStart + "SELECT StdCode FROM " + ObjDAL.dBName + "..M_CountryMaster WHERE ACTIVESTATUS='Y' AND Cid = '" + ddlCountryNAme.SelectedValue + "' " + IsoEnd;
+            string strQuery = ObjDAL.Isostart + "SELECT StdCode FROM " + ObjDAL.dBName + "..M_CountryMaster WHERE ACTIVESTATUS='Y' AND Cid = '" + ddlCountryNAme.SelectedValue + "' " + ObjDAL.IsoEnd;
             dt = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strQuery).Tables[0];
 
             if (dt.Rows.Count > 0)
@@ -1135,12 +866,6 @@ public partial class Newjoining1 : System.Web.UI.Page
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrname, false);
                     return;
                 }
-                //else if (Txtusername.Text == "")
-                //{
-                //    string scrname = "<SCRIPT language='javascript'>alert('Please Enter User Name.!');</SCRIPT>";
-                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrname, false);
-                //    return;
-                //}
                 else if (txtFrstNm.Text == "")
                 {
                     string scrname = "<SCRIPT language='javascript'>alert('Please Enter Full Name.!');</SCRIPT>";
@@ -1164,15 +889,46 @@ public partial class Newjoining1 : System.Web.UI.Page
                     string scrname = "<SCRIPT language='javascript'>alert('Please Enter Email Id.!');</SCRIPT>";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrname, false);
                     return;
-                }  
+                }
+                else if (ddlStatename.SelectedValue == "0")
+                {
+                    CmdSave.Enabled = true;
+                    chkterms.Checked = false;
+                    string scrname = "<SCRIPT language='javascript'>alert('Please select Statename ');</SCRIPT>";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrname, false);
+                    return;
+                }
+                else if (ddlDistrict.Text == "")
+                {
+                    CmdSave.Enabled = true;
+                    chkterms.Checked = false;
+                    string scrname = "<SCRIPT language='javascript'>alert('Please Enter District! ');</SCRIPT>";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrname, false);
+                    return;
+                }
+                else if (ddlTehsil.Text == "")
+                {
+                    CmdSave.Enabled = true;
+                    chkterms.Checked = false;
+                    string scrname = "<SCRIPT language='javascript'>alert('Please Enter City! ');</SCRIPT>";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrname, false);
+                    return;
+                }
+                else if (txtdob.Text == "")
+                {
+                    CmdSave.Enabled = true;
+                    chkterms.Checked = false;
+                    string scrname = "<SCRIPT language='javascript'>alert('Please select DOB ');</SCRIPT>";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrname, false);
+                    return;
+                }
                 else
                 {
                     if (!string.IsNullOrWhiteSpace(txtEMailId.Text)) // Check if txtEMailId is not empty
                     {
                         DataTable dtEmail = new DataTable(); // Initialize DataTable
                         DataSet dsEmail = new DataSet(); // Initialize DataSet
-                        string strSql = IsoStart + " select Count(Email) as Email from " + ObjDAL.dBName + "..M_Membermaster where Email='" + txtEMailId.Text.Trim() + "' " + IsoEnd;
-
+                        string strSql = ObjDAL.Isostart + " select Count(Email) as Email from " + ObjDAL.dBName + "..M_Membermaster where Email='" + txtEMailId.Text.Trim() + "' " + ObjDAL.IsoEnd;
                         dsEmail = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql); // Execute the SQL query
                         dtEmail = dsEmail.Tables[0]; // Get the first DataTable from DataSet
                         if (Convert.ToInt32(dtEmail.Rows[0]["Email"]) >= 1) // Check if the email already exists
@@ -1215,14 +971,12 @@ public partial class Newjoining1 : System.Web.UI.Page
                             return;
                         }
                     }
-
                     if (!string.IsNullOrWhiteSpace(txtMobileNo.Text)) // Check if txtMobileNo is not empty
                     {
                         DataTable dt1 = new DataTable(); // Initialize DataTable
                         DataSet dsmob = new DataSet(); // Initialize DataSet
-                        string strSql = IsoStart + "select Count(mobl) as mobileno from " + ObjDAL.dBName + "..M_Membermaster where Mobl='" + txtMobileNo.Text.Trim() + "' " + IsoEnd;
-
-                        dsmob = SqlHelper.ExecuteDataset(cnn, CommandType.Text, strSql); // Execute the SQL query
+                        string strSql = ObjDAL.Isostart + "select Count(mobl) as mobileno from " + ObjDAL.dBName + "..M_Membermaster where Mobl='" + txtMobileNo.Text.Trim() + "' " + ObjDAL.IsoEnd;
+                        dsmob = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql); // Execute the SQL query
                         dt1 = dsmob.Tables[0]; // Get the first table from the dataset
 
                         if (Convert.ToInt32(dt1.Rows[0]["mobileno"]) >= 1) // Check if the mobile number is already registered
@@ -1248,41 +1002,6 @@ public partial class Newjoining1 : System.Web.UI.Page
     {
         try
         {
-
-            if (ddlStatename.SelectedValue == "0")
-            {
-                CmdSave.Enabled = true;
-                chkterms.Checked = false;
-                string scrname = "<SCRIPT language='javascript'>alert('Please select Statename ');</SCRIPT>";
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrname, false);
-                return;
-            }
-
-            
-                if (ddlDistrict.Text == "")
-            {
-                CmdSave.Enabled = true;
-                chkterms.Checked = false;
-                string scrname = "<SCRIPT language='javascript'>alert('Please Enter District! ');</SCRIPT>";
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrname, false);
-                return;
-            }
-            if (ddlTehsil.Text == "")
-            {
-                CmdSave.Enabled = true;
-                chkterms.Checked = false;
-                string scrname = "<SCRIPT language='javascript'>alert('Please Enter City! ');</SCRIPT>";
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrname, false);
-                return;
-            }
-            if (txtdob.Text == "")
-            {
-                CmdSave.Enabled = true;
-                chkterms.Checked = false;
-                string scrname = "<SCRIPT language='javascript'>alert('Please select DOB ');</SCRIPT>";
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Login Error", scrname, false);
-                return;
-            }
             int UpdateData = 0;
             if (UpdateData == 0)
             {
@@ -1290,11 +1009,10 @@ public partial class Newjoining1 : System.Web.UI.Page
                 string strQry = "";
                 string strDOB, strDOM, strDOJ, s;
                 int iLeg;
-                char cGender, cMarried; // Declare variables
-                cGender = 'M';          // Assign value
-                cMarried = 'N';        // Assign value
-
-                string hostIp = Context.Request.UserHostAddress; // Retrieve and assign IP address
+                char cGender, cMarried;
+                cGender = 'M';
+                cMarried = 'N';
+                string hostIp = Context.Request.UserHostAddress;
                 string HostIp = Context.Request.UserHostAddress.ToString();
                 int DistrictCode, CityCode, VillageCode;
                 CmdSave.Enabled = false;
@@ -1316,181 +1034,41 @@ public partial class Newjoining1 : System.Web.UI.Page
                             RbtnLegNo.Enabled = true;
                             return;
                         }
-                        //TxtPasswd.Text = GenerateRandomString(6)
                         string s1 = "";
-                        if (txtEMailId.Text == "")
-                        {
-                            chkterms.Checked = false;
-                            CmdSave.Enabled = true;
-                            scrname = "<SCRIPT language='javascript'>alert('Enter Email-Id.');" + "</SCRIPT>";
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('Enter Email-Id.');", true);
-                            return;
-                        }
-                        if (txtMobileNo.Text == "")
-                        {
-                            chkterms.Checked = false;
-                            CmdSave.Enabled = true;
-                            scrname = "<SCRIPT language='javascript'>alert('Enter Mobile No.');" + "</SCRIPT>";
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('Enter Mobile No.');", true);
-                            return;
-                        }
-                        
-
-                        
-
                         string q = "";
                         int i = 0;
                         DataTable Dt;
                         int BankCode = 0;
-                        if (CmbBank.SelectedItem.Text.ToUpper() == "OTHERS") // Check if the selected bank is "OTHERS"
-                        {
-                            if (!string.IsNullOrWhiteSpace(TxtBank.Text)) // Check if TxtBank is not empty
-                            {
-                                DataTable dt = new DataTable(); // Initialize DataTable
-                                DataSet ds = new DataSet(); // Initialize DataSet
-                                q = IsoStart + "Select * from " + ObjDAL.dBName + "..M_BankMaster where BankName='" + TxtBank.Text.Trim() + "' and Activestatus='Y' and RowStatus='Y' " + IsoEnd;
-
-                                ds = SqlHelper.ExecuteDataset(constr1, CommandType.Text, q); // Execute the SQL query
-                                dt = ds.Tables[0]; // Get the first table from the dataset
-
-                                if (dt.Rows.Count == 0) // If no records found
-                                {
-                                    q = "";
-                                    q = "insert into M_BankMaster (BankCode, BankName, AcNo, IFSCode, Remarks, ActiveStatus, LastModified, UserCode, UserId, IPAdrs, RowStatus) " +
-                                        "Select Case When Max(BankCode) Is Null Then '1' Else Max(BankCode)+1 END as BankCode, '" + TxtBank.Text.ToUpper() + "', '0', '0', " +
-                                        "'', 'Y', 'Add by " + Session["IdNo"] + " at " + DateTime.Now.ToString() + "', '" + Session["MemName"] + "', " +
-                                        "'" + Convert.ToString(Session["FormNo"]) + "', '', 'Y' From M_BankMaster";
-
-                                    i = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, q)); // Execute the insert query
-
-                                    if (i > 0) // If the insert was successful
-                                    {
-                                        string qs = IsoStart + " select Max(BankCode) as BankCode from " + ObjDAL.dBName + "..M_BankMaster where ActiveStatus='Y' and RowStatus='Y'" + IsoEnd;
-                                        DataTable dtRead = SqlHelper.ExecuteDataset(constr1, CommandType.Text, qs).Tables[0]; // Get the max BankCode
-
-                                        if (dtRead.Rows.Count > 0)
-                                        {
-                                            dblBank = Convert.ToInt32(dtRead.Rows[0]["BankCode"]); // Get the BankCode
-                                        }
-                                    }
-                                }
-                                else // If a record exists
-                                {
-                                    dblBank = Convert.ToInt32(dt.Rows[0]["BankCode"]); // Get the existing BankCode
-                                }
-                            }
-                        }
-                        else // If the selected bank is not "OTHERS"
-                        {
-                            dblBank = Convert.ToInt32(CmbBank.SelectedValue); // Get the selected value
-                        }
-
+                        dblBank = Convert.ToInt32(CmbBank.SelectedValue);
                         int AreaCode = 0;
                         AreaCode = 0;
                         string RegestType = "";
-                        //if (RbCategory.SelectedValue == "D") // Check if the selected value is "IN"
-                        //{
-                            RegestType = RbCategory.SelectedValue; ; // Assign "IN" to RegestType
-                        //}
-                        //else
-                        //{
-                        //    RegestType = RbCategory.SelectedValue; // Assign the selected value of CbSubCategory to RegestType
-                        //    //RegestType = CbSubCategory.SelectedValue; // Assign the selected value of CbSubCategory to RegestType
-                        //}
-
+                        RegestType = RbCategory.SelectedValue;
                         int PostalAreaCode = 0;
-                        //strDOB = ddlDOBdt.Text + "-" + ddlDOBmnth.Text + "-" + ddlDOBYr.Text; // Concatenate day, month, and year for date of birth
-                        strDOB = txtdob.Text; // Concatenate day, month, and year for date of birth
-                        strDOM = DDlMDay.Text + "-" + DDLMMonth.Text + "-" + DDLMYear.Text; // Concatenate day, month, and year for date of marriage
-                        strDOJ = dbConnect.Get_ServerDate().ToString("dd-MMM-yyyy"); // Format the server date as "dd-MMM-yyyy"
-                        string dblDistrict = ClearInject(ddlDistrict.Text.ToUpper()); // Get and clear injected text for district
-                        string dblTehsil = ClearInject(ddlTehsil.Text.ToUpper()); // Get and clear injected text for tehsil
-
+                        strDOB = txtdob.Text;
+                        strDOM = DDlMDay.Text + "-" + DDLMMonth.Text + "-" + DDLMYear.Text;
+                        strDOJ = dbConnect.Get_ServerDate().ToString("dd-MMM-yyyy"); 
+                        string dblDistrict = ClearInject(ddlDistrict.Text.ToUpper());
+                        string dblTehsil = ClearInject(ddlTehsil.Text.ToUpper());
                         if (string.IsNullOrEmpty(dblDistrict))
                         {
                             dblDistrict = "";
                         }
-
-                        //dblState =ddlStatename.SelectedValue;
                         DistrictCode = 0;
                         CityCode = 0;
                         VillageCode = 0;
                         IfSC = ClearInject(txtIfsCode.Text.ToUpper());
-
                         dblPlan = "0";
                         InVoiceNo = "0";
-
                         if (Session["SessID"] == null || (int)Session["SessID"] == 0)
                         {
                             FindSession();
                         }
-
                         string Name = "";
                         string fathername = "";
-
-                        //if (RbCategory.SelectedValue == "D")
-                        //{
-                            Name = ClearInject(txtFrstNm.Text.ToUpper());
-                            fathername = ClearInject(txtFNm.Text.ToUpper());
-                        //}
-                        //else
-                        //{
-                        //    fathername = ClearInject(txtFrstNm.Text.ToUpper());
-                        //    Name = ClearInject(TxtCompanyName.Text.ToUpper());
-                        //}
-                        if (!string.IsNullOrWhiteSpace(TxtAccountNo.Text) || !string.IsNullOrWhiteSpace(txtIfsCode.Text.Trim()))
-                        {
-                            if (string.IsNullOrWhiteSpace(TxtAccountNo.Text))
-                            {
-                                chkterms.Checked = false;
-                                CmdSave.Enabled = true;
-                                string script = "alert('Enter Account No.');";
-                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "alert", script, true);
-                                return;
-                            }
-
-                            if (CmbBank.SelectedValue == "0") // Assuming SelectedValue is a string
-                            {
-                                chkterms.Checked = false;
-                                CmdSave.Enabled = true;
-                                string script = "alert('Choose Bank Name.');";
-                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "alert", script, true);
-                                return;
-                            }
-
-                            if (string.IsNullOrWhiteSpace(TxtBranchName.Text))
-                            {
-                                chkterms.Checked = false;
-                                CmdSave.Enabled = true;
-                                string script = "alert('Enter Branch Name.');";
-                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "alert", script, true);
-                                return;
-                            }
-
-                            if (string.IsNullOrWhiteSpace(DDLAccountType.SelectedValue))
-                            {
-                                chkterms.Checked = false;
-                                CmdSave.Enabled = true;
-                                string script = "alert('Enter Account Name.');";
-                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "alert", script, true);
-                                return;
-                            }
-
-                            if (string.IsNullOrWhiteSpace(txtIfsCode.Text))
-                            {
-                                chkterms.Checked = false;
-                                CmdSave.Enabled = true;
-                                string script = "alert('Enter IFSC Code.');";
-                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "alert", script, true);
-                                return;
-                            }
-                        }
+                        Name = ClearInject(txtFrstNm.Text.ToUpper());
+                        fathername = ClearInject(txtFNm.Text.ToUpper());
                         TxtPasswd.Text = GenerateRandomString(6);
-
-
-
-
-
                         var Strquery1 = "Insert into Trnjoining (Transid) values(" + HdnCheckTrnns.Value + ")";
                         int UpdateData1 = 0;
                         UpdateData1 = Convert.ToInt32(SqlHelper.ExecuteNonQuery(constr, CommandType.Text, Strquery1));
@@ -1503,7 +1081,7 @@ public partial class Newjoining1 : System.Web.UI.Page
          "PID, Paymode, ChDDNo, ChDDBankID, ChDDBank, ChddDate, ChDDBranch, IsPanCard, AadharNo, AadharNo2, AAdharNo3, Fld5, walletaddress, usercode,regtype) " +
          "VALUES (" + Convert.ToInt32(Session["SessID"]) + ", '0', 0, 0, " + Convert.ToInt32(Session["Kitid"]) + ", " +
          Convert.ToInt32(Session["Uplnr"]) + ", 0, '" + iLeg + "', 0, " + Convert.ToInt32(Session["Refral"]) + ", '" + ClearInject(txtFrstNm.Text.ToUpper()) + "', " +
-         "'', '" + CmbType.SelectedValue + "', '" + ClearInject(txtFNm.Text.ToUpper()) + "', '" + strDOB + "', '" + RBTtype.SelectedValue  + "', '', " +
+         "'', '" + CmbType.SelectedValue + "', '" + ClearInject(txtFNm.Text.ToUpper()) + "', '" + strDOB + "', '" + RBTtype.SelectedValue + "', '', " +
          "'" + ClearInject(txtNominee.Text.ToUpper()) + "', '" + ClearInject(txtAddLn1.Text.ToUpper()) + "', '', '', '" + dblTehsil + "', " +
          "'" + dblTehsil + "', '" + dblDistrict + "', " + ddlStatename.SelectedValue + ", " + ddlCountryNAme.SelectedValue + ", '" + txtPinCode.Text + "', " +
          "'" + txtPhNo.Text + "', 'CHOOSE ACCOUNT TYPE', '" + txtMobileNo.Text + "', '" + strDOM + "', '" + ClearInject(TxtPasswd.Text) + "', " +
@@ -1513,7 +1091,7 @@ public partial class Newjoining1 : System.Web.UI.Page
          "'" + InVoiceNo + "', '" + Session["RP"] + "', '" + HostIp + "', " + Convert.ToInt32(DdlPaymode.SelectedValue) + ", " +
          "'" + (DdlPaymode.SelectedItem.Text.ToUpper()) + "', '" + ClearInject(TxtDDNo.Text) + "', '0', '" + ClearInject(TxtIssueBank.Text.ToUpper()) + "', " +
          "'" + (TxtDDDate.Text) + "', '" + ClearInject(TxtIssueBranch.Text) + "', 'N', '" + ClearInject(TxtAAdhar1.Text) + "', " +
-         "'" + ClearInject(TxtAadhar2.Text) + "', '" + ClearInject(TxtAadhar3.Text) + "', '" + Session["TransIDJoin"] + "', '" + TxtWalletaddress.Text + "', '" + ddlMobileNAme.Text + "','"+ RbCategory.SelectedValue + "')";
+         "'" + ClearInject(TxtAadhar2.Text) + "', '" + ClearInject(TxtAadhar3.Text) + "', '" + Session["TransIDJoin"] + "', '" + TxtWalletaddress.Text + "', '" + ddlMobileNAme.Text + "','" + RbCategory.SelectedValue + "')";
 
                             int isOk = 0;
                             int retryqry = 0;
@@ -1532,19 +1110,11 @@ public partial class Newjoining1 : System.Web.UI.Page
                                 string Password = "";
                                 DataTable Dtsms = new DataTable();
                                 string strSql = string.Empty;
-
-                                // Execute stored procedure to get login details
-                                //strSql = IsoStart + " EXEC Sp_GetLoginDetail '" + Txtusername.Text.ToString().Replace(";", "").Replace("'", "").Replace("=", "").Replace(" ", "") + "'" + IsoEnd;
-                                strSql = IsoStart + " EXEC Sp_GetProfile " + IsoEnd;
+                                strSql = ObjDAL.Isostart + " EXEC Sp_GetProfile " + ObjDAL.IsoEnd;
                                 Dtsms = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql).Tables[0];
-                                
                                 if (Dtsms.Rows.Count > 0)
                                 {
                                     membername = Dtsms.Rows[0]["MemfirstName"].ToString() + " " + Dtsms.Rows[0]["MemLastName"].ToString();
-                                    //SPONSORID1 = Dtsms.Rows[0]["SPONSORID"].ToString();
-                                    //SPONSORnAME = Dtsms.Rows[0]["SPONSORnAME"].ToString();
-                                    //Doj = Dtsms.Rows[0]["JoiningDate"].ToString();
-                                    //kitamount = Dtsms.Rows[0]["kitamount"].ToString();
                                     Email = Dtsms.Rows[0]["Email"].ToString();
                                     LastInsertID = Dtsms.Rows[0]["IDNO"].ToString();
                                     Password = Dtsms.Rows[0]["Passw"].ToString();
@@ -1660,7 +1230,7 @@ public partial class Newjoining1 : System.Web.UI.Page
         {
             DataTable DtEmail = new DataTable();
             DataSet DsEmail = new DataSet();
-            string strSql = IsoStart + "select Count(idno) as idno from " + ObjDAL.dBName + "..M_Membermaster where idno = '" + Txtusername.Text.Trim() + "' " + IsoEnd;
+            string strSql = ObjDAL.Isostart + "select Count(idno) as idno from " + ObjDAL.dBName + "..M_Membermaster where idno = '" + Txtusername.Text.Trim() + "' " + ObjDAL.IsoEnd;
             DsEmail = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql);
             DtEmail = DsEmail.Tables[0];
 
@@ -1689,7 +1259,7 @@ public partial class Newjoining1 : System.Web.UI.Page
         {
             DataTable DtEmail = new DataTable();
             DataSet DsEmail = new DataSet();
-            string strSql = IsoStart + "select Count(walletaddress) as walletaddress from " + ObjDAL.dBName + "..M_Membermaster where walletaddress = '" + TxtWalletaddress.Text.Trim() + "' " + IsoEnd;
+            string strSql = ObjDAL.Isostart + "select Count(walletaddress) as walletaddress from " + ObjDAL.dBName + "..M_Membermaster where walletaddress = '" + TxtWalletaddress.Text.Trim() + "' " + ObjDAL.IsoEnd;
             DsEmail = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strSql);
             DtEmail = DsEmail.Tables[0];
 
@@ -1712,17 +1282,11 @@ public partial class Newjoining1 : System.Web.UI.Page
             // Handle the exception
         }
     }
-
-    
-
     protected void ddlStatename_TextChanged(object sender, EventArgs e)
     {
-        //Fill_State();
-
         DataTable dtMaster = new DataTable();
-        string strQuery = "Select StateCode,StateName from M_StateDivMaster Where ActiveStatus = 'Y' And RowStatus =  'Y' and Statename='" + ddlStatename.SelectedItem.Text + "' ";
-        dtMaster = SqlHelper.ExecuteDataset(constr, CommandType.Text, strQuery).Tables[0];
-
+        string strQuery = ObjDAL.Isostart + "Select StateCode,StateName from " + ObjDAL.dBName + "..M_StateDivMaster Where ActiveStatus = 'Y' And RowStatus =  'Y' and Statename='" + ddlStatename.SelectedItem.Text + "' " + ObjDAL.IsoEnd;
+        dtMaster = SqlHelper.ExecuteDataset(constr1, CommandType.Text, strQuery).Tables[0];
         ddlStatename.DataSource = dtMaster;
         ddlStatename.DataValueField = "STATECODE";
         ddlStatename.DataTextField = "StateName";
